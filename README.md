@@ -3,23 +3,23 @@ Specials plugin that can be customized in real time!
 可实时自定化的多特插件!
 
 # 插件模块介绍
-【插件必备组件】BinHooks
-【插件必备组件】[dhooks](https://forums.alliedmods.net/showthread.php?p=2588686#post2588686)
-【插件必备组件】[left4dhooks](https://forums.alliedmods.net/showthread.php?p=2684862)
-【多特本体模块】[NekoSpecials](https://himeneko.cn/nekospecials)
-【击杀统计模块】NekoKillHud
-【管理员快捷功能模块】NekoAdminMenu
-【服务器名字功能模块】NekoServerName
-【控制坦克女巫刷新】[l4d2_boss_spawn](https://forums.alliedmods.net/showthread.php?p=2694435)（可选)（开启Special_CanCloseDirector后请配合使用）
+【插件必备组件】BinHooks\n
+【插件必备组件】[dhooks](https://forums.alliedmods.net/showthread.php?p=2588686#post2588686)\n
+【插件必备组件】[left4dhooks](https://forums.alliedmods.net/showthread.php?p=2684862)\n
+【多特本体模块】[NekoSpecials](https://himeneko.cn/nekospecials)\n
+【击杀统计模块】NekoKillHud\n
+【管理员快捷功能模块】NekoAdminMenu\n
+【服务器名字功能模块】NekoServerName\n
+【控制坦克女巫刷新】[l4d2_boss_spawn](https://forums.alliedmods.net/showthread.php?p=2694435)（可选)（开启Special_CanCloseDirector后请配合使用）\n
 
 # 插件指令
-!ntg					    全功能特感菜单
-!ntgversion				特感版本查询/状态检查
-!nhud					    HUD显示调整
-!reloadntgconfig	重载多特配置文件(Neko_Specials_binhooks.cfg)
-!reloadhugconfig	重载HUD配置文件(Neko_KillHud_binhooks.cfg)
-!updateservername	手动更新服务器名字
-!nekoupdate				执行检查更新
+!ntg					    全功能特感菜单\n
+!ntgversion				特感版本查询/状态检查\n
+!nhud					    HUD显示调整\n
+!reloadntgconfig	重载多特配置文件(Neko_Specials_binhooks.cfg)\n
+!reloadhugconfig	重载HUD配置文件(Neko_KillHud_binhooks.cfg)\n
+!updateservername	手动更新服务器名字\n
+!nekoupdate				执行检查更新\n
 
 # 更新日志
 5.52NS 更新日志 2021/9/05 22:05

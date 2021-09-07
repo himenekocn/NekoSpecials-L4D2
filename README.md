@@ -2,6 +2,9 @@
 Specials plugin that can be customized in real time!
 可实时自定化的多特插件!
 
+# 插件推荐平台
+[Sourcemod-Dev6730](https://www.sourcemod.net/downloads.php?branch=dev)
+
 # 插件模块介绍
 【插件必备组件】BinHooks<br>
 【插件必备组件】[dhooks](https://forums.alliedmods.net/showthread.php?p=2588686#post2588686)<br>

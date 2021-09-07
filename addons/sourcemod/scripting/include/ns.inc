@@ -4,6 +4,7 @@
 #define _neko_included
 
 // Neko Specials Inc 实用库
+//AutoExecConfig From autoexecconfig.inc
 
 // Global variables
 static char g_sConfigFile[PLATFORM_MAX_PATH];

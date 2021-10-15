@@ -32,7 +32,7 @@ public any NekoSpecials_REShowYourTips(Handle plugin, int numParams)
 
 public int NekoSpecials_REGetSpawnMode(Handle plugin, int numParams)
 {
-	return Special_Spawn_Mode;
+	return GetSpecialSpawnMode();
 }
 
 public int NekoSpecials_REGetSpecialsMode(Handle plugin, int numParams)
@@ -47,12 +47,12 @@ public int NekoSpecials_REGetPluginStatus(Handle plugin, int numParams)
 
 public int NekoSpecials_REGetSpecialsNum(Handle plugin, int numParams)
 {
-	return tgnum;
+	return GetSpecialMax();
 }
 
 public int NekoSpecials_REGetSpecialsTime(Handle plugin, int numParams)
 {
-	return tgtime;
+	return GetSpecialRespawnInterval();
 }
 
 public any NekoSpecials_REPlHandle(Handle plugin, int numParams)

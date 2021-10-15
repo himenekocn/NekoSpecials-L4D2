@@ -6,7 +6,7 @@ public Action OnRoundStart(Handle event, const char[] name, bool dontBroadcast)
 		Special_Default_Mode = CSpecial_Default_Mode.IntValue;
 
 	IsPlayerLeftCP = false;
-	SetIsLoadASI(false);
+	SetSpecialRunning(false);
 	TgModeStartSet();
 	CreateTimer(0.1, PlayerLeftStart, _, TIMER_REPEAT|TIMER_FLAG_NO_MAPCHANGE);
 }
@@ -29,7 +29,7 @@ public void OnPlayerDisconnect(Event hEvent, const char[] sName, bool bDontBroad
 					CreateTimer(0.5, Timer_DelayDeath);
 			}
 			else
-				SetIsLoadASI(false);
+				SetSpecialRunning(false);
 		}
 		else
 		{
@@ -43,7 +43,7 @@ public void OnPlayerDisconnect(Event hEvent, const char[] sName, bool bDontBroad
 public Action OnRoundEnd(Event hEvent, const char[] sName, bool bDontBroadcast)
 {
 	IsPlayerLeftCP = false;
-	SetIsLoadASI(false);
+	SetSpecialRunning(false);
 }
 
 public Action OnPlayerStuck(int client)
@@ -66,15 +66,15 @@ public Action OnTankDeath(Handle event, const char[] name, bool dontBroadcast)
 	if(Special_PluginStatus)
 		CreateTimer(0.1, Timer_DelayDeath);
 	else
-		SetIsLoadASI(false);
+		SetSpecialRunning(false);
 }
 
 public Action Timer_DelayDeath(Handle hTimer, any UserID)
 {
 	if(L4D2_IsTankInPlay() && !Special_Spawn_Tank_Alive)
-		SetIsLoadASI(false);
+		SetSpecialRunning(false);
 	else
-		SetIsLoadASI(true);
+		SetSpecialRunning(true);
 }
 
 public Action OnPlayerDeath(Event hEvent, const char[] sName, bool bDontBroadcast )
@@ -88,8 +88,8 @@ public Action OnTankSpawn(Event event, const char[] name, bool dontBroadcast)
 {
 	int client = GetClientOfUserId(event.GetInt( "userid" ));
 	if(IsValidClient(client) && GetClientTeam(client) == 3 && !Special_Spawn_Tank_Alive)
-		SetIsLoadASI(false);
+		SetSpecialRunning(false);
 	else
-		SetIsLoadASI(true);
+		SetSpecialRunning(true);
 	return Plugin_Continue;
 }

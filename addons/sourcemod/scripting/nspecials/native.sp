@@ -8,28 +8,26 @@ void CheckDifficulty()
 
 		if(strcmp(NowDifficulty, "Easy") == 0)
 		{
-			tgtime = Special_Spawn_Time_Easy;
+			SetSpecialRespawnInterval(Special_Spawn_Time_Easy);
 		}
 		else if(strcmp(NowDifficulty, "Normal") == 0)
 		{
-			tgtime = Special_Spawn_Time_Normal;
+			SetSpecialRespawnInterval(Special_Spawn_Time_Normal);
 		}
 		else if(strcmp(NowDifficulty, "Hard") == 0)
 		{
-			tgtime = Special_Spawn_Time_Hard;
+			SetSpecialRespawnInterval(Special_Spawn_Time_Hard);
 		}
 		else if(strcmp(NowDifficulty, "Impossible") == 0)
 		{
-			tgtime = Special_Spawn_Time_Impossible;
+			SetSpecialRespawnInterval(Special_Spawn_Time_Impossible);
 		}
 	}
 	else
 	{
-		tgtime = Special_Spawn_Time;
+		SetSpecialRespawnInterval(Special_Spawn_Time);
 	}
-	
-	SetSpecialRespawnInterval(tgtime);
-	
+
 	Call_StartForward(N_Forward_OnSetSpecialsTime);
 	Call_Finish();
 	
@@ -38,15 +36,13 @@ void CheckDifficulty()
 
 void SetAISpawnInit()
 {
-	SetSpecialInfectedAssault(Special_Fast_Response);
+	SetSpecialAssault(Special_Fast_Response);
 
-	SetIsModeSpawnSpecial(Special_Spawn_Mode);
-	
-	SetIsOnInferno(Special_Inferno);
+	SetSpecialSpawnMode(Special_Spawn_Mode);
 	
 	if(Special_CanCloseDirector)
 	{
-		if(Special_Spawn_Mode == 0)
+		if(GetSpecialSpawnMode() == 0)
 			FindConVar("director_no_specials").SetInt(0, true, false);
 		else
 			FindConVar("director_no_specials").SetInt(1, true, false);
@@ -69,7 +65,6 @@ void SwitchRandom(int client)
 	}
 	if(Special_Show_Tips)
 		ModeTips();
-	TgModeStartSet();
 }
 
 void SwitchPlugin(int client)
@@ -78,7 +73,7 @@ void SwitchPlugin(int client)
 	{
 		PrintToChat(client, "\x05%s \x04关闭了NS特感插件", NEKOTAG);
 		CSpecial_PluginStatus.SetInt(0);
-		SetIsLoadASI(false);
+		SetSpecialRunning(false);
 		if(Special_CanCloseDirector)
 			FindConVar("director_no_specials").SetInt(1, true, false);
 	}
@@ -86,7 +81,7 @@ void SwitchPlugin(int client)
 	{
 		PrintToChat(client, "\x05%s \x04开启了NS特感插件", NEKOTAG);
 		CSpecial_PluginStatus.SetInt(1);
-		SetIsLoadASI(true);
+		SetSpecialRunning(true);
 		if(Special_CanCloseDirector)
 		{
 			if(Special_Spawn_Mode == 0)
@@ -100,72 +95,72 @@ void SwitchPlugin(int client)
 void TgModeStartSet()
 {
 	CheckDifficulty();
-	//SetIsModeSpawnSpecialInNormal(Special_IsModeInNormal);
+	SetSpecialSpawnSubMode(Special_IsModeInNormal);
 	
 	switch(Special_Default_Mode)
 	{
 		case 1:
 		{
-			SetHunterLimit(31);
-			SetChargerLimit(0);
-			SetJockeyLimit(0);
-			SetSpitterLimit(0);
-			SetBoomerLimit(0);
-			SetSmokerLimit(0);
+			SetSpecialSpawnLimit(HUNTER, 31);
+			SetSpecialSpawnLimit(SMOKER, 0);
+			SetSpecialSpawnLimit(BOOMER, 0);
+			SetSpecialSpawnLimit(SPITTER, 0);
+			SetSpecialSpawnLimit(JOCKEY ,0);
+			SetSpecialSpawnLimit(CHARGER, 0);
 		}
 		case 2:
 		{
-			SetHunterLimit(0);
-			SetChargerLimit(31);
-			SetJockeyLimit(0);
-			SetSpitterLimit(0);
-			SetBoomerLimit(0);
-			SetSmokerLimit(0);
+			SetSpecialSpawnLimit(HUNTER, 0);
+			SetSpecialSpawnLimit(SMOKER, 0);
+			SetSpecialSpawnLimit(BOOMER, 0);
+			SetSpecialSpawnLimit(SPITTER, 0);
+			SetSpecialSpawnLimit(JOCKEY ,0);
+			SetSpecialSpawnLimit(CHARGER, 31);
 		}
 		case 3:
 		{
-			SetHunterLimit(0);
-			SetChargerLimit(0);
-			SetJockeyLimit(31);
-			SetSpitterLimit(0);
-			SetBoomerLimit(0);
-			SetSmokerLimit(0);
+			SetSpecialSpawnLimit(HUNTER, 0);
+			SetSpecialSpawnLimit(SMOKER, 0);
+			SetSpecialSpawnLimit(BOOMER, 0);
+			SetSpecialSpawnLimit(SPITTER, 0);
+			SetSpecialSpawnLimit(JOCKEY ,31);
+			SetSpecialSpawnLimit(CHARGER, 0);
 		}
 		case 4:
 		{
-			SetHunterLimit(0);
-			SetChargerLimit(0);
-			SetJockeyLimit(0);
-			SetSpitterLimit(31);
-			SetBoomerLimit(0);
-			SetSmokerLimit(0);
+			SetSpecialSpawnLimit(HUNTER, 0);
+			SetSpecialSpawnLimit(SMOKER, 0);
+			SetSpecialSpawnLimit(BOOMER, 0);
+			SetSpecialSpawnLimit(SPITTER, 31);
+			SetSpecialSpawnLimit(JOCKEY ,0);
+			SetSpecialSpawnLimit(CHARGER, 0);
 		}
 		case 5:
 		{
-			SetHunterLimit(0);
-			SetChargerLimit(0);
-			SetJockeyLimit(0);
-			SetSpitterLimit(0);
-			SetBoomerLimit(31);
-			SetSmokerLimit(0);
+			SetSpecialSpawnLimit(HUNTER, 0);
+			SetSpecialSpawnLimit(SMOKER, 0);
+			SetSpecialSpawnLimit(BOOMER, 31);
+			SetSpecialSpawnLimit(SPITTER, 0);
+			SetSpecialSpawnLimit(JOCKEY ,0);
+			SetSpecialSpawnLimit(CHARGER, 0);
 		}
 		case 6:
 		{
-			SetHunterLimit(0);
-			SetChargerLimit(0);
-			SetJockeyLimit(0);
-			SetSpitterLimit(0);
-			SetBoomerLimit(0);
-			SetSmokerLimit(31);
+			SetSpecialSpawnLimit(HUNTER, 0);
+			SetSpecialSpawnLimit(SMOKER, 31);
+			SetSpecialSpawnLimit(BOOMER, 0);
+			SetSpecialSpawnLimit(SPITTER, 0);
+			SetSpecialSpawnLimit(JOCKEY ,0);
+			SetSpecialSpawnLimit(CHARGER, 0);
 		}
 		default:
 		{
-			SetHunterLimit(Special_Hunter_Num);
-			SetChargerLimit(Special_Charger_Num);
-			SetJockeyLimit(Special_Jockey_Num);
-			SetSpitterLimit(Special_Spitter_Num);
-			SetBoomerLimit(Special_Boomer_Num);
-			SetSmokerLimit(Special_Smoker_Num);
+			SetSpecialSpawnLimit(HUNTER, Special_Hunter_Num);
+			SetSpecialSpawnLimit(CHARGER, Special_Charger_Num);
+			SetSpecialSpawnLimit(JOCKEY, Special_Jockey_Num);
+			SetSpecialSpawnLimit(SPITTER, Special_Spitter_Num);
+			SetSpecialSpawnLimit(BOOMER, Special_Boomer_Num);
+			SetSpecialSpawnLimit(SMOKER, Special_Smoker_Num);
 		}
 	}
 	
@@ -209,12 +204,12 @@ void InfectedTips()
 	
 	if(!Special_Show_Tips_Chat)
 	{
-		Format(tips, sizeof(tips), "%s特感数量为 %d 特，刷新时间 %d", tips, tgnum, tgtime);
+		Format(tips, sizeof(tips), "%s特感数量为 %d 特，刷新时间 %d", tips, GetSpecialMax(), GetSpecialRespawnInterval());
 		HUDShowMsg(tips);
 	}
 	else
 	{
-		Format(tips, sizeof(tips), "%s特感数量为 \x03%d \x04特，刷新时间 \x03%d", tips, tgnum, tgtime);
+		Format(tips, sizeof(tips), "%s特感数量为 \x03%d \x04特，刷新时间 \x03%d", tips, GetSpecialMax(), GetSpecialRespawnInterval());
 		PrintToChatAll("\x05%s \x04%s", NEKOTAG, tips);
 	}
 }
@@ -223,7 +218,9 @@ void SetMaxSpecialsCount(bool ShowTips = true)
 {
 	int Player_count;
 	
-	int oldtgnum = tgnum;
+	int oldtgnum = GetSpecialMax();
+	
+	int cultgnum = GetSpecialMax();
 	
 	for (int i = 1; i <= MaxClients; i++)
 	{
@@ -239,20 +236,70 @@ void SetMaxSpecialsCount(bool ShowTips = true)
 	}
 	
 	if(Player_count > Special_PlayerNum)
-		tgnum = Special_AddNum * RoundToFloor(float((Player_count - Special_PlayerNum)/Special_PlayerAdd)) + Special_Num;
+		cultgnum = Special_AddNum * RoundToFloor(float((Player_count - Special_PlayerNum)/Special_PlayerAdd)) + Special_Num;
 	else
-		tgnum = Special_Num;
+		cultgnum = Special_Num;
 	
-	if(tgnum > 32)
-		tgnum = 32;
+	if(cultgnum > 32)
+		cultgnum = 32;
 	
-	SetMaxSpecials(tgnum);
+	SetSpecialMax(cultgnum);
 
-	if(ShowTips && Special_AddNum > 0 && 0 < Special_Default_Mode && (oldtgnum != tgnum))
+	if(ShowTips && Special_AddNum > 0 && 0 < Special_Default_Mode && (oldtgnum != cultgnum))
 		CreateTimer(0.5, ShowTipsTimer);
 	
 	Call_StartForward(N_Forward_OnSetSpecialsNum);
 	Call_Finish();
+}
+
+void UpdateSpawnWeight()
+{
+	SetSpecialSpawnWeight(HUNTER, Special_Hunter_Spawn_Weight);
+	SetSpecialSpawnWeight(SMOKER, Special_Smoker_Spawn_Weight);
+	SetSpecialSpawnWeight(BOOMER, Special_Boomer_Spawn_Weight);
+	SetSpecialSpawnWeight(SPITTER, Special_Spitter_Spawn_Weight);
+	SetSpecialSpawnWeight(JOCKEY, Special_Jockey_Spawn_Weight);
+	SetSpecialSpawnWeight(CHARGER, Special_Charger_Spawn_Weight);
+}
+
+void UpdateSpawnDirChance()
+{
+	SetSpecialSpawnDirChance(HUNTER, Special_Hunter_Spawn_DirChance);
+	SetSpecialSpawnDirChance(SMOKER, Special_Smoker_Spawn_DirChance);
+	SetSpecialSpawnDirChance(BOOMER, Special_Boomer_Spawn_DirChance);
+	SetSpecialSpawnDirChance(SPITTER, Special_Spitter_Spawn_DirChance);
+	SetSpecialSpawnDirChance(JOCKEY, Special_Jockey_Spawn_DirChance);
+	SetSpecialSpawnDirChance(CHARGER, Special_Charger_Spawn_DirChance);
+}
+
+void UpdateSpawnArea()
+{
+	SetSpecialSpawnArea(HUNTER, Special_Hunter_Spawn_Area);
+	SetSpecialSpawnArea(SMOKER, Special_Smoker_Spawn_Area);
+	SetSpecialSpawnArea(BOOMER, Special_Boomer_Spawn_Area);
+	SetSpecialSpawnArea(SPITTER, Special_Spitter_Spawn_Area);
+	SetSpecialSpawnArea(JOCKEY, Special_Jockey_Spawn_Area);
+	SetSpecialSpawnArea(CHARGER, Special_Charger_Spawn_Area);
+}
+
+void UpdateSpawnDistance()
+{
+	SetSpecialSpawnMaxDis(HUNTER, Special_Hunter_Spawn_MaxDis);
+	SetSpecialSpawnMaxDis(SMOKER, Special_Smoker_Spawn_MaxDis);
+	SetSpecialSpawnMaxDis(BOOMER, Special_Boomer_Spawn_MaxDis);
+	SetSpecialSpawnMaxDis(SPITTER, Special_Spitter_Spawn_MaxDis);
+	SetSpecialSpawnMaxDis(JOCKEY, Special_Jockey_Spawn_MaxDis);
+	SetSpecialSpawnMaxDis(CHARGER, Special_Charger_Spawn_MaxDis);
+
+	SetSpecialSpawnMinDis(HUNTER, Special_Hunter_Spawn_MinDis);
+	SetSpecialSpawnMinDis(SMOKER, Special_Smoker_Spawn_MinDis);
+	SetSpecialSpawnMinDis(BOOMER, Special_Boomer_Spawn_MinDis);
+	SetSpecialSpawnMinDis(SPITTER, Special_Spitter_Spawn_MinDis);
+	SetSpecialSpawnMinDis(JOCKEY, Special_Jockey_Spawn_MinDis);
+	SetSpecialSpawnMinDis(CHARGER, Special_Charger_Spawn_MinDis);
+
+	SetSpecialSpawnMaxDis_(Special_Spawn_MaxDis);
+	SetSpecialSpawnMinDis_(Special_Spawn_MinDis);
 }
 
 void cleanplayerwait(int client)
@@ -261,6 +308,12 @@ void cleanplayerwait(int client)
 	WaitingForTgnum[client] = false;
 	WaitingForTgadd[client] = false;
 	WaitingForTgCustom[client] = false;
+	WaitingForTgCustomWeight[client] = false;
+	WaitingForTgCustomDirChance[client] = false;
+	WaitingForTgCustomMaxDis[client] = false;
+	WaitingForTgCustomMinDis[client] = false;
+	WaitingForTgCustomMaxDisNor[client] = false;
+	WaitingForTgCustomMinDisNor[client] = false;
 	WaitingForPadd[client] = false;
 	WaitingForPnum[client] = false;
 }

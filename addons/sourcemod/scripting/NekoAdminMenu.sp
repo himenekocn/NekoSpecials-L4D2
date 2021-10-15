@@ -7,7 +7,7 @@
 #include "nspecials/nekonative.inc"
 #include "nhud/nekonative.inc"
 
-#define PLUGIN_VERSION "5.52NS-AdminMenu"
+#define PLUGIN_VERSION "6.00NS-AdminMenu"
 
 #define SPECIALS_AVAILABLE()	(GetFeatureStatus(FeatureType_Native, "NekoSpecials_GetSpecialsNum") == FeatureStatus_Available)
 #define NKILLHUD_AVAILABLE()	(GetFeatureStatus(FeatureType_Native, "NekoKillHud_GetStatus") == FeatureStatus_Available)
@@ -76,9 +76,9 @@ public void OnAdminMenuReady(Handle aTopMenu)
 public void CategoryHandler(TopMenu topmenu, TopMenuAction action, TopMenuObject object_id, int client, char[] buffer, int maxlength) 
 {
 	if (action == TopMenuAction_DisplayTitle)
-		Format(buffer, maxlength, "|NS| 多特菜单");
+		Format(buffer, maxlength, "+|NS|+ 多特菜单");
 	else if (action == TopMenuAction_DisplayOption)
-		Format(buffer, maxlength, "NS 多特菜单");
+		Format(buffer, maxlength, "+|NS|+ 多特菜单");
 }
  
 public void AdminMenu_Neko(TopMenu topmenu, TopMenuAction action, TopMenuObject object_id, int client, char[] buffer, int maxlength)

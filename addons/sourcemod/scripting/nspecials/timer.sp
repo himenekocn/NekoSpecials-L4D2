@@ -1,6 +1,6 @@
 public Action Timer_DelaySpawnInfected(Handle hTimer)
 {
-	SetIsLoadASI(Special_PluginStatus);
+	SetSpecialRunning(Special_PluginStatus);
 	
 	Call_StartForward(N_Forward_OnStartFirstSpawn);
 	Call_Finish();

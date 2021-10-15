@@ -7,7 +7,7 @@
 #include "nservername/nekonative.inc"
 #include "nspecials/nekonative.inc"
 
-#define PLUGIN_VERSION "5.52NS-ServerName"
+#define PLUGIN_VERSION "6.00NS-ServerName"
 #define PLUGIN_CONFIG "Neko_ServerName"
 
 #define SPECIALS_AVAILABLE()	(GetFeatureStatus(FeatureType_Native, "NekoSpecials_GetSpecialsNum") == FeatureStatus_Available)

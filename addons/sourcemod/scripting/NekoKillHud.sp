@@ -3,12 +3,13 @@
 
 #include <sourcemod>
 #include <sdktools>
-#include <binhooks>
 #include <dhooks>
 #include <left4dhooks>
+#include <binhooks/binhooks_HUD>
+#include <binhooks/binhooks_Other>
 #include <ns>
 
-#define PLUGIN_VERSION "5.52NS-KillHud"
+#define PLUGIN_VERSION "6.00NS-KillHud"
 #define PLUGIN_CONFIG "Neko_KillHud_binhooks"
 
 int MENU_TIME = 60;

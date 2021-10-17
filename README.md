@@ -1,7 +1,8 @@
 # NekoSpecials
-Specials plugin that can be customized in real time!
-可实时自定化的多特插件!
-最新版本下载[点我跳转](https://himeneko.cn/nekospecials)
+Specials plugin that can be customized in real time!<br>
+可实时自定化的多特插件!<br>
+最新版本下载[点我跳转](https://himeneko.cn/nekospecials)<br>
+插件介绍:<br>[[【求生之路2】NEKO多特插件更新内容介绍!]](https://www.bilibili.com/video/BV1Eh411n7op)<br>[[求生之路2 更好的多特与击杀统计插件]](https://www.bilibili.com/video/BV1GN411Z7um)
 
 # 插件推荐平台
 [Sourcemod-Dev6730](https://www.sourcemod.net/downloads.php?branch=dev)

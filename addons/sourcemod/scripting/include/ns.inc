@@ -3,8 +3,9 @@
 #endif
 #define _neko_included
 
+#define PLUGIN_VERSION "6.02NS"
+
 // Neko Specials Inc 实用库
-//AutoExecConfig From autoexecconfig.inc
 
 // Global variables
 static char g_sConfigFile[PLATFORM_MAX_PATH];

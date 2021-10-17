@@ -1,5 +1,5 @@
 
-void CheckDifficulty()
+void CheckDifficulty(bool ShowTips = true)
 {
 	if(Special_Spawn_Time_DifficultyChange)
 	{
@@ -31,7 +31,8 @@ void CheckDifficulty()
 	Call_StartForward(N_Forward_OnSetSpecialsTime);
 	Call_Finish();
 	
-	InfectedTips();
+	if(ShowTips)
+		InfectedTips();
 }
 
 void SetAISpawnInit()

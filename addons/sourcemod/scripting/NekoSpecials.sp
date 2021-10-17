@@ -10,7 +10,6 @@
 #include <ns>
 #include "nspecials/nekonative.inc"
 
-#define PLUGIN_VERSION "6.00NS-Specials"
 #define PLUGIN_CONFIG "Neko_Specials_binhooks"
 #define NEKOTAG "[NS]"
 
@@ -116,7 +115,7 @@ public void OnPluginStart()
 	CSpecial_Spitter_Spawn_MinDis = AutoExecConfig_CreateConVar("Special_Spitter_Spawn_MinDis", "32", "Spitter刷新最小距离[范围不能小于1|仅梦魇和炼狱模式有效]", _, true, 1.0, false);
 	CSpecial_Jockey_Spawn_MinDis = AutoExecConfig_CreateConVar("Special_Jockey_Spawn_MinDis", "32", "Jockey刷新最小距离[范围不能小于1|仅梦魇和炼狱模式有效]", _, true, 1.0, false);
 
-	CSpecial_Spawn_MaxDis = AutoExecConfig_CreateConVar("Special_Spawn_MaxDis", "2000", "全部特感刷新最小距离[范围不能小于1|仅引擎和普通模式有效]", _, true, 1.0, false);
+	CSpecial_Spawn_MaxDis = AutoExecConfig_CreateConVar("Special_Spawn_MaxDis", "2000", "全部特感刷新最大距离[范围不能小于1|仅引擎和普通模式有效]", _, true, 1.0, false);
 	CSpecial_Spawn_MinDis = AutoExecConfig_CreateConVar("Special_Spawn_MinDis", "32", "全部特感刷新最小距离[范围不能小于1|仅引擎和普通模式有效]", _, true, 1.0, false);
 	
 	CGame_Difficulty = FindConVar("z_difficulty");
@@ -328,7 +327,7 @@ void GetCvarsValues()
 	Special_Spawn_MaxDis = CSpecial_Spawn_MaxDis.IntValue;
 	Special_Spawn_MinDis = CSpecial_Spawn_MinDis.IntValue;
 
-	CheckDifficulty();
+	CheckDifficulty(false);
 	SetAISpawnInit();
 	TgModeStartSet();
 	UpdateSpawnWeight();

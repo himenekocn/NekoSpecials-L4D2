@@ -149,7 +149,7 @@ public Action RefreshHUD(Handle timer)
 				if(i < 4)
 				{
 					GetClientName(PlayerKillNum.Get(i, 1), PlayerName, 22);
-					PrintToChatAll("\x05[\x03#%d\x05]: \x04特感 \x03%d \x04 僵尸 \x03%d \x04友伤 \x03%d \x01| \x04ID \x01%s", i + 1, PlayerKillNum.Get(i), Kill_Zombie[i], Friendly_Fire[i], PlayerName);
+					PrintToChatAll("\x05[\x03#%d\x05]: \x04特感 \x03%d \x04 僵尸 \x03%d \x04友伤 \x03%d \x01| \x04ID \x01%s", i + 1, PlayerKillNum.Get(i), Kill_Zombie[PlayerKillNum.Get(i, 1)], Friendly_Fire[PlayerKillNum.Get(i, 1)], PlayerName);
 				}
 			}
 

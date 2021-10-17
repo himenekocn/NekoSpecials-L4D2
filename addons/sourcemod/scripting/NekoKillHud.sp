@@ -9,7 +9,6 @@
 #include <binhooks/binhooks_Other>
 #include <ns>
 
-#define PLUGIN_VERSION "6.00NS-KillHud"
 #define PLUGIN_CONFIG "Neko_KillHud_binhooks"
 
 int MENU_TIME = 60;

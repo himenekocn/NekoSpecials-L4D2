@@ -179,7 +179,7 @@ public Menu SpecialMenu(int client)
 	Format(line, sizeof(line), "重载配置文件");
 	N_MenuSpecialMenu[client].AddItem("tgreload", line);
 	
-	Format(line, sizeof(line), "具体如何设置请查看CFG或者插件的说明");
+	Format(line, sizeof(line), "具体如何设置请查看CFG\n或者是插件说明\n插件版本:%s", PLUGIN_VERSION);
 	N_MenuSpecialMenu[client].AddItem("info", line, ITEMDRAW_DISABLED);
 	
 	N_MenuSpecialMenu[client].ExitBackButton = true;
@@ -369,7 +369,7 @@ public Action SpecialMenuMode(int client)
 	Menu menu = new Menu(SpecialMenuModeHandler);
 	char line[1024];
 	
-	Format(line, sizeof(line), "|NS| 选择特感模式\n选择一个模式");
+	Format(line, sizeof(line), "+|NS|+ 选择特感模式\n选择一个模式");
 	menu.SetTitle(line);
 	
 	Format(line, sizeof(line), "猎人模式");
@@ -432,7 +432,7 @@ public Action SpecialMenuSpawn(int client)
 	Menu menu = new Menu(SpecialMenuSpawnHandler);
 	char line[1024];
 	
-	Format(line, sizeof(line), "|NS| 选择刷特模式\n选择一个模式");
+	Format(line, sizeof(line), "+|NS|+ 选择刷特模式\n选择一个模式");
 	menu.SetTitle(line);
 	
 	Format(line, sizeof(line), "引擎刷特");
@@ -490,10 +490,10 @@ public Menu SpecialMenuCustomSpawnArea(int client)
 	N_SpecialMenuCustomSpawnArea[client] = new Menu(SpecialMenuCustomSpawnAreaHandler);
 	char line[1024];
 	
-	Format(line, sizeof(line), "|NS| 更改特感刷新区域\n请选择一项切换\n仅在梦魇和炼狱模式有效");
+	Format(line, sizeof(line), "+|NS|+ 更改特感刷新区域\n请选择一项切换\n仅在梦魇和炼狱模式有效");
 	N_SpecialMenuCustomSpawnArea[client].SetTitle(line);
 	
-	Format(line, sizeof(line), "牛子 目前区域[%s]%d", GetSpecialSpawnArea(CHARGER) ? "任何" : "官方", GetSpecialSpawnArea(CHARGER));
+	Format(line, sizeof(line), "牛子 目前区域[%s]", GetSpecialSpawnArea(CHARGER) ? "任何" : "官方");
 	N_SpecialMenuCustomSpawnArea[client].AddItem("charger", line);
 	Format(line, sizeof(line), "胖子 目前区域[%s]", GetSpecialSpawnArea(BOOMER) ? "任何" : "官方");
 	N_SpecialMenuCustomSpawnArea[client].AddItem("boomer", line);
@@ -584,7 +584,7 @@ public Menu SpecialMenuCustomDirChance(int client)
 	N_SpecialMenuCustomDirChance[client] = new Menu(SpecialMenuCustomDirChanceHandler);
 	char line[1024];
 	
-	Format(line, sizeof(line), "|NS| 更改特感刷新方位概率\n请选择一项更改\n概率越高越容易刷在前方，概率越低越容易刷在后方");
+	Format(line, sizeof(line), "+|NS|+ 更改特感刷新方位概率\n请选择一项更改\n概率越高越容易刷在前方，概率越低越容易刷在后方");
 	N_SpecialMenuCustomDirChance[client].SetTitle(line);
 	
 	Format(line, sizeof(line), "牛子 目前概率[%d]", GetSpecialSpawnDirChance(CHARGER));
@@ -642,7 +642,7 @@ public Menu SpecialMenuCustomWeight(int client)
 	N_SpecialMenuCustomWeight[client] = new Menu(SpecialMenuCustomWeightHandler);
 	char line[1024];
 	
-	Format(line, sizeof(line), "|NS| 更改特感刷新概率\n请选择一项更改\n概率最高的刷新最多");
+	Format(line, sizeof(line), "+|NS|+ 更改特感刷新概率\n请选择一项更改\n概率最高的刷新最多");
 	N_SpecialMenuCustomWeight[client].SetTitle(line);
 	
 	Format(line, sizeof(line), "牛子 目前概率[%d]", GetSpecialSpawnWeight(CHARGER));
@@ -700,7 +700,7 @@ public Menu SpecialMenuCustom(int client)
 	N_SpecialMenuCustom[client] = new Menu(SpecialMenuCustomHandler);
 	char line[1024];
 	
-	Format(line, sizeof(line), "|NS| 更改特感数量\n默认模式生效，选择一项更改");
+	Format(line, sizeof(line), "+|NS|+ 更改特感数量\n默认模式生效，选择一项更改");
 	N_SpecialMenuCustom[client].SetTitle(line);
 	
 	Format(line, sizeof(line), "牛子 目前数量[%d]", GetSpecialSpawnLimit(CHARGER));
@@ -760,7 +760,7 @@ public Menu SpecialMenuCustomMaxDis(int client)
 	N_SpecialMenuCustomMaxDis[client] = new Menu(SpecialMenuCustomMaxDisHandler);
 	char line[1024];
 	
-	Format(line, sizeof(line), "|NS| 更改特感刷新距离\n请选择一项更改\n梦魇地狱模式生效");
+	Format(line, sizeof(line), "+|NS|+ 更改特感刷新距离\n请选择一项更改\n梦魇地狱模式生效");
 	N_SpecialMenuCustomMaxDis[client].SetTitle(line);
 	
 	Format(line, sizeof(line), "牛子 目前最大距离[%d]", GetSpecialSpawnMaxDis(CHARGER));
@@ -818,7 +818,7 @@ public Menu SpecialMenuCustomMinDis(int client)
 	N_SpecialMenuCustomMinDis[client] = new Menu(SpecialMenuCustomMinDisHandler);
 	char line[1024];
 	
-	Format(line, sizeof(line), "|NS| 更改特感刷新距离\n请选择一项更改\n梦魇地狱模式生效");
+	Format(line, sizeof(line), "+|NS|+ 更改特感刷新距离\n请选择一项更改\n梦魇地狱模式生效");
 	N_SpecialMenuCustomMinDis[client].SetTitle(line);
 	
 	Format(line, sizeof(line), "牛子 目前最小距离[%d]", GetSpecialSpawnMinDis(CHARGER));

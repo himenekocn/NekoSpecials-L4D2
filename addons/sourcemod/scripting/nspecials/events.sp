@@ -61,20 +61,53 @@ public Action OnPlayerStuck(int client)
 	return Plugin_Continue;
 }
 
+public Action BinHook_OnSpawnSpecial()
+{
+	if(!Special_Spawn_Tank_Alive && Special_Spawn_Tank_Alive_Pro)
+	{
+		for (int i = 1; i <= MaxClients; i++)
+		{
+			if(!IsClientInGame(i))
+				continue;
+			
+			if(GetClientTeam(i) != 3)
+				continue;
+			
+			if(IsPlayerTank(i))
+				continue;
+
+			if(!IsFakeClient(i))
+				continue;
+		
+			KickClient(i, "Infected Not Allow Spawn");
+		}
+	}
+
+	return Plugin_Continue;
+}
+
 public Action OnTankDeath(Handle event, const char[] name, bool dontBroadcast)
 {
 	if(Special_PluginStatus)
-		CreateTimer(0.1, Timer_DelayDeath);
+	{
+		CreateTimer(0.2, Timer_DelayDeath);
+	}
 	else
+	{
 		SetSpecialRunning(false);
+	}
 }
 
-public Action Timer_DelayDeath(Handle hTimer, any UserID)
+public Action Timer_DelayDeath(Handle hTimer)
 {
 	if(L4D2_IsTankInPlay() && !Special_Spawn_Tank_Alive)
+	{
 		SetSpecialRunning(false);
+	}
 	else
+	{
 		SetSpecialRunning(true);
+	}
 }
 
 public Action OnPlayerDeath(Event hEvent, const char[] sName, bool bDontBroadcast )
@@ -82,12 +115,22 @@ public Action OnPlayerDeath(Event hEvent, const char[] sName, bool bDontBroadcas
 	int client = GetClientOfUserId(hEvent.GetInt( "userid" ));
 	if (IsValidClient(client) && IsFakeClient(client) && GetClientTeam(client) == 3)
 		RequestFrame(Timer_KickBot, GetClientUserId(client));
+
+	if (IsValidClient(client) && GetClientTeam(client) == 2 && Special_Num_NotCul_Death)
+		SetMaxSpecialsCount();
+}
+
+public Action OnPlayerSpawn(Event hEvent, const char[] sName, bool bDontBroadcast )
+{
+	int client = GetClientOfUserId(hEvent.GetInt( "userid" ));
+
+	if (IsValidClient(client) && GetClientTeam(client) == 2 && Special_Num_NotCul_Death)
+		SetMaxSpecialsCount();
 }
 
 public Action OnTankSpawn(Event event, const char[] name, bool dontBroadcast)
 {
-	int client = GetClientOfUserId(event.GetInt( "userid" ));
-	if(IsValidClient(client) && GetClientTeam(client) == 3 && !Special_Spawn_Tank_Alive)
+	if(!Special_Spawn_Tank_Alive)
 		SetSpecialRunning(false);
 	else
 		SetSpecialRunning(true);

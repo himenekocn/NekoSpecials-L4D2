@@ -5,8 +5,7 @@
 #include <sdktools>
 #include <dhooks>
 #include <left4dhooks>
-#include <binhooks/binhooks_HUD>
-#include <binhooks/binhooks_Other>
+#include <binhooks>
 #include <ns>
 
 #define PLUGIN_CONFIG "Neko_KillHud_binhooks"

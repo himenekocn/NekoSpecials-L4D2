@@ -4,9 +4,7 @@
 #include <sourcemod>
 #include <dhooks>
 #include <left4dhooks>
-#include <binhooks/binhooks_HUD>
-#include <binhooks/binhooks_Special>
-#include <binhooks/binhooks_Other>
+#include <binhooks>
 #include <ns>
 #include "nspecials/nekonative.inc"
 
@@ -19,11 +17,11 @@ int MenuPageItem[MAXPLAYERS+1], Special_Spawn_Time, Special_Default_Mode, Specia
 
 float Special_LeftPoint_SpawnTime;
 
-bool WaitingForTgtime[MAXPLAYERS+1], WaitingForTgnum[MAXPLAYERS+1], WaitingForTgadd[MAXPLAYERS+1], WaitingForTgCustom[MAXPLAYERS+1], WaitingForTgCustomWeight[MAXPLAYERS+1], WaitingForTgCustomDirChance[MAXPLAYERS+1], WaitingForPadd[MAXPLAYERS+1], WaitingForPnum[MAXPLAYERS+1], WaitingForTgCustomMaxDis[MAXPLAYERS+1], WaitingForTgCustomMinDis[MAXPLAYERS+1], WaitingForTgCustomMaxDisNor[MAXPLAYERS+1], WaitingForTgCustomMinDisNor[MAXPLAYERS+1], IsPlayerLeftCP, Special_Fast_Response, Special_Show_Tips, Special_Spawn_Tank_Alive, Special_Random_Mode, Special_AutoKill_StuckTank, Special_PluginStatus, Special_Show_Tips_Chat, Special_PlayerCountSpec, Special_CanCloseDirector, Special_Spawn_Time_DifficultyChange, Special_Boomer_Spawn_Area, Special_Smoker_Spawn_Area, Special_Charger_Spawn_Area, Special_Hunter_Spawn_Area, Special_Spitter_Spawn_Area, Special_Jockey_Spawn_Area;
+bool WaitingForTgtime[MAXPLAYERS+1], WaitingForTgnum[MAXPLAYERS+1], WaitingForTgadd[MAXPLAYERS+1], WaitingForTgCustom[MAXPLAYERS+1], WaitingForTgCustomWeight[MAXPLAYERS+1], WaitingForTgCustomDirChance[MAXPLAYERS+1], WaitingForPadd[MAXPLAYERS+1], WaitingForPnum[MAXPLAYERS+1], WaitingForTgCustomMaxDis[MAXPLAYERS+1], WaitingForTgCustomMinDis[MAXPLAYERS+1], WaitingForTgCustomMaxDisNor[MAXPLAYERS+1], WaitingForTgCustomMinDisNor[MAXPLAYERS+1], IsPlayerLeftCP, Special_Fast_Response, Special_Show_Tips, Special_Spawn_Tank_Alive, Special_Random_Mode, Special_AutoKill_StuckTank, Special_PluginStatus, Special_Show_Tips_Chat, Special_PlayerCountSpec, Special_CanCloseDirector, Special_Spawn_Time_DifficultyChange, Special_Boomer_Spawn_Area, Special_Smoker_Spawn_Area, Special_Charger_Spawn_Area, Special_Hunter_Spawn_Area, Special_Spitter_Spawn_Area, Special_Jockey_Spawn_Area, Special_Num_NotCul_Death, Special_Spawn_Tank_Alive_Pro;
 
 char WaitingForTgCustomItem[MAXPLAYERS+1][50], WaitingForTgTimeType[MAXPLAYERS+1][50], WaitingForTgCustomWeightItem[MAXPLAYERS+1][50], WaitingForTgCustomDirChanceItem[MAXPLAYERS+1][50], WaitingForTgCustomMinDisItem[MAXPLAYERS+1][50], WaitingForTgCustomMaxDisItem[MAXPLAYERS+1][50];
 
-ConVar CSpecial_Fast_Response, CSpecial_Spawn_Time, CSpecial_Random_Mode, CSpecial_Default_Mode, CSpecial_Show_Tips, CSpecial_Spawn_Tank_Alive, CSpecial_Num, CSpecial_AddNum, CSpecial_PlayerAdd, CSpecial_PlayerNum, CSpecial_Spawn_Mode, CSpecial_Boomer_Num, CSpecial_Smoker_Num, CSpecial_Charger_Num, CSpecial_Hunter_Num, CSpecial_Spitter_Num, CSpecial_Jockey_Num, CSpecial_AutoKill_StuckTank, CSpecial_LeftPoint_SpawnTime, CSpecial_PluginStatus, CSpecial_Show_Tips_Chat, CSpecial_PlayerCountSpec, CSpecial_CanCloseDirector, CGame_Difficulty, CSpecial_Spawn_Time_DifficultyChange, CSpecial_Spawn_Time_Easy, CSpecial_Spawn_Time_Normal, CSpecial_Spawn_Time_Hard, CSpecial_Spawn_Time_Impossible, CSpecial_IsModeInNormal, CSpecial_Boomer_Spawn_Weight, CSpecial_Smoker_Spawn_Weight, CSpecial_Charger_Spawn_Weight, CSpecial_Hunter_Spawn_Weight, CSpecial_Spitter_Spawn_Weight, CSpecial_Jockey_Spawn_Weight, CSpecial_Boomer_Spawn_DirChance, CSpecial_Smoker_Spawn_DirChance, CSpecial_Charger_Spawn_DirChance, CSpecial_Hunter_Spawn_DirChance, CSpecial_Spitter_Spawn_DirChance, CSpecial_Jockey_Spawn_DirChance, CSpecial_Boomer_Spawn_Area, CSpecial_Smoker_Spawn_Area, CSpecial_Charger_Spawn_Area, CSpecial_Hunter_Spawn_Area, CSpecial_Spitter_Spawn_Area, CSpecial_Jockey_Spawn_Area, CSpecial_Boomer_Spawn_MaxDis, CSpecial_Smoker_Spawn_MaxDis, CSpecial_Charger_Spawn_MaxDis, CSpecial_Hunter_Spawn_MaxDis, CSpecial_Spitter_Spawn_MaxDis, CSpecial_Jockey_Spawn_MaxDis, CSpecial_Boomer_Spawn_MinDis, CSpecial_Smoker_Spawn_MinDis, CSpecial_Charger_Spawn_MinDis, CSpecial_Hunter_Spawn_MinDis, CSpecial_Spitter_Spawn_MinDis, CSpecial_Jockey_Spawn_MinDis, CSpecial_Spawn_MaxDis, CSpecial_Spawn_MinDis;
+ConVar CSpecial_Fast_Response, CSpecial_Spawn_Time, CSpecial_Random_Mode, CSpecial_Default_Mode, CSpecial_Show_Tips, CSpecial_Spawn_Tank_Alive, CSpecial_Num, CSpecial_AddNum, CSpecial_PlayerAdd, CSpecial_PlayerNum, CSpecial_Spawn_Mode, CSpecial_Boomer_Num, CSpecial_Smoker_Num, CSpecial_Charger_Num, CSpecial_Hunter_Num, CSpecial_Spitter_Num, CSpecial_Jockey_Num, CSpecial_AutoKill_StuckTank, CSpecial_LeftPoint_SpawnTime, CSpecial_PluginStatus, CSpecial_Show_Tips_Chat, CSpecial_PlayerCountSpec, CSpecial_CanCloseDirector, CGame_Difficulty, CSpecial_Spawn_Time_DifficultyChange, CSpecial_Spawn_Time_Easy, CSpecial_Spawn_Time_Normal, CSpecial_Spawn_Time_Hard, CSpecial_Spawn_Time_Impossible, CSpecial_IsModeInNormal, CSpecial_Boomer_Spawn_Weight, CSpecial_Smoker_Spawn_Weight, CSpecial_Charger_Spawn_Weight, CSpecial_Hunter_Spawn_Weight, CSpecial_Spitter_Spawn_Weight, CSpecial_Jockey_Spawn_Weight, CSpecial_Boomer_Spawn_DirChance, CSpecial_Smoker_Spawn_DirChance, CSpecial_Charger_Spawn_DirChance, CSpecial_Hunter_Spawn_DirChance, CSpecial_Spitter_Spawn_DirChance, CSpecial_Jockey_Spawn_DirChance, CSpecial_Boomer_Spawn_Area, CSpecial_Smoker_Spawn_Area, CSpecial_Charger_Spawn_Area, CSpecial_Hunter_Spawn_Area, CSpecial_Spitter_Spawn_Area, CSpecial_Jockey_Spawn_Area, CSpecial_Boomer_Spawn_MaxDis, CSpecial_Smoker_Spawn_MaxDis, CSpecial_Charger_Spawn_MaxDis, CSpecial_Hunter_Spawn_MaxDis, CSpecial_Spitter_Spawn_MaxDis, CSpecial_Jockey_Spawn_MaxDis, CSpecial_Boomer_Spawn_MinDis, CSpecial_Smoker_Spawn_MinDis, CSpecial_Charger_Spawn_MinDis, CSpecial_Hunter_Spawn_MinDis, CSpecial_Spitter_Spawn_MinDis, CSpecial_Jockey_Spawn_MinDis, CSpecial_Spawn_MaxDis, CSpecial_Spawn_MinDis, CSpecial_Num_NotCul_Death, CSpecial_Spawn_Tank_Alive_Pro;
 
 Menu N_MenuSpecialMenu[MAXPLAYERS+1], N_SpecialMenuCustom[MAXPLAYERS+1], N_SpecialMenuCustomWeight[MAXPLAYERS+1], N_SpecialMenuCustomDirChance[MAXPLAYERS+1], N_SpecialMenuCustomSpawnArea[MAXPLAYERS+1], N_SpecialMenuCustomMaxDis[MAXPLAYERS+1], N_SpecialMenuCustomMinDis[MAXPLAYERS+1];
 
@@ -61,13 +59,15 @@ public void OnPluginStart()
 	CSpecial_PlayerNum = AutoExecConfig_CreateConVar("Special_PlayerNum", "4", "玩家初始计算人数[1-32][意思为从第几个玩家开始，来增加特感数量，低于或等于这个数值则按Special_Num的数量刷特，如果不会弄就不需要改这个]", _, true, 1.0, true, 32.0);
 	CSpecial_PlayerAdd = AutoExecConfig_CreateConVar("Special_PlayerAdd", "1", "玩家增加数量[1-8][玩家每进几个人，才增加Special_AddNum数量的特感，Special_AddNum不为0才生效]", _, true, 1.0, true, 8.0);
 	CSpecial_PlayerCountSpec = AutoExecConfig_CreateConVar("Special_PlayerCountSpec", "0", "[0=关|1=开]计算玩家人数时，是否把旁观者也算进去[这个会把旁观者也算进去，非常不建议打开!]", _, true, 0.0, true, 1.0);
-	
+	CSpecial_Num_NotCul_Death = AutoExecConfig_CreateConVar("Special_Num_NotCul_Death", "0", "[0=关|1=开]计算玩家人数时，不把死亡玩家也算进去[这个不会把死亡玩家也算进去，非常不建议打开!]", _, true, 0.0, true, 1.0);
+
 	CSpecial_Random_Mode = AutoExecConfig_CreateConVar("Special_Random_Mode", "0", "[0=关|1=开]启用随机特感[开启后会随机Special_Default_Mode中包含的模式，仅供娱乐]", _, true, 0.0, true, 1.0);
 	CSpecial_Default_Mode = AutoExecConfig_CreateConVar("Special_Default_Mode", "7", "指定刷新模式(当随机特感关闭生效)[1=全猎人|2=全牛|3=全猴子|4=全口水|5=全胖子|6=全舌头|7=默认][默认模式为全部特感类型都会刷新，其他为单一类型刷新]", _, true, 1.0, true, 8.0);
 	CSpecial_Spawn_Mode = AutoExecConfig_CreateConVar("Special_Spawn_Mode", "1", "[0=引擎|1=普通|2=噩梦|3=地狱]特感生成方式[引擎就是游戏自带的导演系统，普通是插件默认选项比较适合普通玩家，噩梦与地狱适合大佬游玩，地狱是最高难度，噩梦与地狱刷特位置会比较近]", _, true, 0.0, true, 3.0);
 	CSpecial_IsModeInNormal = AutoExecConfig_CreateConVar("Special_IsModeInNormal", "1", "[1=模式1(默认)|2=模式2]在Special_Spawn_Mode的普通、噩梦、地狱模式下有效的子模式,只有1和2可选，具体说明请看插件的说明书。", _, true, 1.0, true, 2.0);
 	
 	CSpecial_Spawn_Tank_Alive = AutoExecConfig_CreateConVar("Special_Spawn_Tank_Alive", "1", "[0=关|1=开]特感是否在坦克活着时刷新", _, true, 0.0, true, 1.0);
+	CSpecial_Spawn_Tank_Alive_Pro = AutoExecConfig_CreateConVar("Special_Spawn_Tank_Alive_Pro", "0", "[0=关|1=开]当坦克活着时，特感强制在刷新的时候被踢出[开启后可试图修复CSpecial_Spawn_Tank_Alive关闭后坦克存活依旧刷特问题]", _, true, 0.0, true, 1.0);
 	CSpecial_AutoKill_StuckTank = AutoExecConfig_CreateConVar("Special_AutoKill_StuckTank", "0", "[0=关|1=开]自动处死卡住的坦克[有防卡插件可以关闭]", _, true, 0.0, true, 1.0);
 	
 	CSpecial_Show_Tips = AutoExecConfig_CreateConVar("Special_Show_Tips", "1", "[0=关|1=开]显示特感数量改变提示", _, true, 0.0, true, 1.0);
@@ -126,6 +126,7 @@ public void OnPluginStart()
 	HookEvent("tank_spawn", OnTankSpawn);
 	HookEvent("tank_killed", OnTankDeath);
 	HookEvent("player_death", OnPlayerDeath);
+	HookEvent("player_spawn", OnPlayerSpawn);
 	HookEvent("mission_lost",OnRoundEnd);
 	HookEvent("round_end", OnRoundEnd);
 	HookEvent("player_team", player_team);
@@ -255,6 +256,8 @@ void SetCvarHook()
 
 	CSpecial_Spawn_MaxDis.AddChangeHook(CvarsChanged);
 	CSpecial_Spawn_MinDis.AddChangeHook(CvarsChanged);
+	CSpecial_Num_NotCul_Death.AddChangeHook(CvarsChanged);
+	CSpecial_Spawn_Tank_Alive_Pro.AddChangeHook(CvarsChanged);
 }
 
 void GetCvarsValues()
@@ -268,6 +271,7 @@ void GetCvarsValues()
 	Special_Default_Mode = CSpecial_Default_Mode.IntValue;
 	Special_Spawn_Mode = CSpecial_Spawn_Mode.IntValue;
 	Special_Spawn_Tank_Alive = CSpecial_Spawn_Tank_Alive.BoolValue;
+	Special_Spawn_Tank_Alive_Pro = CSpecial_Spawn_Tank_Alive_Pro.BoolValue;
 	Special_AutoKill_StuckTank = CSpecial_AutoKill_StuckTank.BoolValue;
 	Special_LeftPoint_SpawnTime = CSpecial_LeftPoint_SpawnTime.FloatValue;
 	Special_Show_Tips = CSpecial_Show_Tips.BoolValue;
@@ -281,6 +285,7 @@ void GetCvarsValues()
 	Special_PlayerAdd = CSpecial_PlayerAdd.IntValue;
 	Special_PlayerNum = CSpecial_PlayerNum.IntValue;
 	Special_PlayerCountSpec = CSpecial_PlayerCountSpec.BoolValue;
+	Special_Num_NotCul_Death = CSpecial_Num_NotCul_Death.BoolValue;
 	Special_CanCloseDirector = CSpecial_CanCloseDirector.BoolValue;
 	Special_Spawn_Time_DifficultyChange = CSpecial_Spawn_Time_DifficultyChange.BoolValue;
 	Special_Spawn_Time_Easy = CSpecial_Spawn_Time_Easy.IntValue;
@@ -327,12 +332,5 @@ void GetCvarsValues()
 	Special_Spawn_MaxDis = CSpecial_Spawn_MaxDis.IntValue;
 	Special_Spawn_MinDis = CSpecial_Spawn_MinDis.IntValue;
 
-	CheckDifficulty(false);
-	SetAISpawnInit();
-	TgModeStartSet();
-	UpdateSpawnWeight();
-	UpdateSpawnDirChance();
-	UpdateSpawnArea();
-	UpdateSpawnDistance();
-	SetMaxSpecialsCount();
+	RequestFrame(UpdateNekoAllSettings);
 }

@@ -104,11 +104,26 @@ public Menu SpecialMenu(int client)
 			Format(line, sizeof(line), "是否算入观察 [否]");
 		N_MenuSpecialMenu[client].AddItem("tgpcspec", line);
 		
+		if(Special_Num_NotCul_Death)
+			Format(line, sizeof(line), "不算死亡玩家 [是]");
+		else
+			Format(line, sizeof(line), "不算死亡玩家 [否]");
+		N_MenuSpecialMenu[client].AddItem("tgnculdea", line);
+
 		if(Special_Spawn_Tank_Alive)
 			Format(line, sizeof(line), "克活着时刷新 [是]");
 		else
 			Format(line, sizeof(line), "克活着时刷新 [否]");
 		N_MenuSpecialMenu[client].AddItem("tgtanklive", line);
+
+		if(!Special_Spawn_Tank_Alive)
+		{
+			if(Special_Spawn_Tank_Alive_Pro)
+				Format(line, sizeof(line), "克存活踢出特感 [是]");
+			else
+				Format(line, sizeof(line), "克存活踢出特感 [否]");
+			N_MenuSpecialMenu[client].AddItem("tgtankprolive", line);
+		}
 		
 		if(Special_Spawn_Time_DifficultyChange)
 		{
@@ -173,6 +188,12 @@ public Menu SpecialMenu(int client)
 		else
 			Format(line, sizeof(line), "显示插件提示 [否]");
 		N_MenuSpecialMenu[client].AddItem("tgtips", line);
+
+		if(Special_Show_Tips_Chat)
+			Format(line, sizeof(line), "使用聊天框提示 [是]");
+		else
+			Format(line, sizeof(line), "使用聊天框提示 [否]");
+		N_MenuSpecialMenu[client].AddItem("tgtipschat", line);
 
 	}
 	
@@ -321,6 +342,13 @@ public int SpecialMenuHandler(Menu menu, MenuAction action, int client, int sele
 					else
 						CSpecial_PlayerCountSpec.SetBool(true);
 				}
+				if(StrEqual(items, "tgnculdea"))
+				{
+					if(CSpecial_Num_NotCul_Death.BoolValue)
+						CSpecial_Num_NotCul_Death.SetBool(false);
+					else
+						CSpecial_Num_NotCul_Death.SetBool(true);
+				}
 				if(StrEqual(items, "tgtanklive"))
 				{
 					if(CSpecial_Spawn_Tank_Alive.BoolValue)
@@ -328,12 +356,26 @@ public int SpecialMenuHandler(Menu menu, MenuAction action, int client, int sele
 					else
 						CSpecial_Spawn_Tank_Alive.SetBool(true);
 				}
+				if(StrEqual(items, "tgtankprolive"))
+				{
+					if(CSpecial_Spawn_Tank_Alive_Pro.BoolValue)
+						CSpecial_Spawn_Tank_Alive_Pro.SetBool(false);
+					else
+						CSpecial_Spawn_Tank_Alive_Pro.SetBool(true);
+				}
 				if(StrEqual(items, "tgtips"))
 				{
 					if(CSpecial_Show_Tips.BoolValue)
 						CSpecial_Show_Tips.SetBool(false);
 					else
 						CSpecial_Show_Tips.SetBool(true);
+				}
+				if(StrEqual(items, "tgtipschat"))
+				{
+					if(CSpecial_Show_Tips_Chat.BoolValue)
+						CSpecial_Show_Tips_Chat.SetBool(false);
+					else
+						CSpecial_Show_Tips_Chat.SetBool(true);
 				}
 				if(StrEqual(items, "tgautotime"))
 				{
@@ -372,9 +414,11 @@ public Action SpecialMenuMode(int client)
 	Format(line, sizeof(line), "+|NS|+ 选择特感模式\n选择一个模式");
 	menu.SetTitle(line);
 	
+	Format(line, sizeof(line), "默认模式");
+	menu.AddItem("7", line);
 	Format(line, sizeof(line), "猎人模式");
 	menu.AddItem("1", line);
-	Format(line, sizeof(line), "牛模式");
+	Format(line, sizeof(line), "牛子模式");
 	menu.AddItem("2", line);
 	Format(line, sizeof(line), "猴子模式");
 	menu.AddItem("3", line);
@@ -384,8 +428,6 @@ public Action SpecialMenuMode(int client)
 	menu.AddItem("5", line);
 	Format(line, sizeof(line), "舌头模式");
 	menu.AddItem("6", line);
-	Format(line, sizeof(line), "默认模式");
-	menu.AddItem("7", line);
 	
 	menu.ExitBackButton = true;
 	menu.Display(client, MENU_TIME);

@@ -93,9 +93,9 @@ void SwitchPlugin(int client)
 	}
 }
 
-void TgModeStartSet()
+void TgModeStartSet(bool NeedSetNum = true)
 {
-	CheckDifficulty();
+	CheckDifficulty(false);
 	SetSpecialSpawnSubMode(Special_IsModeInNormal);
 	
 	switch(Special_Default_Mode)
@@ -165,7 +165,8 @@ void TgModeStartSet()
 		}
 	}
 	
-	SetMaxSpecialsCount(false);
+	if(NeedSetNum)
+		SetMaxSpecialsCount(false);
 }
 
 void ModeTips()
@@ -175,7 +176,7 @@ void ModeTips()
 	switch(Special_Default_Mode)
 	{
 		case 1: Format(tips, sizeof(tips), "猎人模式");
-		case 2: Format(tips, sizeof(tips), "牛模式");
+		case 2: Format(tips, sizeof(tips), "牛子模式");
 		case 3: Format(tips, sizeof(tips), "猴子模式");
 		case 4: Format(tips, sizeof(tips), "口水模式");
 		case 5: Format(tips, sizeof(tips), "胖子模式");
@@ -196,7 +197,7 @@ void InfectedTips()
 	switch(Special_Default_Mode)
 	{
 		case 1: Format(tips, sizeof(tips), "猎人模式，");
-		case 2: Format(tips, sizeof(tips), "牛模式，");
+		case 2: Format(tips, sizeof(tips), "牛子模式，");
 		case 3: Format(tips, sizeof(tips), "猴子模式，");
 		case 4: Format(tips, sizeof(tips), "口水模式，");
 		case 5: Format(tips, sizeof(tips), "胖子模式，");
@@ -228,6 +229,9 @@ void SetMaxSpecialsCount(bool ShowTips = true)
 		if(!IsClientInGame(i))
 			continue;
 			
+		if(Special_Num_NotCul_Death && !IsPlayerAlive(i))
+			continue;
+
 		if(GetClientTeam(i) == 2)
 			++Player_count;
 			
@@ -301,6 +305,17 @@ void UpdateSpawnDistance()
 
 	SetSpecialSpawnMaxDis_(Special_Spawn_MaxDis);
 	SetSpecialSpawnMinDis_(Special_Spawn_MinDis);
+}
+
+void UpdateNekoAllSettings()
+{
+	SetAISpawnInit();
+	TgModeStartSet(false);
+	UpdateSpawnWeight();
+	UpdateSpawnDirChance();
+	UpdateSpawnArea();
+	UpdateSpawnDistance();
+	SetMaxSpecialsCount(true);
 }
 
 void cleanplayerwait(int client)

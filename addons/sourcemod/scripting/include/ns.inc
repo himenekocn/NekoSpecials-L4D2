@@ -3,7 +3,7 @@
 #endif
 #define _neko_included
 
-#define PLUGIN_VERSION "6.02NS"
+#define PLUGIN_VERSION "6.05NS"
 
 // Neko Specials Inc 实用库
 
@@ -382,7 +382,7 @@ stock int GetPlayers(bool connecting)
 	for (int i = 1; i <= MaxClients; i++)
 	{
 		if (connecting && IsClientConnected(i) && !IsClientInGame(i))players++;
-		else if (!connecting && IsValidStatusClient(i))players++;
+		else if (!connecting && IsValidClient(i))players++;
 	}
 	return players;
 }

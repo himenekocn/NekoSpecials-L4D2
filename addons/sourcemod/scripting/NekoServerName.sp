@@ -80,6 +80,7 @@ public void OnPluginStart()
 public Action StartNekoUpdate(int client, int args)
 {
 	SetServerName();
+	return Plugin_Continue;
 }
 
 public void CvarsChanged(ConVar convar, const char[] oldValue, const char[] newValue)
@@ -120,16 +121,19 @@ public void mission_lost(Event event, const char[] name, bool dontBroadcast)
 public Action NekoSpecials_OnSetSpecialsNum()
 {
 	SetServerName();
+	return Plugin_Continue;
 }
 
 public Action NekoSpecials_OnSetSpecialsTime()
 {
 	SetServerName();
+	return Plugin_Continue;
 }
 
 public Action Update_HostName(Handle timer)
 {
 	SetServerName();
+	return Plugin_Continue;
 }
 
 void SetServerName()

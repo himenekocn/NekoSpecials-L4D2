@@ -39,15 +39,15 @@ public Action ChatListener(int client, const char[] command, int args)
 			else
 			{
 				if(StrEqual(WaitingForTgTimeType[client], "tgtime"))
-					CSpecial_Spawn_Time.SetInt(DD);
+					NCvar[CSpecial_Spawn_Time].SetInt(DD);
 				else if(StrEqual(WaitingForTgTimeType[client], "tgtimeeasy"))
-					CSpecial_Spawn_Time_Easy.SetInt(DD);
+					NCvar[CSpecial_Spawn_Time_Easy].SetInt(DD);
 				else if(StrEqual(WaitingForTgTimeType[client], "tgtimenormal"))
-					CSpecial_Spawn_Time_Normal.SetInt(DD);
+					NCvar[CSpecial_Spawn_Time_Normal].SetInt(DD);
 				else if(StrEqual(WaitingForTgTimeType[client], "tgtimehard"))
-					CSpecial_Spawn_Time_Hard.SetInt(DD);
+					NCvar[CSpecial_Spawn_Time_Hard].SetInt(DD);
 				else if(StrEqual(WaitingForTgTimeType[client], "tgtimeexpert"))
-					CSpecial_Spawn_Time_Impossible.SetInt(DD);
+					NCvar[CSpecial_Spawn_Time_Impossible].SetInt(DD);
 			
 				PrintToChat(client, "\x05%s \x04更改刷特时间为 \x03%i 秒", NEKOTAG, GetSpecialRespawnInterval());
 			}
@@ -61,7 +61,7 @@ public Action ChatListener(int client, const char[] command, int args)
 			}
 			else
 			{
-				CSpecial_Num.SetInt(DD);
+				NCvar[CSpecial_Num].SetInt(DD);
 				PrintToChat(client, "\x05%s \x04更改刷特初始数量为 \x03%i ", NEKOTAG, DD);
 			}
 		}
@@ -74,7 +74,7 @@ public Action ChatListener(int client, const char[] command, int args)
 			}
 			else
 			{
-				CSpecial_AddNum.SetInt(DD);
+				NCvar[CSpecial_AddNum].SetInt(DD);
 				PrintToChat(client, "\x05%s \x04更改刷特增加数量为 \x03%i ", NEKOTAG, DD);
 			}
 		}
@@ -87,7 +87,7 @@ public Action ChatListener(int client, const char[] command, int args)
 			}
 			else
 			{
-				CSpecial_PlayerNum.SetInt(DD);
+				NCvar[CSpecial_PlayerNum].SetInt(DD);
 				PrintToChat(client, "\x05%s \x04更改初始玩家数量为 \x03%i ", NEKOTAG, DD);
 			}
 		}
@@ -100,7 +100,7 @@ public Action ChatListener(int client, const char[] command, int args)
 			}
 			else
 			{
-				CSpecial_PlayerAdd.SetInt(DD);
+				NCvar[CSpecial_PlayerAdd].SetInt(DD);
 				PrintToChat(client, "\x05%s \x04更改玩家增加数量为 \x03%i ", NEKOTAG, DD);
 			}
 		}
@@ -116,42 +116,42 @@ public Action ChatListener(int client, const char[] command, int args)
 				char SpecialName[128];
 				if(StrEqual(WaitingForTgCustomItem[client], "charger"))
 				{
-					CSpecial_Charger_Num.SetInt(DD);
+					NCvar[CSpecial_Charger_Num].SetInt(DD);
 					SpecialName = "牛子";
 				}
 				if(StrEqual(WaitingForTgCustomItem[client], "boomer"))
 				{
-					CSpecial_Boomer_Num.SetInt(DD);
+					NCvar[CSpecial_Boomer_Num].SetInt(DD);
 					SpecialName = "胖子";
 				}
 				if(StrEqual(WaitingForTgCustomItem[client], "spitter"))
 				{
-					CSpecial_Spitter_Num.SetInt(DD);
+					NCvar[CSpecial_Spitter_Num].SetInt(DD);
 					SpecialName = "口水";
 				}
 				if(StrEqual(WaitingForTgCustomItem[client], "smoker"))
 				{
-					CSpecial_Smoker_Num.SetInt(DD);
+					NCvar[CSpecial_Smoker_Num].SetInt(DD);
 					SpecialName = "舌头";
 				}
 				if(StrEqual(WaitingForTgCustomItem[client], "jockey"))
 				{
-					CSpecial_Jockey_Num.SetInt(DD);
+					NCvar[CSpecial_Jockey_Num].SetInt(DD);
 					SpecialName = "猴子";
 				}
 				if(StrEqual(WaitingForTgCustomItem[client], "hunter"))
 				{
-					CSpecial_Hunter_Num.SetInt(DD);
+					NCvar[CSpecial_Hunter_Num].SetInt(DD);
 					SpecialName = "猎人";
 				}
 				PrintToChat(client, "\x05%s \x04%s数量设置为 \x03%d", NEKOTAG, SpecialName, DD);
-				CSpecial_Default_Mode.SetInt(7);
+				NCvar[CSpecial_Default_Mode].SetInt(7);
 
-				if(Special_Show_Tips)
+				if(NCvar[CSpecial_Show_Tips].BoolValue)
 					ModeTips();
-				if(Special_Random_Mode)
+				if(NCvar[CSpecial_Random_Mode].BoolValue)
 				{
-					CSpecial_Random_Mode.SetInt(0);
+					NCvar[CSpecial_Random_Mode].SetBool(false);
 					PrintToChat(client, "\x05%s \x04关闭了随机特感", NEKOTAG);
 				}
 			}
@@ -168,32 +168,32 @@ public Action ChatListener(int client, const char[] command, int args)
 				char SpecialName[128];
 				if(StrEqual(WaitingForTgCustomWeightItem[client], "charger"))
 				{
-					CSpecial_Charger_Spawn_Weight.SetInt(DD);
+					NCvar[CSpecial_Charger_Spawn_Weight].SetInt(DD);
 					SpecialName = "牛子";
 				}
 				if(StrEqual(WaitingForTgCustomWeightItem[client], "boomer"))
 				{
-					CSpecial_Boomer_Spawn_Weight.SetInt(DD);
+					NCvar[CSpecial_Boomer_Spawn_Weight].SetInt(DD);
 					SpecialName = "胖子";
 				}
 				if(StrEqual(WaitingForTgCustomWeightItem[client], "spitter"))
 				{
-					CSpecial_Spitter_Spawn_Weight.SetInt(DD);
+					NCvar[CSpecial_Spitter_Spawn_Weight].SetInt(DD);
 					SpecialName = "口水";
 				}
 				if(StrEqual(WaitingForTgCustomWeightItem[client], "smoker"))
 				{
-					CSpecial_Smoker_Spawn_Weight.SetInt(DD);
+					NCvar[CSpecial_Smoker_Spawn_Weight].SetInt(DD);
 					SpecialName = "舌头";
 				}
 				if(StrEqual(WaitingForTgCustomWeightItem[client], "jockey"))
 				{
-					CSpecial_Jockey_Spawn_Weight.SetInt(DD);
+					NCvar[CSpecial_Jockey_Spawn_Weight].SetInt(DD);
 					SpecialName = "猴子";
 				}
 				if(StrEqual(WaitingForTgCustomWeightItem[client], "hunter"))
 				{
-					CSpecial_Hunter_Spawn_Weight.SetInt(DD);
+					NCvar[CSpecial_Hunter_Spawn_Weight].SetInt(DD);
 					SpecialName = "猎人";
 				}
 				PrintToChat(client, "\x05%s \x04%s刷新概率设置为 \x03%d", NEKOTAG, SpecialName, DD);
@@ -211,32 +211,32 @@ public Action ChatListener(int client, const char[] command, int args)
 				char SpecialName[128];
 				if(StrEqual(WaitingForTgCustomDirChanceItem[client], "charger"))
 				{
-					CSpecial_Charger_Spawn_DirChance.SetInt(DD);
+					NCvar[CSpecial_Charger_Spawn_DirChance].SetInt(DD);
 					SpecialName = "牛子";
 				}
 				if(StrEqual(WaitingForTgCustomDirChanceItem[client], "boomer"))
 				{
-					CSpecial_Boomer_Spawn_DirChance.SetInt(DD);
+					NCvar[CSpecial_Boomer_Spawn_DirChance].SetInt(DD);
 					SpecialName = "胖子";
 				}
 				if(StrEqual(WaitingForTgCustomDirChanceItem[client], "spitter"))
 				{
-					CSpecial_Spitter_Spawn_DirChance.SetInt(DD);
+					NCvar[CSpecial_Spitter_Spawn_DirChance].SetInt(DD);
 					SpecialName = "口水";
 				}
 				if(StrEqual(WaitingForTgCustomDirChanceItem[client], "smoker"))
 				{
-					CSpecial_Smoker_Spawn_DirChance.SetInt(DD);
+					NCvar[CSpecial_Smoker_Spawn_DirChance].SetInt(DD);
 					SpecialName = "舌头";
 				}
 				if(StrEqual(WaitingForTgCustomDirChanceItem[client], "jockey"))
 				{
-					CSpecial_Jockey_Spawn_DirChance.SetInt(DD);
+					NCvar[CSpecial_Jockey_Spawn_DirChance].SetInt(DD);
 					SpecialName = "猴子";
 				}
 				if(StrEqual(WaitingForTgCustomDirChanceItem[client], "hunter"))
 				{
-					CSpecial_Hunter_Spawn_DirChance.SetInt(DD);
+					NCvar[CSpecial_Hunter_Spawn_DirChance].SetInt(DD);
 					SpecialName = "猎人";
 				}
 				PrintToChat(client, "\x05%s \x04%s刷新方位百分比设置为 \x03%d", NEKOTAG, SpecialName, DD);
@@ -254,32 +254,32 @@ public Action ChatListener(int client, const char[] command, int args)
 				char SpecialName[128];
 				if(StrEqual(WaitingForTgCustomMaxDisItem[client], "charger"))
 				{
-					CSpecial_Charger_Spawn_MaxDis.SetInt(DD);
+					NCvar[CSpecial_Charger_Spawn_MaxDis].SetInt(DD);
 					SpecialName = "牛子";
 				}
 				if(StrEqual(WaitingForTgCustomMaxDisItem[client], "boomer"))
 				{
-					CSpecial_Boomer_Spawn_MaxDis.SetInt(DD);
+					NCvar[CSpecial_Boomer_Spawn_MaxDis].SetInt(DD);
 					SpecialName = "胖子";
 				}
 				if(StrEqual(WaitingForTgCustomMaxDisItem[client], "spitter"))
 				{
-					CSpecial_Spitter_Spawn_MaxDis.SetInt(DD);
+					NCvar[CSpecial_Spitter_Spawn_MaxDis].SetInt(DD);
 					SpecialName = "口水";
 				}
 				if(StrEqual(WaitingForTgCustomMaxDisItem[client], "smoker"))
 				{
-					CSpecial_Smoker_Spawn_MaxDis.SetInt(DD);
+					NCvar[CSpecial_Smoker_Spawn_MaxDis].SetInt(DD);
 					SpecialName = "舌头";
 				}
 				if(StrEqual(WaitingForTgCustomMaxDisItem[client], "jockey"))
 				{
-					CSpecial_Jockey_Spawn_MaxDis.SetInt(DD);
+					NCvar[CSpecial_Jockey_Spawn_MaxDis].SetInt(DD);
 					SpecialName = "猴子";
 				}
 				if(StrEqual(WaitingForTgCustomMaxDisItem[client], "hunter"))
 				{
-					CSpecial_Hunter_Spawn_MaxDis.SetInt(DD);
+					NCvar[CSpecial_Hunter_Spawn_MaxDis].SetInt(DD);
 					SpecialName = "猎人";
 				}
 				PrintToChat(client, "\x05%s \x04%s刷新最大距离设置为 \x03%d", NEKOTAG, SpecialName, DD);
@@ -297,32 +297,32 @@ public Action ChatListener(int client, const char[] command, int args)
 				char SpecialName[128];
 				if(StrEqual(WaitingForTgCustomMinDisItem[client], "charger"))
 				{
-					CSpecial_Charger_Spawn_MinDis.SetInt(DD);
+					NCvar[CSpecial_Charger_Spawn_MinDis].SetInt(DD);
 					SpecialName = "牛子";
 				}
 				if(StrEqual(WaitingForTgCustomMinDisItem[client], "boomer"))
 				{
-					CSpecial_Boomer_Spawn_MinDis.SetInt(DD);
+					NCvar[CSpecial_Boomer_Spawn_MinDis].SetInt(DD);
 					SpecialName = "胖子";
 				}
 				if(StrEqual(WaitingForTgCustomMinDisItem[client], "spitter"))
 				{
-					CSpecial_Spitter_Spawn_MinDis.SetInt(DD);
+					NCvar[CSpecial_Spitter_Spawn_MinDis].SetInt(DD);
 					SpecialName = "口水";
 				}
 				if(StrEqual(WaitingForTgCustomMinDisItem[client], "smoker"))
 				{
-					CSpecial_Smoker_Spawn_MinDis.SetInt(DD);
+					NCvar[CSpecial_Smoker_Spawn_MinDis].SetInt(DD);
 					SpecialName = "舌头";
 				}
 				if(StrEqual(WaitingForTgCustomMinDisItem[client], "jockey"))
 				{
-					CSpecial_Jockey_Spawn_MinDis.SetInt(DD);
+					NCvar[CSpecial_Jockey_Spawn_MinDis].SetInt(DD);
 					SpecialName = "猴子";
 				}
 				if(StrEqual(WaitingForTgCustomMinDisItem[client], "hunter"))
 				{
-					CSpecial_Hunter_Spawn_MinDis.SetInt(DD);
+					NCvar[CSpecial_Hunter_Spawn_MinDis].SetInt(DD);
 					SpecialName = "猎人";
 				}
 				PrintToChat(client, "\x05%s \x04%s刷新最小距离设置为 \x03%d", NEKOTAG, SpecialName, DD);
@@ -338,7 +338,7 @@ public Action ChatListener(int client, const char[] command, int args)
 			}
 			else
 			{
-				CSpecial_Spawn_MaxDis.SetInt(DD);
+				NCvar[CSpecial_Spawn_MaxDis].SetInt(DD);
 				PrintToChat(client, "\x05%s \x04全特感刷新最小距离设置为 \x03%d", NEKOTAG, DD);
 			}
 		}
@@ -351,7 +351,7 @@ public Action ChatListener(int client, const char[] command, int args)
 			}
 			else
 			{
-				CSpecial_Spawn_MinDis.SetInt(DD);
+				NCvar[CSpecial_Spawn_MinDis].SetInt(DD);
 				PrintToChat(client, "\x05%s \x04全特感刷新最小距离设置为 \x03%d", NEKOTAG, DD);
 			}
 		}

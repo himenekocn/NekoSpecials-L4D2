@@ -1,6 +1,6 @@
 public Action KillTankHUD(Handle timer)
 {
-	if(KillHud_HudStyle < 4 && KillHud_HudStyle > 0)
+	if(NCvar[CKillHud_HudStyle].IntValue < 4 && NCvar[CKillHud_HudStyle].IntValue > 0)
 	{
 		if(HUDSlotIsUsed(HUD_MID_BOX))
 			RemoveHUD(HUD_MID_BOX);
@@ -9,7 +9,7 @@ public Action KillTankHUD(Handle timer)
 		ArrayList PlayerTankDMG = new ArrayList(256, 0);
 		
 		for (int i = 1; i <= MaxClients; i++)
-			if(IsValidClient(i) && IsAllowBot(i, KillHud_AllowBot) && (GetClientTeam(i) == 2 || GetClientTeam(i) == 1))
+			if(IsValidClient(i) && IsAllowBot(i, NCvar[CKillHud_AllowBot].BoolValue) && (GetClientTeam(i) == 2 || GetClientTeam(i) == 1))
 				PlayerTankDMG.Set(PlayerTankDMG.Push(DmgToTank[i]), i, 1);
 			
 		PlayerTankDMG.Sort(Sort_Descending, Sort_Integer);
@@ -26,10 +26,12 @@ public Action KillTankHUD(Handle timer)
 			}
 		}
 		HUDSetLayout(HUD_MID_BOX, HUD_FLAG_ALIGN_LEFT|HUD_FLAG_NOBG|HUD_FLAG_COUNTDOWN_WARN, tankline);
-		if(KillHud_HudStyle == 3)
+		if(NCvar[CKillHud_HudStyle].IntValue == 3)
 		{
 			float xy[2];
-			GetHUDSide(KillHud_CStyleTankXY, xy);
+			char GetCharValue[12];
+			NCvar[CKillHud_CStyleTankXY].GetString(GetCharValue, sizeof GetCharValue);
+			GetHUDSide(GetCharValue, xy);
 			HUDPlace(HUD_MID_BOX, xy[0], xy[1], 1.0, 0.15);
 		}
 		else
@@ -37,13 +39,13 @@ public Action KillTankHUD(Handle timer)
 		CreateTimer(5.0, Delay_KilltankHUD);
 		delete PlayerTankDMG;
 	}
-	else if(KillHud_HudStyle == 4 && KillHud_HudStyle > 0)
+	else if(NCvar[CKillHud_HudStyle].IntValue == 4 && NCvar[CKillHud_HudStyle].IntValue > 0)
 	{
 		char ReadPlayerName[MAX_NAME_LENGTH];
 		ArrayList PlayerTankDMG = new ArrayList(256, 0);
 		for (int i = 1; i <= MaxClients; i++)
 		{
-			if(IsValidClient(i) && IsAllowBot(i, KillHud_AllowBot) && (GetClientTeam(i) == 2 || GetClientTeam(i) == 1))
+			if(IsValidClient(i) && IsAllowBot(i, NCvar[CKillHud_AllowBot].BoolValue) && (GetClientTeam(i) == 2 || GetClientTeam(i) == 1))
 			{
 				int anum = PlayerTankDMG.Push(DmgToTank[i]);
 				PlayerTankDMG.Set(anum, i, 1);
@@ -86,4 +88,5 @@ public Action Event_TankSpawn(Event event, const char[] name, bool dontBroadcast
 public Action Event_TankDeath(Handle event, const char[] name, bool dontBroadcast)
 {
 	CreateTimer(0.5, Timer_DelayDeath);
+	return Plugin_Continue;
 }

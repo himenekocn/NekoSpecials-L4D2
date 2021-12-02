@@ -21,6 +21,7 @@ public APLRes AskPluginLoad2(Handle myself, bool late, char[] error, int err_max
 public any NekoSpecials_REShowSpecialsTips(Handle plugin, int numParams)
 {
 	InfectedTips();
+	return 0;
 }
 
 public any NekoSpecials_REShowYourTips(Handle plugin, int numParams)
@@ -28,6 +29,7 @@ public any NekoSpecials_REShowYourTips(Handle plugin, int numParams)
 	char cshowtips[48];
 	GetNativeString(1, cshowtips, sizeof(cshowtips));
 	HUDShowMsg(cshowtips);
+	return 0;
 }
 
 public int NekoSpecials_REGetSpawnMode(Handle plugin, int numParams)
@@ -37,12 +39,12 @@ public int NekoSpecials_REGetSpawnMode(Handle plugin, int numParams)
 
 public int NekoSpecials_REGetSpecialsMode(Handle plugin, int numParams)
 {
-	return Special_Default_Mode;
+	return NCvar[CSpecial_Default_Mode].IntValue;
 }
 
 public int NekoSpecials_REGetPluginStatus(Handle plugin, int numParams)
 {
-	return Special_PluginStatus;
+	return NCvar[CSpecial_PluginStatus].BoolValue;
 }
 
 public int NekoSpecials_REGetSpecialsNum(Handle plugin, int numParams)

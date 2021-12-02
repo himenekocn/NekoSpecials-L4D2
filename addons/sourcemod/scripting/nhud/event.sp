@@ -17,8 +17,19 @@ public void OnClientConnected(int client)
 public void OnMapStart()
 {
 	HudRunning = false;
-	StyleChatDelay = KillHud_StyleChatDelay;
+	StyleChatDelay = NCvar[CKillHud_StyleChatDelay].IntValue;
 	StartCatchTime();
+}
+
+public void OnConfigsExecuted()
+{
+	if(!IsMapTransition)
+	{
+		Kill_AllInfectedGO = 0;
+		Kill_AllZombieGO = 0;
+	}
+	else
+		IsMapTransition = false;
 }
 
 public void OnMapEnd()
@@ -51,7 +62,7 @@ public Action Timer_DelayDeath(Handle hTimer)
 	else
 	{
 		TankAlive = false;
-		if(KillHud_KillTank && KillHud_HudStyle > 0)
+		if(NCvar[CKillHud_KillTank].BoolValue && NCvar[CKillHud_HudStyle].IntValue > 0)
 			CreateTimer(0.1, KillTankHUD);
 	}
 	return Plugin_Continue;
@@ -70,7 +81,7 @@ public Action Event_Round_Start(Event event, const char[] name, bool dontBroadca
 
 public Action RoundStart(Handle Timer)
 {
-	if(KillHud_Show)
+	if(NCvar[CKillHud_Show].BoolValue)
 		CreateTimer(1.0, PlayerLeftStart, _, TIMER_REPEAT|TIMER_FLAG_NO_MAPCHANGE);
 	else
 		CreateHud();
@@ -103,6 +114,7 @@ public Action Event_PlayerDeath(Event event, const char[] name, bool dontBroadca
 	{
 		Kill_Infected[attacker] ++;
 		Kill_AllInfected ++;
+		Kill_AllInfectedGO ++;
 	}
 	
 	return Plugin_Continue;
@@ -114,9 +126,16 @@ public Action Event_infectedDeath(Event event, const char[] name, bool dontBroad
 	
 	if(IsValidClient(attacker) && GetClientTeam(attacker) == 2)
 	{
-		Kill_AllZombie++;
-		Kill_Zombie[attacker]++;
+		Kill_AllZombie ++;
+		Kill_AllZombieGO ++;
+		Kill_Zombie[attacker] ++;
 	}
 	
+	return Plugin_Continue;
+}
+
+public Action Event_MapTransition(Event event, const char[] name, bool dontBroadcast)
+{
+	IsMapTransition = true;
 	return Plugin_Continue;
 }

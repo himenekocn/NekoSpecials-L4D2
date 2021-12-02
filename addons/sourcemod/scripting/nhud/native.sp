@@ -1,6 +1,6 @@
 void CreateHud()
 {
-	if(KillHud_HudStyle > 0 && (KillHud_FriendlyFire || KillHud_KillSpecials || KillHud_AllKill) && !HudRunning)
+	if(NCvar[CKillHud_HudStyle].IntValue > 0 && (NCvar[CKillHud_FriendlyFire].BoolValue || NCvar[CKillHud_KillSpecials].BoolValue || NCvar[CKillHud_AllKill].BoolValue) && !HudRunning)
 	{
 		HudRunning = true;
 		CreateTimer(1.0, RefreshHUD, _, TIMER_REPEAT|TIMER_FLAG_NO_MAPCHANGE);
@@ -14,7 +14,7 @@ stock void GetHUDSide(char[] sTemp, float xy[2])
 	xy[0] = StringToFloat(xytemp[0]);
 	xy[1] = StringToFloat(xytemp[1]);
 	
-	if((xy[0] > 1.0 || xy[0] < 0.0 || xy[1] > 1.0 || xy[1] < 0.0) && KillHud_HudStyle == 3)
+	if((xy[0] > 1.0 || xy[0] < 0.0 || xy[1] > 1.0 || xy[1] < 0.0) && NCvar[CKillHud_HudStyle].IntValue == 3)
 		LogError("自定义HUD位置超出范围");
 }
 
@@ -43,4 +43,16 @@ stock void Kill_Init_Client(int client)
 	Friendly_Fire[client] = 0;
 	DmgToTank[client] = 0;
 	Friendly_Hurt[client] = 0;
+}
+
+void UpdateConfigFile(bool NeedReset)
+{
+	AutoExecConfig_DeleteConfig();
+
+	for(int i = 1;i < Cvar_Max;i++)
+	{
+		AutoExecConfig_UpdateToConfig(NCvar[i], NeedReset);
+	}
+
+	AutoExecConfig_OnceExec();
 }

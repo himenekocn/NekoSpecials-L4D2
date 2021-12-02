@@ -1,19 +1,16 @@
 public Action OnRoundStart(Handle event, const char[] name, bool dontBroadcast)
 {
-	if(Special_Random_Mode)
-		Special_Default_Mode = GetRandomInt(1, 7);
-	else
-		Special_Default_Mode = CSpecial_Default_Mode.IntValue;
-
 	IsPlayerLeftCP = false;
 	SetSpecialRunning(false);
 	TgModeStartSet();
 	CreateTimer(0.1, PlayerLeftStart, _, TIMER_REPEAT|TIMER_FLAG_NO_MAPCHANGE);
+	return Plugin_Continue;
 }
 
 public Action player_team(Event event, const char[] name, bool dontBroadcast)
 {
 	CreateTimer(0.1, Timer_SetMaxSpecialsCount, _, TIMER_FLAG_NO_MAPCHANGE);
+	return Plugin_Continue;
 }
 
 public void OnPlayerDisconnect(Event hEvent, const char[] sName, bool bDontBroadcast)
@@ -23,7 +20,7 @@ public void OnPlayerDisconnect(Event hEvent, const char[] sName, bool bDontBroad
 	{
 		if(IsFakeClient(client))
 		{
-			if(Special_PluginStatus && IsPlayerLeftCP)
+			if(NCvar[CSpecial_PluginStatus].BoolValue && IsPlayerLeftCP)
 			{
 				if(IsPlayerTank(client))
 					CreateTimer(0.5, Timer_DelayDeath);
@@ -44,13 +41,14 @@ public Action OnRoundEnd(Event hEvent, const char[] sName, bool bDontBroadcast)
 {
 	IsPlayerLeftCP = false;
 	SetSpecialRunning(false);
+	return Plugin_Continue;
 }
 
 public Action OnPlayerStuck(int client)
 {
 	if(IsValidClient(client) && IsPlayerAlive(client) && GetClientTeam(client) == 3 && IsFakeClient(client))
 	{
-		if(!Special_AutoKill_StuckTank)
+		if(!NCvar[CSpecial_AutoKill_StuckTank].BoolValue)
 		{
 			if(!IsPlayerTank(client))
 				KickClient(client, "Infected Stuck");
@@ -63,7 +61,7 @@ public Action OnPlayerStuck(int client)
 
 public Action BinHook_OnSpawnSpecial()
 {
-	if(!Special_Spawn_Tank_Alive && Special_Spawn_Tank_Alive_Pro)
+	if(!NCvar[CSpecial_Spawn_Tank_Alive].BoolValue && NCvar[CSpecial_Spawn_Tank_Alive_Pro].BoolValue)
 	{
 		for (int i = 1; i <= MaxClients; i++)
 		{
@@ -88,26 +86,22 @@ public Action BinHook_OnSpawnSpecial()
 
 public Action OnTankDeath(Handle event, const char[] name, bool dontBroadcast)
 {
-	if(Special_PluginStatus)
-	{
+	if(NCvar[CSpecial_PluginStatus].BoolValue)
 		CreateTimer(0.2, Timer_DelayDeath);
-	}
 	else
-	{
 		SetSpecialRunning(false);
-	}
+
+	return Plugin_Continue;
 }
 
 public Action Timer_DelayDeath(Handle hTimer)
 {
-	if(L4D2_IsTankInPlay() && !Special_Spawn_Tank_Alive)
-	{
+	if(L4D2_IsTankInPlay() && !NCvar[CSpecial_Spawn_Tank_Alive].BoolValue)
 		SetSpecialRunning(false);
-	}
 	else
-	{
 		SetSpecialRunning(true);
-	}
+
+	return Plugin_Continue;
 }
 
 public Action OnPlayerDeath(Event hEvent, const char[] sName, bool bDontBroadcast )
@@ -116,23 +110,28 @@ public Action OnPlayerDeath(Event hEvent, const char[] sName, bool bDontBroadcas
 	if (IsValidClient(client) && IsFakeClient(client) && GetClientTeam(client) == 3)
 		RequestFrame(Timer_KickBot, GetClientUserId(client));
 
-	if (IsValidClient(client) && GetClientTeam(client) == 2 && Special_Num_NotCul_Death)
+	if (IsValidClient(client) && GetClientTeam(client) == 2 && NCvar[CSpecial_Num_NotCul_Death].BoolValue)
 		SetMaxSpecialsCount();
+
+	return Plugin_Continue;
 }
 
 public Action OnPlayerSpawn(Event hEvent, const char[] sName, bool bDontBroadcast )
 {
 	int client = GetClientOfUserId(hEvent.GetInt( "userid" ));
 
-	if (IsValidClient(client) && GetClientTeam(client) == 2 && Special_Num_NotCul_Death)
+	if (IsValidClient(client) && GetClientTeam(client) == 2 && NCvar[CSpecial_Num_NotCul_Death].BoolValue)
 		SetMaxSpecialsCount();
+	
+	return Plugin_Continue;
 }
 
 public Action OnTankSpawn(Event event, const char[] name, bool dontBroadcast)
 {
-	if(!Special_Spawn_Tank_Alive)
+	if(!NCvar[CSpecial_Spawn_Tank_Alive].BoolValue)
 		SetSpecialRunning(false);
 	else
 		SetSpecialRunning(true);
+
 	return Plugin_Continue;
 }

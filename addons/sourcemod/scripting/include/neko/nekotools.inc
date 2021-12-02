@@ -3,6 +3,8 @@
 #endif
 #define _neko_included
 
+#include <sdktools>
+
 // Neko Specials Inc 实用库
 
 // Global variables
@@ -42,6 +44,8 @@ static float MapStartTime;
 #define AUTOEXEC_FORMAT_BAD_FILENAME   40
 #define AUTOEXEC_FORMAT_SUCCESS        41
 
+#define AUTOEXEC_EXEC_SUCCESS 50
+
 // Time.Inc
 
 /**
@@ -68,7 +72,7 @@ stock int GetNowTime()
  * Format NowTime.
  * This function will return the time Format.
 */
-stock char GetNowTime_Format()
+stock char[] GetNowTime_Format()
 {
 	int MapTime = GetNowTime();
 	int HoursPassed		= MapTime / 60 / 60;
@@ -98,7 +102,7 @@ stock char GetNowTime_Format()
  * Returns NowTime Hours.
  * This function will return the time.
 */
-stock char GetNowTime_Hours()
+stock char[] GetNowTime_Hours()
 {
 	int HoursPassed	= GetNowTime() / 60 / 60;
 
@@ -116,7 +120,7 @@ stock char GetNowTime_Hours()
  * Returns NowTime Minutes.
  * This function will return the time.
 */
-stock char GetNowTime_Minutes()
+stock char[] GetNowTime_Minutes()
 {
 	int MinutesPassed = GetNowTime() / 60;
 
@@ -134,7 +138,7 @@ stock char GetNowTime_Minutes()
  * Returns NowTime Seconds.
  * This function will return the time.
 */
-stock char GetNowTime_Seconds()
+stock char[] GetNowTime_Seconds()
 {
 	int SecondsPassed = GetNowTime() % 60;
 
@@ -390,7 +394,7 @@ stock int GetPlayers(bool connecting)
  *
  * @return				Server IP.
 */
-stock char GetServerIP()
+stock char[] GetServerIP()
 {
 	char NetIP[32];
 	int pieces[4];
@@ -411,7 +415,7 @@ stock char GetServerIP()
  * @param time			Int Time.
  * @return				Format time. ex 00:00:00.
 */
-stock char FormatShortTime(int time)
+stock char[] FormatShortTime(int time)
 {
 	char Time[12];
 	int g_iHours = 0;
@@ -502,14 +506,14 @@ stock void CheatCommand(int client, const char[] command, const char[] arguments
 */
 stock void SuperCheatCommand(int client, const char[] command, const char[] arguments)
 {
-    if (IsValidClient(client)) return;
-    int admindata = GetUserFlagBits(client);
-    SetUserFlagBits(client, ADMFLAG_ROOT);
-    int flags = GetCommandFlags(command);
-    SetCommandFlags(command, flags & ~FCVAR_CHEAT);
-    FakeClientCommand(client, "%s %s", command, arguments);
-    SetCommandFlags(command, flags);
-    SetUserFlagBits(client, admindata);
+	if (IsValidClient(client)) return;
+	int admindata = GetUserFlagBits(client);
+	SetUserFlagBits(client, ADMFLAG_ROOT);
+	int flags = GetCommandFlags(command);
+	SetCommandFlags(command, flags & ~FCVAR_CHEAT);
+	FakeClientCommand(client, "%s %s", command, arguments);
+	SetCommandFlags(command, flags);
+	SetUserFlagBits(client, admindata);
 }
 
 // AutoExecConfig.Inc
@@ -965,83 +969,49 @@ stock int AutoExecConfig_OnceExec()
 		ServerCommand("exec %s", filebuffer);
 	}
 	
-	return AUTOEXEC_APPEND_FILE_NOT_FOUND;
+	return AUTOEXEC_EXEC_SUCCESS;
 }
 
-/**
- * Reads the existing config file and caches any convars and values that were found.
- *
- * @param str		String to search for in.
- * @return			True when config existed and could be read, false otherwise.
-*/
-stock bool AutoExecConfig_CacheConvars()
+stock int AutoExecConfig_DeleteConfig()
 {
-	if (g_hConvarTrie == null)
-		g_hConvarTrie = new StringMap();
-
-	if (strlen(g_sConfigFile) < 1)
-		return false;
+	if(strlen(g_sConfigFile) < 1)
+	return AUTOEXEC_NO_CONFIG;
 	
 	char filebuffer[PLATFORM_MAX_PATH];
 	strcopy(filebuffer, sizeof(filebuffer), g_sConfigFile);
-
-	if (!FileExists(filebuffer))
-		return false;
-
-	File fFile = OpenFile(filebuffer, "r");
-	int valuestart;
-	int valueend;
-	int cvarend;
 	
-	char sConvar[64];
-	char sValue[64];
-	char readbuffer[2048];
-	char copybuffer[2048];
-	
-	if (fFile == null)
-		return false;
-	
-	while (!fFile.EndOfFile() && fFile.ReadLine(readbuffer, sizeof(readbuffer)))
+	if(FileExists(filebuffer))
 	{
-		if (IsCharSpace(readbuffer[0]) || readbuffer[0] == '/' || !IsCharAlpha(readbuffer[0]))
-			continue;
-
-		if (GetCharCountInStr(' ', readbuffer) < 1)
-			continue;
-
-		if (GetCharCountInStr('"', readbuffer) != 2)
-			continue;
-
-		if ( (valuestart = StrContains(readbuffer, "\"")) == -1 )
-			continue;
-
-		if ( (valueend = StrContains(readbuffer[valuestart+1], "\"")) == -1 )
-			continue;
- 
-		if ( (cvarend = StrContains(readbuffer, " ")) == -1 || cvarend >= valuestart)
-			continue;
-		
-		if (cvarend >= valuestart)
-			continue;
-		
-		strcopy(copybuffer, sizeof(copybuffer), readbuffer);
-		copybuffer[cvarend] = '\0';
-		
-		strcopy(sConvar, sizeof(sConvar), copybuffer);
-		
-		strcopy(copybuffer, sizeof(copybuffer), readbuffer[valuestart+1]);
-		copybuffer[valueend] = '\0';
-		
-		strcopy(sValue, sizeof(sValue), copybuffer);
-		
-		char sTrieValue[64];
-		if (!g_hConvarTrie.GetString(sConvar, sTrieValue, sizeof(sTrieValue)))
-			g_hConvarTrie.SetString(sConvar, sValue);				
+		Format(filebuffer, sizeof(filebuffer), "cfg/%s/%s.cfg", g_sFolderPath, g_sRawFileName);
+		if(DeleteFile(filebuffer))
+			return AUTOEXEC_CLEAN_SUCCESS;
 	}
 	
-	fFile.Close();	
-	
-	g_bCacheEnabled = true;
-	
-	return true;
+	return AUTOEXEC_CLEAN_FILE_NOT_FOUND;
+}
+
+stock int AutoExecConfig_UpdateToConfig(ConVar Cvar, bool NeedReset)
+{
+	if(strlen(g_sConfigFile) < 1)
+		return AUTOEXEC_NO_CONFIG;
+
+	char ConName[128], ConDes[512], ConValue[512];
+
+	Cvar.GetName(ConName, sizeof ConName);
+	Cvar.GetDescription(ConDes, sizeof ConDes);
+
+	bool HasMax, HasMin;
+	float MaxValue, MinValue;
+
+	if(Cvar.GetBounds(ConVarBound_Upper, MaxValue))
+		HasMax = true;
+	if(Cvar.GetBounds(ConVarBound_Lower, MinValue))
+		HasMin = true;
+
+	if(NeedReset)
+		Cvar.RestoreDefault();
+
+	Cvar.GetString(ConValue, sizeof ConValue);
+
+	return AutoExecConfig_AppendValue(ConName, ConValue, ConDes, Cvar.Flags, HasMin, MinValue, HasMax, MaxValue);
 }

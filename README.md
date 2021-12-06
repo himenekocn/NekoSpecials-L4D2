@@ -5,7 +5,7 @@ Specials plugin that can be customized in real time!<br>
 插件介绍:<br>[[【求生之路2】NEKO多特插件更新内容介绍!]](https://www.bilibili.com/video/BV1Eh411n7op)<br>[[求生之路2 更好的多特与击杀统计插件]](https://www.bilibili.com/video/BV1GN411Z7um)
 
 # 插件推荐平台
-[Sourcemod-Dev6730](https://www.sourcemod.net/downloads.php?branch=dev)
+[Sourcemod-1.11-Dev6826](https://www.sourcemod.net/downloads.php?branch=dev)
 
 # 插件模块介绍
 【插件必备组件】BinHooks<br>

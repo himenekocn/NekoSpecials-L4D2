@@ -11,13 +11,18 @@ Specials plugin that can be customized in real time!<br>
 【插件必备组件】BinHooks<br>
 【插件必备组件】[dhooks](https://forums.alliedmods.net/showthread.php?p=2588686#post2588686)<br>
 【插件必备组件】[left4dhooks](https://forums.alliedmods.net/showthread.php?p=2684862)<br>
+【插件必备组件】[nativevotes](https://github.com/sapphonie/sourcemod-nativevotes-updated)(投票插件需要)<br>
 【多特本体模块】[NekoSpecials](https://himeneko.cn/nekospecials)<br>
 【击杀统计模块】NekoKillHud<br>
 【管理员快捷功能模块】NekoAdminMenu<br>
 【服务器名字功能模块】NekoServerName<br>
+【玩家特感投票模块】NekoVote 投票插件默认开关为关闭，需手动在cfg/或者管理员菜单开启<br>
 【控制坦克女巫刷新】[l4d2_boss_spawn](https://forums.alliedmods.net/showthread.php?p=2694435)（可选)（开启Special_CanCloseDirector后请配合使用）<br>
 
-# 插件指令
+# 玩家指令
+!tgvote 或者直接输入tgvote等 即可打开玩家投票菜单
+
+# 管理员指令
 !ntg					    全功能特感菜单<br>
 !ntgversion				特感版本查询/状态检查<br>
 !nhud					    HUD显示调整<br>
@@ -25,6 +30,7 @@ Specials plugin that can be customized in real time!<br>
 !reloadhudconfig	重载HUD配置文件(Neko_KillHud_binhooks.cfg)<br>
 !updateservername	手动更新服务器名字<br>
 !nekoupdate				执行检查更新<br>
+!tgvoteadmin			控制玩家投票模块
 
 # 子模式说明：
 普通模式下:<br>
@@ -45,6 +51,11 @@ Specials plugin that can be customized in real time!<br>
 无论是刷特机制，刷特位置，刷特性能等，以及开发自由度上，都比地狱模式更加优越，它不是在地狱基础上进行提升的，它是全新的更优越的算法模式。<br>
 
 # 更新日志
+6.2NS 更新日志 2021/12/08 17:20
+优化步骤，修复一些小问题
+更新投票模块
+更新boss_spawn到最新版本
+
 6.1NS 更新日志 2021/12/02 20:30<br>
 更新cfg写入, 优化代码流程
 更新至最新的1.11版本，包括语法<br>

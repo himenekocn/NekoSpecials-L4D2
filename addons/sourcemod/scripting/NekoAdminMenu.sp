@@ -8,17 +8,18 @@
 
 #define SPECIALS_AVAILABLE()	(GetFeatureStatus(FeatureType_Native, "NekoSpecials_GetSpecialsNum") == FeatureStatus_Available)
 #define NKILLHUD_AVAILABLE()	(GetFeatureStatus(FeatureType_Native, "NekoKillHud_GetStatus") == FeatureStatus_Available)
+#define VOTEMENU_AVAILABLE()	(GetFeatureStatus(FeatureType_Native, "NekoVote_VoteStatus") == FeatureStatus_Available)
 
 TopMenu top_menu = null;
-TopMenuObject obj_dmcommands, hud_menu, specials_menu;
+TopMenuObject obj_dmcommands, hud_menu, specials_menu, voteadmin_menu;
 
 public Plugin myinfo =
 {
 	name = "Neko Admin Menu",
-	description = "Neko HUD%SPECIALS Admin Menu!",
+	description = "Neko hud&specials&vote Admin Menu!",
 	author = "Neko Channel",
 	version = PLUGIN_VERSION,
-	url = "http://himeneko.cn"
+	url = "https://himeneko.cn/nekospecials"
 	//请勿修改插件信息！
 };
 
@@ -41,6 +42,7 @@ public APLRes AskPluginLoad2(Handle myself, bool late, char[] error, int err_max
 	MarkNativeAsOptional("NekoSpecials_GetPluginStatus");
 	MarkNativeAsOptional("NekoKillHud_GetStatus");
 	MarkNativeAsOptional("NekoKillHud_GetStyle");
+	MarkNativeAsOptional("NekoVote_VoteStatus");
 	
 	return APLRes_Success;
 }
@@ -66,8 +68,9 @@ public void OnAdminMenuReady(Handle aTopMenu)
 	TopMenuObject neko_menu = FindTopMenuCategory(top_menu, "nsmenu");
 	if (neko_menu == INVALID_TOPMENUOBJECT) return;
 
-	specials_menu = AddToTopMenu(top_menu, "sm_ntg", TopMenuObject_Item, AdminMenu_Neko, neko_menu, "sm_ntg", ADMFLAG_SLAY);
-	hud_menu = AddToTopMenu(top_menu, "sm_nhud", TopMenuObject_Item, AdminMenu_Neko, neko_menu, "sm_nhud", ADMFLAG_SLAY);
+	specials_menu = AddToTopMenu(top_menu, "sm_ntg", TopMenuObject_Item, AdminMenu_Neko, neko_menu, "sm_ntg", ADMFLAG_ROOT);
+	hud_menu = AddToTopMenu(top_menu, "sm_nhud", TopMenuObject_Item, AdminMenu_Neko, neko_menu, "sm_nhud", ADMFLAG_ROOT);
+	voteadmin_menu = AddToTopMenu(top_menu, "sm_tgvoteadmin", TopMenuObject_Item, AdminMenu_Neko, neko_menu, "sm_tgvoteadmin", ADMFLAG_ROOT);
 }
 
 public void CategoryHandler(TopMenu topmenu, TopMenuAction action, TopMenuObject object_id, int client, char[] buffer, int maxlength) 
@@ -152,6 +155,22 @@ public void AdminMenu_Neko(TopMenu topmenu, TopMenuAction action, TopMenuObject 
 			else
 				Format(buffer, maxlength, "HUD模块未安装");
 		}
+		else
+		if (object_id == voteadmin_menu)
+		{
+			if(VOTEMENU_AVAILABLE())
+			{
+				char statuss[64];
+				if(NekoVote_VoteStatus())
+					Format(statuss, sizeof(statuss), "开启");
+				else
+					Format(statuss, sizeof(statuss), "关闭");
+				
+				Format(buffer, maxlength, "玩家投票设置\n插件状态 [%s]", statuss);
+			}
+			else
+				Format(buffer, maxlength, "投票模块未安装");
+		}
 	}
 	else if (action == TopMenuAction_SelectOption)
 	{
@@ -160,5 +179,8 @@ public void AdminMenu_Neko(TopMenu topmenu, TopMenuAction action, TopMenuObject 
 		else
 		if (object_id == hud_menu)
 			FakeClientCommand(client, "sm_nhud");
+		else
+		if (object_id == voteadmin_menu)
+			FakeClientCommand(client, "sm_tgvoteadmin");
 	}
 }

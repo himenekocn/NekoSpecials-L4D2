@@ -7,26 +7,16 @@ void CheckDifficulty(bool ShowTips = true)
 		NCvar[CGame_Difficulty].GetString(NowDifficulty, sizeof(NowDifficulty));
 
 		if(strcmp(NowDifficulty, "Easy") == 0)
-		{
 			SetSpecialRespawnInterval(NCvar[CSpecial_Spawn_Time_Easy].IntValue);
-		}
 		else if(strcmp(NowDifficulty, "Normal") == 0)
-		{
 			SetSpecialRespawnInterval(NCvar[CSpecial_Spawn_Time_Normal].IntValue);
-		}
 		else if(strcmp(NowDifficulty, "Hard") == 0)
-		{
 			SetSpecialRespawnInterval(NCvar[CSpecial_Spawn_Time_Hard].IntValue);
-		}
 		else if(strcmp(NowDifficulty, "Impossible") == 0)
-		{
 			SetSpecialRespawnInterval(NCvar[CSpecial_Spawn_Time_Impossible].IntValue);
-		}
 	}
 	else
-	{
 		SetSpecialRespawnInterval(NCvar[CSpecial_Spawn_Time].IntValue);
-	}
 
 	Call_StartForward(N_Forward_OnSetSpecialsTime);
 	Call_Finish();
@@ -62,8 +52,7 @@ void SwitchRandom(int client)
 		PrintToChat(client, "\x05%s \x04开启了随机特感", NEKOTAG);
 		NCvar[CSpecial_Random_Mode].SetBool(true);
 	}
-	if(NCvar[CSpecial_Show_Tips].BoolValue)
-		ModeTips();
+	TgModeStartSet();
 }
 
 void SwitchPlugin(int client)
@@ -102,6 +91,9 @@ void TgModeStartSet(bool NeedSetNum = true)
 		ModeValue = GetRandomInt(1, 7);
 	else
 		ModeValue = NCvar[CSpecial_Default_Mode].IntValue;
+
+	if(NCvar[CSpecial_Show_Tips].BoolValue)
+		ModeTips();
 
 	switch(ModeValue)
 	{
@@ -256,8 +248,8 @@ void SetMaxSpecialsCount(bool ShowTips = true)
 	SetSpecialMax(cultgnum);
 
 	if(ShowTips && NCvar[CSpecial_AddNum].IntValue > 0 && 0 < NCvar[CSpecial_Default_Mode].IntValue && (oldtgnum != cultgnum))
-		CreateTimer(0.5, ShowTipsTimer);
-	
+		CreateTimer(0.2, ShowTipsTimer);
+
 	Call_StartForward(N_Forward_OnSetSpecialsNum);
 	Call_Finish();
 }
@@ -353,9 +345,7 @@ void UpdateConfigFile(bool NeedReset)
 	AutoExecConfig_DeleteConfig();
 
 	for(int i = 1;i < Cvar_Max;i++)
-	{
 		AutoExecConfig_UpdateToConfig(NCvar[i], NeedReset);
-	}
 
 	AutoExecConfig_OnceExec();
 }

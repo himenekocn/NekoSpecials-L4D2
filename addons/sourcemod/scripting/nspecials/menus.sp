@@ -4,39 +4,21 @@ public Menu SpecialMenu(int client)
 	char line[2048];
 	
 	if(NCvar[CSpecial_PluginStatus].BoolValue)
-	{
-		if(GetSpecialRunning())
-			Format(line, sizeof(line), "+|NS|+ 特感菜单\n刷特进程[已开始]\n特感数量[%d] 刷特时间[%d]", GetSpecialMax(), GetSpecialRespawnInterval());
-		else
-			Format(line, sizeof(line), "+|NS|+ 特感菜单\n刷特进程[未开始]\n特感数量[%d] 刷特时间[%d]", GetSpecialMax(), GetSpecialRespawnInterval());
-		N_MenuSpecialMenu[client].SetTitle(line);
-	}
+		Format(line, sizeof(line), "+|NS|+ 特感玩家菜单\n刷特进程[%s]\n特感数量[%d] 刷特时间[%d]", !GetSpecialRunning() ? "未开始" : "已开始", GetSpecialMax(), GetSpecialRespawnInterval());
 	else
-	{
 		Format(line, sizeof(line), "+|NS|+ 特感菜单\n插件已关闭");
-		N_MenuSpecialMenu[client].SetTitle(line);
-	}
-	
-	if(!NCvar[CSpecial_PluginStatus].BoolValue)
-	{
-		Format(line, sizeof(line), "插件状态 [关]");
-		N_MenuSpecialMenu[client].AddItem("tgstat", line);
-	}
-	else
-	{
-		Format(line, sizeof(line), "插件状态 [开]");
-		N_MenuSpecialMenu[client].AddItem("tgstat", line);
+		
+	N_MenuSpecialMenu[client].SetTitle(line);
 
-		if(NCvar[CSpecial_Random_Mode].BoolValue)
-			Format(line, sizeof(line), "随机特感 [开]");
-		else
-			Format(line, sizeof(line), "随机特感 [关]");
+	Format(line, sizeof(line), "插件目前状态 [%s]", !NCvar[CSpecial_PluginStatus].BoolValue ? "关" : "开");
+	N_MenuSpecialMenu[client].AddItem("tgstat", line);
+
+	if(NCvar[CSpecial_PluginStatus].BoolValue)
+	{
+		Format(line, sizeof(line), "随机特感状态 [%s]", !NCvar[CSpecial_Random_Mode].BoolValue ? "关" : "开");
 		N_MenuSpecialMenu[client].AddItem("tgrandom", line);
 		
-		if(GetSpecialAssault())
-			Format(line, sizeof(line), "快速反应 [开]");
-		else
-			Format(line, sizeof(line), "快速反应 [关]");
+		Format(line, sizeof(line), "快速反应状态 [%s]", !GetSpecialAssault() ? "关" : "开");
 		N_MenuSpecialMenu[client].AddItem("tgfast", line);
 
 		char nowmode[64], spawnmode[64];
@@ -44,14 +26,14 @@ public Menu SpecialMenu(int client)
 		switch(NCvar[CSpecial_Default_Mode].IntValue)
 		{
 			case 1: Format(nowmode, sizeof(nowmode), "猎人");
-			case 2: Format(nowmode, sizeof(nowmode), "牛");
+			case 2: Format(nowmode, sizeof(nowmode), "牛子");
 			case 3: Format(nowmode, sizeof(nowmode), "猴子");
 			case 4: Format(nowmode, sizeof(nowmode), "口水");
 			case 5: Format(nowmode, sizeof(nowmode), "胖子");
 			case 6: Format(nowmode, sizeof(nowmode), "舌头");
 			default: Format(nowmode, sizeof(nowmode), "默认");
 		}
-		Format(line, sizeof(line), "现在模式 [%s]", nowmode);
+		Format(line, sizeof(line), "特感游戏模式 [%s]", nowmode);
 		N_MenuSpecialMenu[client].AddItem("tgmode", line);
 		
 		switch(GetSpecialSpawnMode())
@@ -61,7 +43,7 @@ public Menu SpecialMenu(int client)
 			case 2: Format(spawnmode, sizeof(spawnmode), "噩梦");
 			case 3: Format(spawnmode, sizeof(spawnmode), "地狱");
 		}
-		Format(line, sizeof(line), "刷特模式 [%s]", spawnmode);
+		Format(line, sizeof(line), "特感刷新模式 [%s]", spawnmode);
 		N_MenuSpecialMenu[client].AddItem("tgspawn", line);
 
 		if(GetSpecialSpawnMode() != 0)
@@ -78,13 +60,9 @@ public Menu SpecialMenu(int client)
 		
 		Format(line, sizeof(line), "全局刷特时间 [%ds]", NCvar[CSpecial_Spawn_Time].IntValue);
 		if(!NCvar[CSpecial_Spawn_Time_DifficultyChange].BoolValue)
-		{
 			N_MenuSpecialMenu[client].AddItem("tgtime", line);
-		}
 		else
-		{
 			N_MenuSpecialMenu[client].AddItem("tgtime", line, ITEMDRAW_DISABLED);
-		}
 	
 		Format(line, sizeof(line), "初始刷特数量 [%d]", NCvar[CSpecial_Num].IntValue);
 		N_MenuSpecialMenu[client].AddItem("tgnum", line);
@@ -98,38 +76,26 @@ public Menu SpecialMenu(int client)
 		Format(line, sizeof(line), "玩家增加数量 [%d]", NCvar[CSpecial_PlayerAdd].IntValue);
 		N_MenuSpecialMenu[client].AddItem("tgpadd", line);
 		
-		if(NCvar[CSpecial_PlayerCountSpec].BoolValue)
-			Format(line, sizeof(line), "是否算入观察 [是]");
-		else
-			Format(line, sizeof(line), "是否算入观察 [否]");
+		Format(line, sizeof(line), "是否算入观察 [%s]", !NCvar[CSpecial_PlayerCountSpec].BoolValue ? "否" : "是");
 		N_MenuSpecialMenu[client].AddItem("tgpcspec", line);
 		
-		if(NCvar[CSpecial_Num_NotCul_Death].BoolValue)
-			Format(line, sizeof(line), "不算死亡玩家 [是]");
-		else
-			Format(line, sizeof(line), "不算死亡玩家 [否]");
+		Format(line, sizeof(line), "不算死亡玩家 [%s]", !NCvar[CSpecial_Num_NotCul_Death].BoolValue ? "否" : "是");
 		N_MenuSpecialMenu[client].AddItem("tgnculdea", line);
 
-		if(NCvar[CSpecial_Spawn_Tank_Alive].BoolValue)
-			Format(line, sizeof(line), "克活着时刷新 [是]");
-		else
-			Format(line, sizeof(line), "克活着时刷新 [否]");
+		Format(line, sizeof(line), "克活着时刷新 [%s]", !NCvar[CSpecial_Spawn_Tank_Alive].BoolValue ? "否" : "是");
 		N_MenuSpecialMenu[client].AddItem("tgtanklive", line);
 
 		if(!NCvar[CSpecial_Spawn_Tank_Alive].BoolValue)
 		{
-			if(NCvar[CSpecial_Spawn_Tank_Alive_Pro].BoolValue)
-				Format(line, sizeof(line), "克存活踢出特感 [是]");
-			else
-				Format(line, sizeof(line), "克存活踢出特感 [否]");
+			Format(line, sizeof(line), "克存活踢出特感");
 			N_MenuSpecialMenu[client].AddItem("tgtankprolive", line);
 		}
 		
+		Format(line, sizeof(line), "根据难度改变刷特时间 [%s]", !NCvar[CSpecial_Spawn_Time_DifficultyChange].BoolValue ? "否" : "是");
+		N_MenuSpecialMenu[client].AddItem("tgautotime", line);
+
 		if(NCvar[CSpecial_Spawn_Time_DifficultyChange].BoolValue)
 		{
-			Format(line, sizeof(line), "根据难度改变刷特时间 [是]");
-			N_MenuSpecialMenu[client].AddItem("tgautotime", line);
-			
 			Format(line, sizeof(line), "简单难度刷特时间 [%d]", NCvar[CSpecial_Spawn_Time_Easy].IntValue);
 			N_MenuSpecialMenu[client].AddItem("tgtimeeasy", line);
 			
@@ -141,11 +107,6 @@ public Menu SpecialMenu(int client)
 			
 			Format(line, sizeof(line), "专家难度刷特时间 [%d]", NCvar[CSpecial_Spawn_Time_Impossible].IntValue);
 			N_MenuSpecialMenu[client].AddItem("tgtimeexpert", line);
-		}
-		else
-		{
-			Format(line, sizeof(line), "根据难度改变刷特时间 [否]");
-			N_MenuSpecialMenu[client].AddItem("tgautotime", line);
 		}
 		
 		Format(line, sizeof(line), "特感种类数量 [默认模式]");
@@ -183,18 +144,11 @@ public Menu SpecialMenu(int client)
 			N_MenuSpecialMenu[client].AddItem("tgcustommindisreset", line);
 		}
 
-		if(NCvar[CSpecial_Show_Tips].BoolValue)
-			Format(line, sizeof(line), "显示插件提示 [是]");
-		else
-			Format(line, sizeof(line), "显示插件提示 [否]");
+		Format(line, sizeof(line), "显示插件提示 [%s]", !NCvar[CSpecial_Show_Tips].BoolValue ? "否" : "是");
 		N_MenuSpecialMenu[client].AddItem("tgtips", line);
 
-		if(NCvar[CSpecial_Show_Tips_Chat].BoolValue)
-			Format(line, sizeof(line), "使用聊天框提示 [是]");
-		else
-			Format(line, sizeof(line), "使用聊天框提示 [否]");
+		Format(line, sizeof(line), "使用聊天框提示 [%s]", !NCvar[CSpecial_Show_Tips_Chat].BoolValue ? "否" : "是");
 		N_MenuSpecialMenu[client].AddItem("tgtipschat", line);
-
 	}
 	
 	Format(line, sizeof(line), "重载配置文件");
@@ -206,7 +160,7 @@ public Menu SpecialMenu(int client)
 	Format(line, sizeof(line), "重置配置文件");
 	N_MenuSpecialMenu[client].AddItem("tgreset", line);
 	
-	Format(line, sizeof(line), "具体如何设置请查看CFG\n或者是插件说明\n插件版本:%s", PLUGIN_VERSION);
+	Format(line, sizeof(line), "具体如何设置请查看CFG\n或插件说明\n插件版本:%s", PLUGIN_VERSION);
 	N_MenuSpecialMenu[client].AddItem("info", line, ITEMDRAW_DISABLED);
 	
 	N_MenuSpecialMenu[client].ExitBackButton = true;
@@ -335,61 +289,21 @@ public int SpecialMenuHandler(Menu menu, MenuAction action, int client, int sele
 					SetMaxSpecialsCount();
 				}
 				if(StrEqual(items, "tgfast"))
-				{
-					if(NCvar[CSpecial_Fast_Response].BoolValue)
-						NCvar[CSpecial_Fast_Response].SetBool(false);
-					else
-						NCvar[CSpecial_Fast_Response].SetBool(true);
-				}
+					NCvar[CSpecial_Fast_Response].SetBool(!NCvar[CSpecial_Fast_Response].BoolValue);
 				if(StrEqual(items, "tgpcspec"))
-				{
-					if(NCvar[CSpecial_PlayerCountSpec].BoolValue)
-						NCvar[CSpecial_PlayerCountSpec].SetBool(false);
-					else
-						NCvar[CSpecial_PlayerCountSpec].SetBool(true);
-				}
+					NCvar[CSpecial_PlayerCountSpec].SetBool(!NCvar[CSpecial_PlayerCountSpec].BoolValue);
 				if(StrEqual(items, "tgnculdea"))
-				{
-					if(NCvar[CSpecial_Num_NotCul_Death].BoolValue)
-						NCvar[CSpecial_Num_NotCul_Death].SetBool(false);
-					else
-						NCvar[CSpecial_Num_NotCul_Death].SetBool(true);
-				}
+					NCvar[CSpecial_Num_NotCul_Death].SetBool(!NCvar[CSpecial_Num_NotCul_Death].BoolValue);
 				if(StrEqual(items, "tgtanklive"))
-				{
-					if(NCvar[CSpecial_Spawn_Tank_Alive].BoolValue)
-						NCvar[CSpecial_Spawn_Tank_Alive].SetBool(false);
-					else
-						NCvar[CSpecial_Spawn_Tank_Alive].SetBool(true);
-				}
+					NCvar[CSpecial_Spawn_Tank_Alive].SetBool(!NCvar[CSpecial_Spawn_Tank_Alive].BoolValue);
 				if(StrEqual(items, "tgtankprolive"))
-				{
-					if(NCvar[CSpecial_Spawn_Tank_Alive_Pro].BoolValue)
-						NCvar[CSpecial_Spawn_Tank_Alive_Pro].SetBool(false);
-					else
-						NCvar[CSpecial_Spawn_Tank_Alive_Pro].SetBool(true);
-				}
+					NCvar[CSpecial_Spawn_Tank_Alive_Pro].SetBool(!NCvar[CSpecial_Spawn_Tank_Alive_Pro].BoolValue);
 				if(StrEqual(items, "tgtips"))
-				{
-					if(NCvar[CSpecial_Show_Tips].BoolValue)
-						NCvar[CSpecial_Show_Tips].SetBool(false);
-					else
-						NCvar[CSpecial_Show_Tips].SetBool(true);
-				}
+					NCvar[CSpecial_Show_Tips].SetBool(!NCvar[CSpecial_Show_Tips].BoolValue);
 				if(StrEqual(items, "tgtipschat"))
-				{
-					if(NCvar[CSpecial_Show_Tips_Chat].BoolValue)
-						NCvar[CSpecial_Show_Tips_Chat].SetBool(false);
-					else
-						NCvar[CSpecial_Show_Tips_Chat].SetBool(true);
-				}
+					NCvar[CSpecial_Show_Tips_Chat].SetBool(!NCvar[CSpecial_Show_Tips_Chat].BoolValue);
 				if(StrEqual(items, "tgautotime"))
-				{
-					if(NCvar[CSpecial_Spawn_Time_DifficultyChange].BoolValue)
-						NCvar[CSpecial_Spawn_Time_DifficultyChange].SetBool(false);
-					else
-						NCvar[CSpecial_Spawn_Time_DifficultyChange].SetBool(true);
-				}
+					NCvar[CSpecial_Spawn_Time_DifficultyChange].SetBool(!NCvar[CSpecial_Spawn_Time_DifficultyChange].BoolValue);
 				if(StrEqual(items, "ismodenormal"))
 				{
 					if(NCvar[CSpecial_IsModeInNormal].IntValue == 1)
@@ -576,47 +490,17 @@ public int SpecialMenuCustomSpawnAreaHandler(Menu menu, MenuAction action, int c
 				char buffer[30];
 				menu.GetItem(selection, buffer, sizeof(buffer));
 				if(StrEqual(buffer, "charger"))
-				{
-					if(NCvar[CSpecial_Charger_Spawn_Area].BoolValue)
-						NCvar[CSpecial_Charger_Spawn_Area].SetBool(false);
-					else
-						NCvar[CSpecial_Charger_Spawn_Area].SetBool(true);
-				}
+					NCvar[CSpecial_Charger_Spawn_Area].SetBool(!NCvar[CSpecial_Charger_Spawn_Area].BoolValue);
 				if(StrEqual(buffer, "boomer"))
-				{
-					if(NCvar[CSpecial_Boomer_Spawn_Area].BoolValue)
-						NCvar[CSpecial_Boomer_Spawn_Area].SetBool(false);
-					else
-						NCvar[CSpecial_Boomer_Spawn_Area].SetBool(true);
-				}
+					NCvar[CSpecial_Boomer_Spawn_Area].SetBool(!NCvar[CSpecial_Boomer_Spawn_Area].BoolValue);
 				if(StrEqual(buffer, "spitter"))
-				{
-					if(NCvar[CSpecial_Spitter_Spawn_Area].BoolValue)
-						NCvar[CSpecial_Spitter_Spawn_Area].SetBool(false);
-					else
-						NCvar[CSpecial_Spitter_Spawn_Area].SetBool(true);
-				}
+					NCvar[CSpecial_Spitter_Spawn_Area].SetBool(!NCvar[CSpecial_Spitter_Spawn_Area].BoolValue);
 				if(StrEqual(buffer, "smoker"))
-				{
-					if(NCvar[CSpecial_Smoker_Spawn_Area].BoolValue)
-						NCvar[CSpecial_Smoker_Spawn_Area].SetBool(false);
-					else
-						NCvar[CSpecial_Smoker_Spawn_Area].SetBool(true);
-				}
+					NCvar[CSpecial_Smoker_Spawn_Area].SetBool(!NCvar[CSpecial_Smoker_Spawn_Area].BoolValue);
 				if(StrEqual(buffer, "jockey"))
-				{
-					if(NCvar[CSpecial_Jockey_Spawn_Area].BoolValue)
-						NCvar[CSpecial_Jockey_Spawn_Area].SetBool(false);
-					else
-						NCvar[CSpecial_Jockey_Spawn_Area].SetBool(true);
-				}
+					NCvar[CSpecial_Jockey_Spawn_Area].SetBool(!NCvar[CSpecial_Jockey_Spawn_Area].BoolValue);
 				if(StrEqual(buffer, "hunter"))
-				{
-					if(NCvar[CSpecial_Hunter_Spawn_Area].BoolValue)
-						NCvar[CSpecial_Hunter_Spawn_Area].SetBool(false);
-					else
-						NCvar[CSpecial_Hunter_Spawn_Area].SetBool(true);
-				}
+					NCvar[CSpecial_Hunter_Spawn_Area].SetBool(!NCvar[CSpecial_Hunter_Spawn_Area].BoolValue);
 				SpecialMenuCustomSpawnArea(client).Display(client, MENU_TIME);
 			}
 		}

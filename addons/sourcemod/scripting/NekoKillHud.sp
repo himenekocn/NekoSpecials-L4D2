@@ -74,6 +74,8 @@ public void OnPluginStart()
 
 public APLRes AskPluginLoad2(Handle myself, bool late, char[] error, int err_max)
 {
+	RegPluginLibrary("nekokillhud");
+
 	CreateNative("NekoKillHud_PlHandle", NekoKillHud_REPlHandle);
 	CreateNative("NekoKillHud_GetStatus", NekoKillHud_REGetStatus);
 	CreateNative("NekoKillHud_GetStyle", NekoKillHud_REGetStyle);

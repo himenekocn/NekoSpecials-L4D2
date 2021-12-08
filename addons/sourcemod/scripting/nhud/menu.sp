@@ -92,6 +92,9 @@ public Menu HudMenu(int client)
 	Format(line, sizeof(line), "重置配置文件");
 	N_MenuHudMenu[client].AddItem("hudreset", line);
 	
+	Format(line, sizeof(line), "具体如何设置请查看CFG\n或插件说明\n插件版本:%s", PLUGIN_VERSION);
+	N_MenuHudMenu[client].AddItem("info", line, ITEMDRAW_DISABLED);
+
 	N_MenuHudMenu[client].ExitBackButton = true;
 	return N_MenuHudMenu[client];
 }

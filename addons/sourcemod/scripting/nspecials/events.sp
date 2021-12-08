@@ -63,23 +63,29 @@ public Action BinHook_OnSpawnSpecial()
 {
 	if(!NCvar[CSpecial_Spawn_Tank_Alive].BoolValue && NCvar[CSpecial_Spawn_Tank_Alive_Pro].BoolValue)
 	{
-		for (int i = 1; i <= MaxClients; i++)
+		if(L4D2_IsTankInPlay())
 		{
-			if(!IsClientInGame(i))
-				continue;
+			for (int i = 1; i <= MaxClients; i++)
+			{
+				if(!IsClientInGame(i))
+					continue;
 			
-			if(GetClientTeam(i) != 3)
-				continue;
+				if(GetClientTeam(i) != 3)
+					continue;
 			
-			if(IsPlayerTank(i))
-				continue;
+				if(IsPlayerTank(i))
+					continue;
 
-			if(!IsFakeClient(i))
-				continue;
+				if(!IsFakeClient(i))
+					continue;
 		
-			KickClient(i, "Infected Not Allow Spawn");
+				KickClient(i, "Infected Not Allow Spawn");
+			}
 		}
 	}
+
+	if(NCvar[CSpecial_Random_Mode].BoolValue)
+		TgModeStartSet();
 
 	return Plugin_Continue;
 }

@@ -27,7 +27,7 @@ public Action SpecialVersionCMD(int client, int args)
 {
 	if(!IsClientBot(client))
 	{
-		PrintToChat(client, "\x05%s \x01Server Running On Version \x01=\x03Neko\x01=\x01 Auto Infected \x03 %s", NEKOTAG, PLUGIN_VERSION);
+		PrintToChat(client, "\x05%s \x01服务器正在运行 \x01=\x03Neko\x01=\x01 Auto Infected \x03 %s", NEKOTAG, PLUGIN_VERSION);
 		if(!NCvar[CSpecial_PluginStatus].BoolValue)
 			PrintToChat(client, "\x05%s \x04目前插件被关闭了", NEKOTAG);
 		else

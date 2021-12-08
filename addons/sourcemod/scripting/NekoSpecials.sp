@@ -104,15 +104,15 @@ public void OnPluginStart()
 
 	AutoExecConfig_OnceExec();
 	
-	HookEvent("round_start", OnRoundStart);
-	HookEvent("tank_spawn", OnTankSpawn);
-	HookEvent("tank_killed", OnTankDeath);
-	HookEvent("player_death", OnPlayerDeath);
-	HookEvent("player_spawn", OnPlayerSpawn);
-	HookEvent("mission_lost",OnRoundEnd);
-	HookEvent("round_end", OnRoundEnd);
-	HookEvent("player_team", player_team);
-	HookEvent("player_disconnect", OnPlayerDisconnect, EventHookMode_Pre);	
+	HookEvent("round_start", 		OnRoundStart);
+	HookEvent("tank_spawn", 		OnTankSpawn, 		EventHookMode_Pre);
+	HookEvent("tank_killed", 		OnTankDeath, 		EventHookMode_PostNoCopy);
+	HookEvent("player_death", 		OnPlayerDeath);
+	HookEvent("player_spawn", 		OnPlayerSpawn);
+	HookEvent("mission_lost",		OnRoundEnd);
+	HookEvent("round_end", 			OnRoundEnd);
+	HookEvent("player_team", 		player_team);
+	HookEvent("player_disconnect", 	OnPlayerDisconnect, EventHookMode_Pre);	
 	
 	RequestFrame(SetCvarHook);
 	RequestFrame(SetAISpawnInit);
@@ -121,11 +121,11 @@ public void OnPluginStart()
 	AddCommandListener(ChatListener, "say2");
 	AddCommandListener(ChatListener, "say_team");
 	
-	RegAdminCmd("sm_ntg", OpenSpecialMenu, ADMFLAG_ROOT, "打开管理员特感菜单");
-	RegAdminCmd("sm_ntgversion", SpecialVersionCMD, ADMFLAG_ROOT, "Neko多特版本&状态查询");
-	RegAdminCmd("sm_reloadntgconfig", ReloadNTGConfig, ADMFLAG_ROOT, "重载多特配置文件");
-	RegAdminCmd("sm_updatentgconfig", UpdateNTGConfig, ADMFLAG_ROOT, "写入多特配置文件");
-	RegAdminCmd("sm_resetntgconfig", ReSetNTGConfig, ADMFLAG_ROOT, "重置多特配置文件");
+	RegAdminCmd("sm_ntg", 				OpenSpecialMenu, 	ADMFLAG_ROOT, "打开管理员特感菜单");
+	RegAdminCmd("sm_ntgversion", 		SpecialVersionCMD, 	ADMFLAG_ROOT, "Neko多特版本&状态查询");
+	RegAdminCmd("sm_reloadntgconfig", 	ReloadNTGConfig, 	ADMFLAG_ROOT, "重载多特配置文件");
+	RegAdminCmd("sm_updatentgconfig",	UpdateNTGConfig, 	ADMFLAG_ROOT, "写入多特配置文件");
+	RegAdminCmd("sm_resetntgconfig",	ReSetNTGConfig, 	ADMFLAG_ROOT, "重置多特配置文件");
 }
 
 #include "nspecials/native.sp"

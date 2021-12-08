@@ -25,9 +25,7 @@ public Action ChatListener(int client, const char[] command, int args)
 			return Plugin_Handled;
 		}
 		else
-		{
 			DD = StringToInt(msg);
-		}
 	
 		if(WaitingForTgtime[client])
 		{

@@ -28,12 +28,14 @@ public Plugin myinfo =
 	description = "Neko ServerName",
 	author = "Neko Channel",
 	version = PLUGIN_VERSION,
-	url = "https://himeneko.cn"
+	url = "https://himeneko.cn/nekospecials"
 	//请勿修改插件信息！
 };
 
 public APLRes AskPluginLoad2(Handle myself, bool late, char[] error, int err_max)
 {
+	RegPluginLibrary("nekoservername");
+
 	CreateNative("NekoServerName_PlHandle", 			NekoServerName_REPlHandle);
 	
 	N_Forward_OnChangeServerName = new GlobalForward("NekoServerName_OnChangeServerName", ET_Event);

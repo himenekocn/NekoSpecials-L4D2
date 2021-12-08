@@ -369,7 +369,7 @@ stock bool IsInteger(char[] buffer)
 	for (int i = 0; i < len; i++)
 		if (!IsCharNumeric(buffer[i]))
 			return false;
-	return true;    
+	return true;
 }
 
 /**

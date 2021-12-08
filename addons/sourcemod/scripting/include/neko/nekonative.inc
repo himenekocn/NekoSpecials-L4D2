@@ -1,4 +1,4 @@
-#define PLUGIN_VERSION "6.1NS"
+#define PLUGIN_VERSION "6.2NS"
 
 //AdminMenu
 /**
@@ -29,6 +29,16 @@ native int NekoKillHud_GetStyle();
 native Handle NekoServerName_PlHandle();
 
 forward Handle NekoServerName_OnChangeServerName();
+
+//VoteMenu
+/**
+ * Returns Plugins Handle.
+ *
+ * @return				Plugins Handle.
+*/
+native Handle NekoVote_PlHandle();
+
+native bool NekoVote_VoteStatus();
 
 //Specials
 /**
@@ -79,6 +89,27 @@ native bool NekoSpecials_GetPluginStatus();
  * @return				NULL
 */
 native void NekoSpecials_ShowSpecialsTips();
+
+/**
+ * Show Specials Mode Tips
+ *
+ * @return				NULL
+*/
+native void NekoSpecials_ShowSpecialsModeTips();
+
+/**
+ * Reload Specials Plugin Config
+ *
+ * @return				NULL
+*/
+native void NekoSpecials_ReLoadAllConfig();
+
+/**
+ * Get Specials Plugin ConVar
+ *
+ * @return				ConVar[]
+*/
+native ConVar NekoSpecials_GetConVar(int ConVarNum);
 
 /**
  * Show your custom tips.

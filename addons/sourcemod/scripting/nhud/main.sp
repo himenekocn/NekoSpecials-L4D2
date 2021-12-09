@@ -132,6 +132,7 @@ public Action RefreshHUD(Handle timer)
 	{
 		if(StyleChatDelay < 0)
 		{
+			StyleChatDelay = NCvar[CKillHud_StyleChatDelay].IntValue;
 			char PlayerName[MAX_NAME_LENGTH];
 			ArrayList PlayerKillNum = new ArrayList(256, 0);
 			ArrayList PlayerFriendlyFire = new ArrayList(256, 0);
@@ -149,8 +150,14 @@ public Action RefreshHUD(Handle timer)
 			PlayerKillNum.Sort(Sort_Descending, Sort_Integer);
 			PlayerFriendlyFire.Sort(Sort_Descending, Sort_Integer);
 			PlayerFriendlyHurt.Sort(Sort_Descending, Sort_Integer);
-			
+
 			PrintToChatAll("\x05[\x03排行榜 - Rank\x05] \x04本局计时: \x03%s", GetNowTime_Format());
+			if(PlayerKillNum.Length <= 0)
+			{
+				PrintToChatAll("\x05[\x03排行榜 - Rank\x05] \x03未检测有玩家在生还队伍");
+				return Plugin_Continue;
+			}
+
 			for (int i = 0; i < PlayerKillNum.Length; i++)
 			{
 				if(i < 4)
@@ -172,7 +179,6 @@ public Action RefreshHUD(Handle timer)
 			delete PlayerKillNum;
 			delete PlayerFriendlyFire;
 			delete PlayerFriendlyHurt;
-			StyleChatDelay = NCvar[CKillHud_StyleChatDelay].IntValue;
 		}
 		else
 		StyleChatDelay--;

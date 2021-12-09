@@ -96,7 +96,7 @@ public void AdminMenu_Neko(TopMenu topmenu, TopMenuAction action, TopMenuObject 
 					switch(NekoSpecials_GetSpecialsMode())
 					{
 						case 1: Format(nowmode, sizeof(nowmode), "猎人");
-						case 2: Format(nowmode, sizeof(nowmode), "牛");
+						case 2: Format(nowmode, sizeof(nowmode), "牛子");
 						case 3: Format(nowmode, sizeof(nowmode), "猴子");
 						case 4: Format(nowmode, sizeof(nowmode), "口水");
 						case 5: Format(nowmode, sizeof(nowmode), "胖子");
@@ -112,11 +112,11 @@ public void AdminMenu_Neko(TopMenu topmenu, TopMenuAction action, TopMenuObject 
 						case 3: Format(spawnmode, sizeof(spawnmode), "地狱");
 					
 					}
-					Format(buffer, maxlength, "多特调节设置\n特感数量 [%d]\n刷特时间 [%d]\n现在模式 [%s]\n刷特模式 [%s]", NekoSpecials_GetSpecialsNum(), NekoSpecials_GetSpecialsTime(), nowmode, spawnmode);
+					Format(buffer, maxlength, "多特模块设置\n特感数量 [%d]\n刷特时间 [%d]\n现在模式 [%s]\n刷特模式 [%s]", NekoSpecials_GetSpecialsNum(), NekoSpecials_GetSpecialsTime(), nowmode, spawnmode);
 				}
 				else
 				{
-					Format(buffer, maxlength, "多特调节设置\n插件状态 [已关闭]", NekoSpecials_GetSpecialsNum(), NekoSpecials_GetSpecialsTime());
+					Format(buffer, maxlength, "多特模块设置\n插件状态 [已关闭]", NekoSpecials_GetSpecialsNum(), NekoSpecials_GetSpecialsTime());
 				}
 			}
 			else
@@ -153,7 +153,7 @@ public void AdminMenu_Neko(TopMenu topmenu, TopMenuAction action, TopMenuObject 
 				}
 			}
 			else
-				Format(buffer, maxlength, "HUD模块未安装");
+				Format(buffer, maxlength, "统计模块未安装");
 		}
 		else
 		if (object_id == voteadmin_menu)
@@ -166,7 +166,7 @@ public void AdminMenu_Neko(TopMenu topmenu, TopMenuAction action, TopMenuObject 
 				else
 					Format(statuss, sizeof(statuss), "关闭");
 				
-				Format(buffer, maxlength, "玩家投票设置\n插件状态 [%s]", statuss);
+				Format(buffer, maxlength, "玩家投票设置\n投票状态 [%s]", statuss);
 			}
 			else
 				Format(buffer, maxlength, "投票模块未安装");

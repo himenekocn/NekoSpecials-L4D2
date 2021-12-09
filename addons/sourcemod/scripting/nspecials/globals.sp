@@ -1,5 +1,4 @@
 #define PLUGIN_CONFIG "Neko_Specials_binhooks"
-#define NEKOTAG "[NS]"
 
 #define CSpecial_Fast_Response 1
 #define CSpecial_Spawn_Time 2

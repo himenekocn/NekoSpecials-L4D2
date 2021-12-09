@@ -12,15 +12,18 @@
 
 char CorePath[PLATFORM_MAX_PATH], ServerNameFormat[256];
 
-float GetMapMaxFlow, ServerName_UpdateTime;
+float GetMapMaxFlow;
 
 int RoundFailCounts;
 
-bool ServerName_AutoUpdate, ServerName_ShowTimeSeconds;
-
-ConVar CServerName_UpdateTime, CServerName_AutoUpdate, CServerName_ShowTimeSeconds;
-
 GlobalForward N_Forward_OnChangeServerName;
+
+#define ServerName_AutoUpdate 1
+#define ServerName_UpdateTime 2
+#define ServerName_ShowTimeSeconds 3
+#define Cvar_Max 4
+
+ConVar NCvar[Cvar_Max];
 
 public Plugin myinfo =
 {
@@ -56,19 +59,12 @@ public any NekoServerName_REPlHandle(Handle plugin, int numParams)
 public void OnPluginStart()
 {
 	AutoExecConfig_SetFile(PLUGIN_CONFIG);
-	AutoExecConfig_SetCreateFile(true);	//不需要生成文件请改为false
 
-	CServerName_AutoUpdate = AutoExecConfig_CreateConVar("ServerName_AutoUpdate", "1", "[0=关|1=开]禁用/启用自动更新服务器名字功能[显示路程需要打开]", _, true, 0.0, true, 1.0);
-	CServerName_UpdateTime = AutoExecConfig_CreateConVar("ServerName_UpdateTime", "15", "服务器名字自动更新延迟", _, true, 1.0, true, 120.0);
-	CServerName_ShowTimeSeconds = AutoExecConfig_CreateConVar("ServerName_ShowTimeSeconds", "1", "[0=关|1=开]禁用/启用计时显秒", _, true, 0.0, true, 1.0);
+	NCvar[ServerName_AutoUpdate] = 		AutoExecConfig_CreateConVar("ServerName_AutoUpdate", "1", "[0=关|1=开]禁用/启用自动更新服务器名字功能[显示路程需要打开]", _, true, 0.0, true, 1.0);
+	NCvar[ServerName_UpdateTime] = 		AutoExecConfig_CreateConVar("ServerName_UpdateTime", "15", "服务器名字自动更新延迟", _, true, 1.0, true, 120.0);
+	NCvar[ServerName_ShowTimeSeconds] = AutoExecConfig_CreateConVar("ServerName_ShowTimeSeconds", "1", "[0=关|1=开]禁用/启用计时显秒", _, true, 0.0, true, 1.0);
 	
 	AutoExecConfig_OnceExec();
-	
-	CServerName_AutoUpdate.AddChangeHook(CvarsChanged);
-	CServerName_UpdateTime.AddChangeHook(CvarsChanged);
-	CServerName_ShowTimeSeconds.AddChangeHook(CvarsChanged);
-	
-	GetCvarsValues();
 	
 	BuildPath(Path_SM, CorePath, sizeof(CorePath), "data/nekocustom.cfg");
 	if (!FileExists(CorePath))
@@ -85,20 +81,9 @@ public Action StartNekoUpdate(int client, int args)
 	return Plugin_Continue;
 }
 
-public void CvarsChanged(ConVar convar, const char[] oldValue, const char[] newValue)
-{
-	GetCvarsValues();
-}
-
-void GetCvarsValues()
-{
-	ServerName_AutoUpdate = CServerName_AutoUpdate.BoolValue;
-	ServerName_UpdateTime = CServerName_UpdateTime.FloatValue;
-	ServerName_ShowTimeSeconds = CServerName_ShowTimeSeconds.BoolValue;
-}
-
 public void OnMapStart()
 {
+	FindConVar("sv_hibernate_when_empty").SetInt(0);
 	StartCatchTime();
 }
 
@@ -111,8 +96,8 @@ public void OnConfigsExecuted()
 	
 	SetServerName();
 	
-	if(ServerName_AutoUpdate)
-		CreateTimer(ServerName_UpdateTime, Update_HostName, _, TIMER_REPEAT|TIMER_FLAG_NO_MAPCHANGE);
+	if(NCvar[ServerName_AutoUpdate].BoolValue)
+		CreateTimer(NCvar[ServerName_UpdateTime].FloatValue, Update_HostName, _, TIMER_REPEAT|TIMER_FLAG_NO_MAPCHANGE);
 }
 
 public void mission_lost(Event event, const char[] name, bool dontBroadcast)
@@ -199,7 +184,7 @@ stock void GetServerName(char[] buffer, int maxlength)
 
 stock void GetRunMapTime(char[] sTime, int maxlength)
 {
-	if(ServerName_ShowTimeSeconds)
+	if(NCvar[ServerName_ShowTimeSeconds].BoolValue)
 		FormatEx(sTime, maxlength, "[计时:%sm:%ss]", GetNowTime_Minutes(), GetNowTime_Seconds());
 	else
 		FormatEx(sTime, maxlength, "[计时:%sm]", GetNowTime_Minutes());

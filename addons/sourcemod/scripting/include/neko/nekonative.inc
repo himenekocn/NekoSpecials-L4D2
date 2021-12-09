@@ -1,4 +1,4 @@
-#define PLUGIN_VERSION "6.2NS"
+#define PLUGIN_VERSION "6.21NS"
 
 //AdminMenu
 /**

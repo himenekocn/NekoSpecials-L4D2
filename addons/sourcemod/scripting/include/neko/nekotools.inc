@@ -13,7 +13,7 @@ static char g_sRawFileName[PLATFORM_MAX_PATH];
 static char g_sFolderPath[PLATFORM_MAX_PATH];
 static int g_iLastFindResult;
 static int g_iLastAppendResult;
-static bool g_bCreateFile = false;
+static bool g_bCreateFile = true;
 static Handle g_hPluginHandle = null;
 
 // Maptime
@@ -45,6 +45,8 @@ static float MapStartTime;
 #define AUTOEXEC_FORMAT_SUCCESS        41
 
 #define AUTOEXEC_EXEC_SUCCESS 50
+
+#define NEKOTAG "[NS]"
 
 // Time.Inc
 

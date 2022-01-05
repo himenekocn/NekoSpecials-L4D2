@@ -558,7 +558,9 @@ public int SpecialMenuModeHandler(Menu menu, MenuAction action, int client, int 
 		{
 			if(IsValidClient(client))
 			{
-				menu.GetItem(selection, SubMenuVoteItems[client], 512);
+				char items[50];
+				menu.GetItem(selection, items, sizeof(items));
+				SubMenuVoteItems[client] = items;
 				VoteMenuItems[client] = "tgmode";
 				StartVoteYesNo(client);
 			}
@@ -606,8 +608,10 @@ public int SpecialMenuSpawnHandler(Menu menu, MenuAction action, int client, int
 		{
 			if(IsValidClient(client))
 			{
-				menu.GetItem(selection, SubMenuVoteItems[client], 512);
-				VoteMenuItems[client] = "tgmode";
+				char items[50];
+				menu.GetItem(selection, items, sizeof(items));
+				SubMenuVoteItems[client] = items;
+				VoteMenuItems[client] = "tgspawn";
 				StartVoteYesNo(client);
 			}
 		}
@@ -679,7 +683,7 @@ void StartVoteYesNo(int client)
 	}
 	if(StrEqual(VoteMenuItems[client], "tgmode"))
 	{
-		switch(StringToInt(SubMenuVoteItems[client], 512))
+		switch(StringToInt(SubMenuVoteItems[client]))
 		{
 			case 1: Format(sbuffer, sizeof(sbuffer), "猎人");
 			case 2: Format(sbuffer, sizeof(sbuffer), "牛子");
@@ -693,7 +697,7 @@ void StartVoteYesNo(int client)
 	}
 	if(StrEqual(VoteMenuItems[client], "tgspawn"))
 	{
-		switch(StringToInt(SubMenuVoteItems[client], 512))
+		switch(StringToInt(SubMenuVoteItems[client]))
 		{
 			case 0: Format(sbuffer, sizeof(sbuffer), "引擎");
 			case 1: Format(sbuffer, sizeof(sbuffer), "普通");
@@ -705,7 +709,7 @@ void StartVoteYesNo(int client)
 
 	NativeVote vote = new NativeVote(VoteYesNoH, NativeVotesType_Custom_YesNo);
 	vote.Initiator = client;
-	vote.SetDetails("投票%s %s", sbuffer, buffer);
+	vote.SetDetails("投票%s %s", buffer, sbuffer);
 	vote.DisplayVoteToAll(15);
 }
 
@@ -791,7 +795,7 @@ public int VoteYesNoH(NativeVote vote, MenuAction action, int param1, int param2
 				}
 				if(StrEqual(item, "tgmode"))
 				{
-					switch(StringToInt(SubMenuVoteItems[client], 512))
+					switch(StringToInt(SubMenuVoteItems[client]))
 					{
 						case 1: Format(sbuffer, sizeof(sbuffer), "猎人");
 						case 2: Format(sbuffer, sizeof(sbuffer), "牛子");
@@ -803,7 +807,7 @@ public int VoteYesNoH(NativeVote vote, MenuAction action, int param1, int param2
 					}
 					Format(buffer, sizeof buffer, "游戏模式为");
 
-					GCvar[CSpecial_Default_Mode].SetInt(StringToInt(SubMenuVoteItems[client], 512));
+					GCvar[CSpecial_Default_Mode].SetInt(StringToInt(SubMenuVoteItems[client]));
 
 					if(GCvar[CSpecial_Show_Tips].BoolValue)
 						NekoSpecials_ShowSpecialsModeTips();
@@ -816,7 +820,7 @@ public int VoteYesNoH(NativeVote vote, MenuAction action, int param1, int param2
 				}
 				if(StrEqual(item, "tgspawn"))
 				{
-					switch(StringToInt(SubMenuVoteItems[client], 512))
+					switch(StringToInt(SubMenuVoteItems[client]))
 					{
 						case 0: Format(sbuffer, sizeof(sbuffer), "引擎");
 						case 1: Format(sbuffer, sizeof(sbuffer), "普通");
@@ -825,11 +829,11 @@ public int VoteYesNoH(NativeVote vote, MenuAction action, int param1, int param2
 					}
 					Format(buffer, sizeof buffer, "刷特模式为");
 
-					GCvar[CSpecial_Spawn_Mode].SetInt(StringToInt(SubMenuVoteItems[client], 512));
+					GCvar[CSpecial_Spawn_Mode].SetInt(StringToInt(SubMenuVoteItems[client]));
 
 					PrintToChatAll("\x05%s \x04特感刷新方式更改为 \x03%s刷特模式", NEKOTAG, sbuffer);
 				}
-				vote.DisplayPass("投票%s %s 通过!!!", sbuffer, buffer);
+				vote.DisplayPass("投票%s %s 通过!!!", buffer, sbuffer);
 
 				cleanplayerchar(client);
 

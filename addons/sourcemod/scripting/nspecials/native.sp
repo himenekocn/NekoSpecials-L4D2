@@ -84,13 +84,11 @@ void TgModeStartSet(bool NeedSetNum = true)
 {
 	CheckDifficulty(false);
 	SetSpecialSpawnSubMode(NCvar[CSpecial_IsModeInNormal].IntValue);
-	
-	int ModeValue;
+
+	ModeValue = NCvar[CSpecial_Default_Mode].IntValue;
 
 	if(NCvar[CSpecial_Random_Mode].BoolValue)
 		ModeValue = GetRandomInt(1, 7);
-	else
-		ModeValue = NCvar[CSpecial_Default_Mode].IntValue;
 
 	if(NCvar[CSpecial_Show_Tips].BoolValue)
 		ModeTips();
@@ -170,7 +168,7 @@ void ModeTips()
 {
 	char tips[256];
 	
-	switch(NCvar[CSpecial_Default_Mode].IntValue)
+	switch(ModeValue)
 	{
 		case 1: Format(tips, sizeof(tips), "猎人模式");
 		case 2: Format(tips, sizeof(tips), "牛子模式");
@@ -191,7 +189,7 @@ void InfectedTips()
 
 	char tips[256];
 	
-	switch(NCvar[CSpecial_Default_Mode].IntValue)
+	switch(ModeValue)
 	{
 		case 1: Format(tips, sizeof(tips), "猎人模式，");
 		case 2: Format(tips, sizeof(tips), "牛子模式，");
@@ -306,6 +304,10 @@ void UpdateSpawnDistance()
 
 void UpdateNekoAllSettings()
 {
+	if(L4D2_IsTankInPlay() && !NCvar[CSpecial_Spawn_Tank_Alive].BoolValue)
+		SetSpecialRunning(false);
+	else
+		SetSpecialRunning(NCvar[CSpecial_PluginStatus].BoolValue);
 	SetAISpawnInit();
 	TgModeStartSet(false);
 	UpdateSpawnWeight();
@@ -313,6 +315,7 @@ void UpdateNekoAllSettings()
 	UpdateSpawnArea();
 	UpdateSpawnDistance();
 	SetMaxSpecialsCount(true);
+	LogMessage("[NS] Update Settings!!!");
 }
 
 void cleanplayerwait(int client)

@@ -70,7 +70,7 @@ ConVar NCvar[Cvar_Max];
 
 int MENU_TIME = 60;
 
-int MenuPageItem[MAXPLAYERS+1];
+int MenuPageItem[MAXPLAYERS+1], ModeValue;
 
 bool WaitingForTgtime[MAXPLAYERS+1], WaitingForTgnum[MAXPLAYERS+1], WaitingForTgadd[MAXPLAYERS+1], WaitingForTgCustom[MAXPLAYERS+1], WaitingForTgCustomWeight[MAXPLAYERS+1], WaitingForTgCustomDirChance[MAXPLAYERS+1], WaitingForPadd[MAXPLAYERS+1], WaitingForPnum[MAXPLAYERS+1], WaitingForTgCustomMaxDis[MAXPLAYERS+1], WaitingForTgCustomMinDis[MAXPLAYERS+1], WaitingForTgCustomMaxDisNor[MAXPLAYERS+1], WaitingForTgCustomMinDisNor[MAXPLAYERS+1], IsPlayerLeftCP;
 

@@ -5,12 +5,12 @@ Specials plugin that can be customized in real time!<br>
 插件介绍:<br>[[【求生之路2】NEKO多特插件更新内容介绍!]](https://www.bilibili.com/video/BV1Eh411n7op)<br>[[求生之路2 更好的多特与击杀统计插件]](https://www.bilibili.com/video/BV1GN411Z7um)
 
 # 插件推荐平台
-[Sourcemod-1.11-Dev6837](https://www.sourcemod.net/downloads.php?branch=dev)
+[Sourcemod-1.11-Dev6854](https://www.sourcemod.net/downloads.php?branch=dev)
 
 # 插件模块介绍
 【插件必备组件】BinHooks<br>
-【插件必备组件】[dhooks](https://forums.alliedmods.net/showthread.php?p=2588686#post2588686)<br>
-【插件必备组件】[left4dhooks](https://forums.alliedmods.net/showthread.php?p=2684862)<br>
+【插件必备组件】[dhooks](https://forums.alliedmods.net/showthread.php?p=2588686#post2588686) SM1.11-6854自带<br>
+【插件必备组件】[left4dhooks](https://forums.alliedmods.net/showthread.php?p=2684862) 请手动安装<br>
 【插件必备组件】[nativevotes](https://github.com/sapphonie/sourcemod-nativevotes-updated)(投票插件需要)<br>
 【多特本体模块】[NekoSpecials](https://himeneko.cn/nekospecials)<br>
 【击杀统计模块】NekoKillHud<br>

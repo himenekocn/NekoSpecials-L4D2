@@ -4,6 +4,10 @@ Specials plugin that can be customized in real time!<br>
 最新版本下载[点我跳转](https://himeneko.cn/nekospecials)<br>
 插件介绍:<br>[[【求生之路2】NEKO多特插件更新内容介绍!]](https://www.bilibili.com/video/BV1Eh411n7op)<br>[[求生之路2 更好的多特与击杀统计插件]](https://www.bilibili.com/video/BV1GN411Z7um)
 
+# 使用注意
+如果你是直接下载仓库内最新版本使用，请记得在出现错误或不可用时提交日志，QQ:846490391
+仓库内的版本未正式发布，有待用户提交反馈中
+
 # 插件推荐平台
 [Sourcemod-1.11-Dev6854](https://www.sourcemod.net/downloads.php?branch=dev)
 

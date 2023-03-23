@@ -34,7 +34,7 @@ public Action RefreshHUD(Handle timer)
 				}
 			}
 
-			HUDSetLayout(HUD_FAR_LEFT, HUD_FLAG_ALIGN_LEFT|HUD_FLAG_NOBG|HUD_FLAG_COUNTDOWN_WARN, leftline);
+			HUDSetLayout(HUD_FAR_LEFT, HUD_FLAG_TEXT|HUD_FLAG_ALIGN_LEFT|HUD_FLAG_NOBG|HUD_FLAG_COUNTDOWN_WARN, leftline);
 		}
 	
 		//right
@@ -51,7 +51,7 @@ public Action RefreshHUD(Handle timer)
 				}
 			}
 			
-			HUDSetLayout(HUD_FAR_RIGHT, HUD_FLAG_ALIGN_LEFT|HUD_FLAG_NOBG|HUD_FLAG_COUNTDOWN_WARN, rightline);
+			HUDSetLayout(HUD_FAR_RIGHT, HUD_FLAG_TEXT|HUD_FLAG_ALIGN_LEFT|HUD_FLAG_NOBG|HUD_FLAG_COUNTDOWN_WARN, rightline);
 		}
 	
 		//Rightbottom
@@ -62,10 +62,10 @@ public Action RefreshHUD(Handle timer)
 				Format(btnrightline, sizeof(btnrightline), "➣统计: %d特感 %d僵尸", Kill_AllInfected, Kill_AllZombie);
 			else
 				Format(btnrightline, sizeof(btnrightline), "➣统计: %d特感 %d僵尸", Kill_AllInfectedGO, Kill_AllZombieGO);
-			HUDSetLayout(HUD_SCORE_1, HUD_FLAG_ALIGN_LEFT|HUD_FLAG_NOBG|HUD_FLAG_COUNTDOWN_WARN, btnrightline);
+			HUDSetLayout(HUD_SCORE_1, HUD_FLAG_TEXT|HUD_FLAG_ALIGN_LEFT|HUD_FLAG_NOBG|HUD_FLAG_COUNTDOWN_WARN, btnrightline);
 			
 			Format(btnrightline, sizeof(btnrightline), "➣计时: %s", GetNowTime_Format());
-			HUDSetLayout(HUD_SCORE_2, HUD_FLAG_ALIGN_LEFT|HUD_FLAG_NOBG|HUD_FLAG_COUNTDOWN_WARN, btnrightline);
+			HUDSetLayout(HUD_SCORE_2, HUD_FLAG_TEXT|HUD_FLAG_ALIGN_LEFT|HUD_FLAG_NOBG|HUD_FLAG_COUNTDOWN_WARN, btnrightline);
 		}
 		delete PlayerKillNum;
 		delete PlayerFriendlyFire;

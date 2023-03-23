@@ -5,7 +5,8 @@
 #include <sdktools>
 #include <dhooks>
 #include <left4dhooks>
-#include <binhooks>
+//#include <binhooks>
+#include <l4d2_ems_hud>
 #include <neko/nekotools>
 #include <neko/nekonative>
 #include "nhud/globals.sp"
@@ -14,7 +15,7 @@ public Plugin myinfo =
 {
 	name = "Neko Kill Status HUD",
 	description = "Neko Kill Status Hud Base on Binhooks!",
-	author = "Neko Channel & Mr Cheng",
+	author = "Neko Channel",
 	version = PLUGIN_VERSION,
 	url = "https://himeneko.cn/nekospecials"
 	//请勿修改插件信息！

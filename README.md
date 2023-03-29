@@ -13,11 +13,11 @@ Specials plugin that can be customized in real time!<br>
 
 # 插件模块介绍
 【插件必备组件】BinHooks<br>
-【插件必备组件】[dhooks](https://forums.alliedmods.net/showthread.php?p=2588686#post2588686) SM1.11-6854自带<br>
-【插件必备组件】[left4dhooks](https://forums.alliedmods.net/showthread.php?p=2684862) 请手动安装<br>
-【插件必备组件】[nativevotes](https://github.com/sapphonie/sourcemod-nativevotes-updated)(投票插件需要)<br>
+【插件必备组件】[dhooks](https://forums.alliedmods.net/showthread.php?p=2588686#post2588686) SM1.11-6854后自带，不需要安装<br>
+【插件必备组件】[left4dhooks](https://forums.alliedmods.net/showthread.php?p=2684862) 请手动安装最新版本<br>
+【插件必备组件】[nativevotes](https://github.com/sapphonie/sourcemod-nativevotes-updated)(投票插件需要请安装)<br>
 【多特本体模块】[NekoSpecials](https://himeneko.cn/nekospecials)<br>
-【击杀统计模块】NekoKillHud<br>
+【击杀统计模块】NekoKillHud(已更新到独立插件版本不再需要拓展运行)<br>
 【管理员快捷功能模块】NekoAdminMenu<br>
 【服务器名字功能模块】NekoServerName<br>
 【玩家特感投票模块】NekoVote 投票插件默认开关为关闭，需手动在cfg/或者管理员菜单开启<br>
@@ -55,6 +55,9 @@ Specials plugin that can be customized in real time!<br>
 无论是刷特机制，刷特位置，刷特性能等，以及开发自由度上，都比地狱模式更加优越，它不是在地狱基础上进行提升的，它是全新的更优越的算法模式。<br>
 
 # 更新日志
+6.25NS_Test3 更新日志 2023/03/29 04:00<br>
+排行榜更换为独立插件版本，加入防闪补丁<br>
+
 6.25NS 更新日志 2022/01/06 04:00<br>
 修复随即特感bug<br>
 

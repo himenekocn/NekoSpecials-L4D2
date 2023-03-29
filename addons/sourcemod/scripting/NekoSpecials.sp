@@ -28,7 +28,7 @@ public void OnPluginStart()
 	NCvar[CSpecial_CanCloseDirector] = 				AutoExecConfig_CreateConVar("Special_CanCloseDirector", "0", "[0=关|1=开]是否插件控制导演系统开关[若刷不出坦克请关掉此选项，此选项能让单一特感刷新模式时防止其他类型的特感刷出来，如果发现开了单一特感类型刷新时会出现其他特感，请开启，开启后请配合boss_spawn插件食用]", _, true, 0.0, true, 1.0);
 	
 	NCvar[CSpecial_LeftPoint_SpawnTime] = 			AutoExecConfig_CreateConVar("Special_LeftPoint_SpawnTime", "5.0", "离开安全区域后多久刷特[默认5.0秒]", _, true, 0.1, true, 120.0);
-	NCvar[CSpecial_Spawn_Time] = 					AutoExecConfig_CreateConVar("Special_Spawn_Time", "28", "全局特感刷新时间间隔[3-180]", _, true, 3.0, true, 180.0);
+	NCvar[CSpecial_Spawn_Time] = 					AutoExecConfig_CreateConVar("Special_Spawn_Time", "10", "全局特感刷新时间间隔[3-180]", _, true, 3.0, true, 180.0);
 	NCvar[CSpecial_Spawn_Time_DifficultyChange] = 	AutoExecConfig_CreateConVar("Special_Spawn_Time_DifficultyChange", "0", "[0=关|1=开]禁用/启用根据游戏难度改变刷特时间[启用后-全局特感刷新时间间隔-将不会生效]", _, true, 0.0, true, 1.0);
 	NCvar[CSpecial_Spawn_Time_Easy] = 				AutoExecConfig_CreateConVar("Special_Spawn_Time_Easy", "25", "简单难度特感刷新时间间隔[3-180]", _, true, 3.0, true, 180.0);
 	NCvar[CSpecial_Spawn_Time_Normal] = 			AutoExecConfig_CreateConVar("Special_Spawn_Time_Normal", "20", "普通难度特感刷新时间间隔[3-180]", _, true, 3.0, true, 180.0);
@@ -51,8 +51,8 @@ public void OnPluginStart()
 	NCvar[CSpecial_Spawn_Tank_Alive_Pro] = 			AutoExecConfig_CreateConVar("Special_Spawn_Tank_Alive_Pro", "0", "[0=关|1=开]当坦克活着时，特感强制在刷新的时候被踢出[开启后可试图修复CSpecial_Spawn_Tank_Alive关闭后坦克存活依旧刷特问题]", _, true, 0.0, true, 1.0);
 	NCvar[CSpecial_AutoKill_StuckTank] = 			AutoExecConfig_CreateConVar("Special_AutoKill_StuckTank", "0", "[0=关|1=开]自动处死卡住的坦克[有防卡插件可以关闭]", _, true, 0.0, true, 1.0);
 	
-	NCvar[CSpecial_Show_Tips] = 					AutoExecConfig_CreateConVar("Special_Show_Tips", "1", "[0=关|1=开]显示特感数量改变提示", _, true, 0.0, true, 1.0);
-	NCvar[CSpecial_Show_Tips_Chat] = 				AutoExecConfig_CreateConVar("Special_Show_Tips_Chat", "0", "[0=关|1=开]将特感改变提示变为聊天框输出，关闭就使用HUD显示", _, true, 0.0, true, 1.0);
+	NCvar[CSpecial_Show_Tips] = 					AutoExecConfig_CreateConVar("Special_Show_Tips", "0", "[0=关|1=开]显示特感数量改变提示", _, true, 0.0, true, 1.0);
+	NCvar[CSpecial_Show_Tips_Chat] = 				AutoExecConfig_CreateConVar("Special_Show_Tips_Chat", "1", "[0=关|1=开]将特感改变提示变为聊天框输出，关闭就使用HUD显示", _, true, 0.0, true, 1.0);
 	
 	NCvar[CSpecial_Boomer_Num] = 					AutoExecConfig_CreateConVar("Special_Boomer_Num", "4", "Boomer最大刷新数量[当指定默认刷新模式时生效]", _, true, 0.0, true, 32.0);
 	NCvar[CSpecial_Smoker_Num] = 					AutoExecConfig_CreateConVar("Special_Smoker_Num", "4", "Smoker最大刷新数量[当指定默认刷新模式时生效]", _, true, 0.0, true, 32.0);

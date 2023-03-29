@@ -14,8 +14,9 @@ Specials plugin that can be customized in real time!<br>
 # 插件模块介绍
 【插件必备组件】BinHooks<br>
 【插件必备组件】[dhooks](https://forums.alliedmods.net/showthread.php?p=2588686#post2588686) SM1.11-6854后自带，不需要安装<br>
-【插件必备组件】[left4dhooks](https://forums.alliedmods.net/showthread.php?p=2684862) 请手动安装最新版本<br>
-【插件必备组件】[nativevotes](https://github.com/sapphonie/sourcemod-nativevotes-updated)(投票插件需要请安装)<br>
+【插件必备组件】[left4dhooks](https://forums.alliedmods.net/showthread.php?p=2684862)(请手动安装最新版本)<br>
+【插件必备组件】[nativevotes](https://github.com/sapphonie/sourcemod-nativevotes-updated)(投票插件需要，请安装)<br>
+【插件必备组件】[SourceScramble](https://github.com/nosoop/SMExt-SourceScramble/releases/tag/0.7.1)(HUD防闪补丁需要拓展，请安装)<br>
 【多特本体模块】[NekoSpecials](https://himeneko.cn/nekospecials)<br>
 【击杀统计模块】NekoKillHud(已更新到独立插件版本不再需要拓展运行)<br>
 【管理员快捷功能模块】NekoAdminMenu<br>

@@ -4,6 +4,10 @@ Specials plugin that can be customized in real time!<br>
 最新版本下载[点我跳转](https://himeneko.cn/nekospecials)<br>
 插件介绍:<br>[[【求生之路2】NEKO多特插件更新内容介绍!]](https://www.bilibili.com/video/BV1Eh411n7op)<br>[[求生之路2 更好的多特与击杀统计插件]](https://www.bilibili.com/video/BV1GN411Z7um)
 
+# HUD闪烁问题
+方法一：安装防止闪烁补丁
+方法二：更新到最新测试性修复版本，替换NekoKillHUD为库中的老版本
+
 # 解决开服等待过长问题
 Linux:<br>
 用 ip addr 获取主网卡名称<br>

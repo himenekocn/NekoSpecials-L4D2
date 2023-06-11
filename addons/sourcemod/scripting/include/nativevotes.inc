@@ -1284,6 +1284,7 @@ stock void NativeVotes_DisplayRawFailToAll(NativeVotesFailType reason=NativeVote
 	}
 	
 	NativeVotes_DisplayRawFail(players, total, reason, team);
+	return;
 }
 
 /**
@@ -1302,7 +1303,9 @@ stock void NativeVotes_DisplayRawFailToOne(int client, NativeVotesFailType reaso
 	
 	players[0] = client;
 	
+
 	NativeVotes_DisplayRawFail(players, 1, reason, team);
+	return;
 }
 
 /**

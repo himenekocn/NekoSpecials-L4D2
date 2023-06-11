@@ -148,6 +148,11 @@ public APLRes AskPluginLoad2(Handle myself, bool late, char[] error, int err_max
 	CreateNative("NekoVote_PlHandle", NekoVote_REPlHandle);
 	CreateNative("NekoVote_VoteStatus", NekoVote_REVoteStatus);
 
+	return APLRes_Success;
+}
+
+public void OnConfigsExecuted()
+{
 	for(int i=1;i < GetCvar_Max;i++)
 	{
 		if(i == CGame_Difficulty)
@@ -155,7 +160,6 @@ public APLRes AskPluginLoad2(Handle myself, bool late, char[] error, int err_max
 
 		GCvar[i] = NekoSpecials_GetConVar(i);
 	}
-	return APLRes_Success;
 }
 
 public any NekoVote_REPlHandle(Handle plugin, int numParams)

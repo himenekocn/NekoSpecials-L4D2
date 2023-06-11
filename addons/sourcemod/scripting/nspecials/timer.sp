@@ -2,7 +2,7 @@
 public Action Timer_SpawnFakeClient(Handle hTimer)
 {
 	int client = CreateFakeClient("NEKO");
-	if(IsClientBot(client))
+	if(client > 0)
 	{
 		ChangeClientTeam(client, 3)
 		KickClient(client);

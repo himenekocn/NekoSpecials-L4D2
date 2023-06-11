@@ -1,38 +1,41 @@
 # NekoSpecials
 Specials plugin that can be customized in real time!<br>
 可实时自定化的多特插件!<br>
-最新版本下载[点我跳转](https://himeneko.cn/nekospecials)<br>
+官网[点我跳转](https://himeneko.cn/nekospecials)<br>
 插件介绍:<br>[[【求生之路2】NEKO多特插件更新内容介绍!]](https://www.bilibili.com/video/BV1Eh411n7op)<br>[[求生之路2 更好的多特与击杀统计插件]](https://www.bilibili.com/video/BV1GN411Z7um)
 
-# HUD闪烁问题
-方法一：安装防止闪烁补丁
-方法二：更新到最新测试性修复版本，替换NekoKillHUD为库中的老版本
+# 插件版HUD闪烁问题
+方法一：安装防止闪烁补丁（6.30包已经自带）
+方法二：替换NekoKillHUD为拓展版本
 
-# 解决开服等待过长问题
+# 解决开服等待过长问题（老版本，6.30已解决）
 Linux:<br>
 用 ip addr 获取主网卡名称<br>
 然后输入<br>
 ip route add 101.43.237.219 via 0.0.0.0 dev 网卡名称<br>
+Win:<br>
+添加一个虚拟网卡，设置虚拟网卡Ipv4为101.43.237.219
 
 # 使用注意
 如果你是直接下载仓库内最新版本使用，请记得在出现错误或不可用时提交日志，QQ:846490391
-仓库内的版本未正式发布，有待用户提交反馈中
 
 # 插件推荐平台
-[Sourcemod-1.11-Dev6854](https://www.sourcemod.net/downloads.php?branch=dev)
+[Sourcemod-1.11-Dev6854](https://www.sourcemod.net/downloads.php?branch=dev)<br>
+保持最新插件稳定平台就是啦！
 
 # 插件模块介绍
 【插件必备组件】BinHooks<br>
 【插件必备组件】[dhooks](https://forums.alliedmods.net/showthread.php?p=2588686#post2588686) SM1.11-6854后自带，不需要安装<br>
 【插件必备组件】[left4dhooks](https://forums.alliedmods.net/showthread.php?p=2684862)(请手动安装最新版本)<br>
-【插件必备组件】[nativevotes](https://github.com/sapphonie/sourcemod-nativevotes-updated)(投票插件需要，请安装)<br>
-【插件必备组件】[SourceScramble](https://github.com/nosoop/SMExt-SourceScramble/releases/tag/0.7.1)(HUD防闪补丁需要拓展，请安装)<br>
+【插件必备组件】[nativevotes](https://github.com/sapphonie/sourcemod-nativevotes-updated)(仓库版本自带)<br>
+【插件必备组件】[SourceScramble](https://github.com/nosoop/SMExt-SourceScramble/releases/tag/0.7.1)(仓库版本自带，插件版HUD需要)<br>
 【多特本体模块】[NekoSpecials](https://himeneko.cn/nekospecials)<br>
-【击杀统计模块】NekoKillHud(已更新到独立插件版本不再需要拓展运行)<br>
+【击杀统计模块】NekoKillHud<br>
 【管理员快捷功能模块】NekoAdminMenu<br>
 【服务器名字功能模块】NekoServerName<br>
 【玩家特感投票模块】NekoVote 投票插件默认开关为关闭，需手动在cfg/或者管理员菜单开启<br>
-【控制坦克女巫刷新】[l4d2_boss_spawn](https://forums.alliedmods.net/showthread.php?p=2694435)（可选)（开启Special_CanCloseDirector后请配合使用）<br>
+【控制坦克女巫刷新】[l4d2_boss_spawn](https://forums.alliedmods.net/showthread.php?p=2694435)(可选)(开启Special_CanCloseDirector后请配合使用)<br>
+【击杀统计模块插件版】NekoKillHud-Plu(默认使用拓展版本，插件版在disabled文件夹中)<br>
 
 # 玩家指令
 !tgvote 或者直接输入tgvote等 即可打开玩家投票菜单
@@ -66,31 +69,8 @@ ip route add 101.43.237.219 via 0.0.0.0 dev 网卡名称<br>
 无论是刷特机制，刷特位置，刷特性能等，以及开发自由度上，都比地狱模式更加优越，它不是在地狱基础上进行提升的，它是全新的更优越的算法模式。<br>
 
 # 更新日志
-6.25NS_Test3 更新日志 2023/03/29 04:00<br>
-排行榜更换为独立插件版本，加入防闪补丁<br>
-
-6.25NS 更新日志 2022/01/06 04:00<br>
-修复随即特感bug<br>
-
-6.24NS 更新日志 2022/01/06 03:50<br>
-修复投票小bug<br>
-
-6.23NS 更新日志 2022/01/06 03:30<br>
-修复投票崩溃问题<br>
-
-6.21NS 更新日志 2021/12/09 14:58<br>
-服务器名字模块增加防止服务器休眠参数
-HUD模块修复了下聊天栏样式的问题<br>
-
-6.2NS 更新日志 2021/12/08 17:20<br>
-优化步骤，修复一些小问题
-更新投票模块
-更新boss_spawn到最新版本<br>
-
-6.1NS 更新日志 2021/12/02 20:30<br>
-更新cfg写入, 优化代码流程
-更新至最新的1.11版本，包括语法<br>
-
+6.30NS 更新日志 2023/06/1 22:20<br>
+小更新<br>
 
 # 使用规范
-使用本插件时请遵守总监的使用规范，勿将本插件用作与商用，有BUG问题等请联系作者：846490391
+使用本插件时请遵守顾问的使用规范，勿将本插件用作商用(RPG)，有BUG问题等请联系作者：846490391

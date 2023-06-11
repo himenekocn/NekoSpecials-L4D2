@@ -4,9 +4,9 @@ public Menu SpecialMenu(int client)
 	char line[2048];
 	
 	if(NCvar[CSpecial_PluginStatus].BoolValue)
-		Format(line, sizeof(line), "+|NS|+ 特感玩家菜单\n刷特进程[%s]\n特感数量[%d] 刷特时间[%d]", !GetSpecialRunning() ? "未开始" : "已开始", GetSpecialMax(), GetSpecialRespawnInterval());
+		Format(line, sizeof(line), "+|NS|+ 特感菜单\n刷特进程[%s]\n特感数量[%d] 刷特时间[%d]", !GetSpecialRunning() ? "未开始" : "已开始", GetSpecialMax(), GetSpecialRespawnInterval());
 	else
-		Format(line, sizeof(line), "+|NS|+ 特感菜单\n插件已关闭");
+		Format(line, sizeof(line), "+|NS|+ 特感菜单\n插件关闭");
 		
 	N_MenuSpecialMenu[client].SetTitle(line);
 

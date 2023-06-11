@@ -131,14 +131,6 @@ public void OnPluginStart()
 
 	AutoExecConfig_OnceExec();
 
-	for(int i=1;i < GetCvar_Max;i++)
-	{
-		if(i == CGame_Difficulty)
-			continue;
-
-		GCvar[i] = NekoSpecials_GetConVar(i);
-	}
-
 	HookEventEx("player_disconnect", 	Event_PlayerDisconnect, 	EventHookMode_Pre);
 
 	AddCommandListener(ChatListener, "say");
@@ -155,6 +147,14 @@ public APLRes AskPluginLoad2(Handle myself, bool late, char[] error, int err_max
 	RegPluginLibrary("nekovote");
 	CreateNative("NekoVote_PlHandle", NekoVote_REPlHandle);
 	CreateNative("NekoVote_VoteStatus", NekoVote_REVoteStatus);
+
+	for(int i=1;i < GetCvar_Max;i++)
+	{
+		if(i == CGame_Difficulty)
+			continue;
+
+		GCvar[i] = NekoSpecials_GetConVar(i);
+	}
 	return APLRes_Success;
 }
 

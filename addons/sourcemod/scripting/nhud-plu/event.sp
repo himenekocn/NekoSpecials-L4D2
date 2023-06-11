@@ -16,6 +16,7 @@ public void OnClientConnected(int client)
 
 public void OnMapStart()
 {
+	EnableHUD();
 	HudRunning = false;
 	StyleChatDelay = NCvar[CKillHud_StyleChatDelay].IntValue;
 	StartCatchTime();
@@ -43,7 +44,7 @@ public Action Event_PlayerHurt(Event event, const char[] name, bool dontBroadcas
 	int attacker = GetClientOfUserId(GetEventInt(event, "attacker"));
 	int damage = GetEventInt(event, "dmg_health");
 		
-	if (IsValidClient(victim) && IsValidClient(attacker) && victim != attacker && GetClientTeam(victim) == 2 && !IsFakeClient(attacker))
+	if (IsValidClient(victim) && IsValidClient(attacker) && victim != attacker && GetClientTeam(victim) == 2 && GetClientTeam(attacker) == 2 && !IsFakeClient(attacker))
 	{
 		Friendly_Hurt[victim] += damage;
 		Friendly_Fire[attacker] += damage;
@@ -101,7 +102,7 @@ public Action PlayerLeftStart(Handle Timer)
 public Action Event_Round_End(Event event, const char[] name, bool dontBroadcast)
 {
 	HudRunning = false;
-	Kill_Init();
+	//Kill_Init();
 	return Plugin_Continue;
 }
 

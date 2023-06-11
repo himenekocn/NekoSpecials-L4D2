@@ -131,7 +131,7 @@ public void AdminMenu_Neko(TopMenu topmenu, TopMenuAction action, TopMenuObject 
 			{
 				if(NekoKillHud_GetStyle() == 0)
 				{
-					Format(buffer, maxlength, "击杀统计设置\nHUD状态 [已关闭]");
+					Format(buffer, maxlength, "击杀统计设置\n插件状态 [已关闭]");
 				}
 				else
 				{
@@ -149,7 +149,7 @@ public void AdminMenu_Neko(TopMenu topmenu, TopMenuAction action, TopMenuObject 
 						case 4:Format(style, sizeof(style), "聊天栏");
 					}
 
-					Format(buffer, maxlength, "击杀统计设置\nHUD状态 [%s]\nHUD样式 [%s]", statuss, style);
+					Format(buffer, maxlength, "击杀统计设置\n插件状态 [%s]\n显示样式 [%s]", statuss, style);
 				}
 			}
 			else
@@ -168,6 +168,8 @@ public void AdminMenu_Neko(TopMenu topmenu, TopMenuAction action, TopMenuObject 
 				
 				Format(buffer, maxlength, "玩家投票设置\n投票状态 [%s]", statuss);
 			}
+			else if (!IsDedicatedServer())
+				Format(buffer, maxlength, "投票模块不支持");
 			else
 				Format(buffer, maxlength, "投票模块未安装");
 		}

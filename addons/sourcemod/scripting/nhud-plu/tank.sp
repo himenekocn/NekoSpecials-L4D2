@@ -25,7 +25,7 @@ public Action KillTankHUD(Handle timer)
 				Format(tankline, sizeof(tankline), "%s%s", tankline, tankline2);
 			}
 		}
-		HUDSetLayout(HUD_MID_BOX, HUD_FLAG_ALIGN_LEFT|HUD_FLAG_NOBG|HUD_FLAG_COUNTDOWN_WARN, tankline);
+		HUDSetLayout(HUD_MID_BOX, HUD_FLAG_TEXT|HUD_FLAG_ALIGN_LEFT|HUD_FLAG_NOBG|HUD_FLAG_COUNTDOWN_WARN, tankline);
 		if(NCvar[CKillHud_HudStyle].IntValue == 3)
 		{
 			float xy[2];

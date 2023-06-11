@@ -1,3 +1,15 @@
+
+public Action Timer_SpawnFakeClient(Handle hTimer)
+{
+	int client = CreateFakeClient("NEKO");
+	if(IsClientBot(client))
+	{
+		ChangeClientTeam(client, 3)
+		KickClient(client);
+	}
+	return Plugin_Stop;
+}
+
 public Action Timer_DelaySpawnInfected(Handle hTimer)
 {
 	SetSpecialRunning(NCvar[CSpecial_PluginStatus].BoolValue);

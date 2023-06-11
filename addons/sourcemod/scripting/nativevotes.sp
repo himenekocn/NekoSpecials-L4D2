@@ -112,6 +112,8 @@ int g_ClientVotes[MAXPLAYERS+1];
 bool g_bRevoting[MAXPLAYERS+1];
 char g_LeaderList[1024];
 
+ConVar sv_vote_holder_may_vote_no;
+
 // Map list stuffs
 
 #define STRINGTABLE_NAME					"ServerMapCycle"
@@ -262,6 +264,8 @@ public void OnPluginStart()
 
 	AddCommandListener(Command_Vote, "vote"); // All games, command listeners aren't case sensitive
 	
+	sv_vote_holder_may_vote_no = FindConVar("sv_vote_holder_may_vote_no");
+	
 	// The new version of the CallVote system is TF2 only
 	if (Game_AreVoteCommandsSupported())
 	{
@@ -391,7 +395,7 @@ public Action Command_CallVote(int client, const char[] command, int argc)
 		return Plugin_Continue;
 	}
 	
-	if (Internal_IsVoteInProgress() || Game_IsVoteInProgress())
+	if (Internal_IsVoteInProgress() || Game_IsVoteInProgress() || !IsClientInGame(client))
 	{
 		return Plugin_Handled;
 	}
@@ -655,33 +659,36 @@ public void OnMapEnd()
 
 public Action Command_Vote(int client, const char[] command, int argc)
 {
+#if defined LOG
+	char voteString[128];
+	GetCmdArgString(voteString, sizeof(voteString));
+	LogMessage("Client %N ran a vote command: %s", client, voteString);
+#endif
+	
 	// If we're not running a vote, return the vote control back to the server
 	if (!Internal_IsVoteInProgress() || g_ClientVotes[client] != VOTE_PENDING)
 	{
 		return Plugin_Continue;
 	}
 	
-	char option[32];
-	GetCmdArg(1, option, sizeof(option));
+	char option[64];
+	GetCmdArgString(option, sizeof(option));
 	
 	int item = Game_ParseVote(option);
 	
-	bool cancel;
-
-	if (item == NATIVEVOTES_VOTE_INVALID)
+	// Make sure we don't go out of bounds on the vote
+	if (item == NATIVEVOTES_VOTE_INVALID || item > g_Items)
 	{
-		cancel = true;
+		return Plugin_Handled;
 	}
+
+	bool cancel;
 	
 	if (Data_GetFlags(g_hCurVote) & MENUFLAG_BUTTON_NOVOTE && item == 0)
 	{
 		cancel = true;
 	}
 
-	/*
-	 * If they choose no vote or the vote is invalid (typed command), then
-	 * treat it as no vote and adjust the numbers.
-	 */
 	if (cancel)
 	{
 		OnCancel(g_hCurVote, client, MenuCancel_Exit);
@@ -1118,6 +1125,10 @@ void EndVoting()
 	 */
 	NativeVote vote = g_hCurVote;
 	Internal_Reset();
+	
+#if defined LOG
+	LogMessage("Voting done");
+#endif
 	
 	/* Send vote info */
 	OnVoteResults(vote, votes, num_votes, num_items, client_list, num_clients);
@@ -2006,7 +2017,10 @@ public int Native_RedrawClientVote(Handle plugin, int numParams)
 	
 	if (!Internal_IsVoteInProgress())
 	{
-		ThrowNativeError(SP_ERROR_NATIVE, "No vote is in progress");
+		// When revoting in TF2, NativeVotes_IsVoteInProgress always gets skipped because of Game_IsVoteInProgress() 
+		// 	TF2s vote controller will stay alive a few seconds after the vote is complete
+		// 	If one tries to revote right as a vote completes, it will throw an error
+		LogError("No vote is in progress");
 		return false;
 	}
 	

@@ -151,6 +151,12 @@ public void OnConfigsExecuted()
 	}
 }
 
+//Try to fix lag when specials spawn at first time.
+public void OnMapStart()
+{
+	CreateTimer(0.1, Timer_SpawnFakeClient);
+}
+
 public void OnMapEnd()
 {
 	SetSpecialRunning(false);

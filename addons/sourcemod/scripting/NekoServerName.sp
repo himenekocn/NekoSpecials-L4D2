@@ -68,11 +68,13 @@ public void OnPluginStart()
 	
 	BuildPath(Path_SM, CorePath, sizeof(CorePath), "data/nekocustom.cfg");
 	if (!FileExists(CorePath))
-		SetFailState("[Neko] The Custom file does not exist: %s", CorePath);
+		SetFailState("[Neko] 自定义配置文件丢失: %s", CorePath);
 	
 	HookEvent("mission_lost", mission_lost, EventHookMode_Pre);
 	
 	RegAdminCmd("sm_updateservername", StartNekoUpdate, ADMFLAG_ROOT, "执行服务器名字更新");
+	RegAdminCmd("sm_host", StartNekoUpdate, ADMFLAG_ROOT, "执行服务器名字更新");
+	RegAdminCmd("sm_hosts", StartNekoUpdate, ADMFLAG_ROOT, "执行服务器名字更新");
 }
 
 public Action StartNekoUpdate(int client, int args)
@@ -140,8 +142,12 @@ void SetServerName()
 		ReplaceString(ServerName, sizeof(ServerName), "{specials}", snum, false);
 		ReplaceString(ServerName, sizeof(ServerName), "{times}", stime, false);
 	}
-	
-	ReplaceString(ServerName, sizeof(ServerName), "{servernum}", ServerPort[4], false);
+
+	if(IsNullString(ServerPort[4]))
+		ReplaceString(ServerName, sizeof(ServerName), "{servernum}", ServerPort[3], false);
+	else
+		ReplaceString(ServerName, sizeof(ServerName), "{servernum}", ServerPort[4], false);
+
 	ReplaceString(ServerName, sizeof(ServerName), "{restartcount}", restartcount, false);
 	
 	if(L4D_HasAnySurvivorLeftSafeArea())
@@ -169,6 +175,8 @@ void SetServerName()
 	
 	FindConVar("hostname").SetString(ServerName, true, false);
 	
+	FindConVar("sv_hibernate_when_empty").SetInt(0);
+
 	Call_StartForward(N_Forward_OnChangeServerName);
 	Call_Finish(N_Forward_OnChangeServerName);
 }

@@ -23,11 +23,20 @@ Win:<br>
 [Sourcemod-1.11-Dev6854](https://www.sourcemod.net/downloads.php?branch=dev)<br>
 保持最新插件稳定平台就是啦！
 
+# 插件安装
+1.安装Sourcemod插件平台到1.11/1.12最新版本<br>
+2.安装[left4dhooks](https://forums.alliedmods.net/showthread.php?p=2684862)最新版本<br>
+3.需要投票的安装[nativevotes](https://github.com/sapphonie/sourcemod-nativevotes-updated)最新版本，不需要的可以忽略<br>
+4.将插件拖到服务器的left4dead2文件夹中覆盖addons<br>
+5.修改插件对应cfg
+
+# 注意：插件不生效请查看错误日志输入，日志在addons/sourcemod/logs里面，error开头就是
+
 # 插件模块介绍
 【插件必备组件】BinHooks<br>
 【插件必备组件】[dhooks](https://forums.alliedmods.net/showthread.php?p=2588686#post2588686) SM1.11-6854后自带，不需要安装<br>
 【插件必备组件】[left4dhooks](https://forums.alliedmods.net/showthread.php?p=2684862)(请手动安装最新版本)<br>
-【插件必备组件】[nativevotes](https://github.com/sapphonie/sourcemod-nativevotes-updated)(仓库版本自带)<br>
+【插件必备组件】[nativevotes](https://github.com/sapphonie/sourcemod-nativevotes-updated)(请手动安装最新版本)<br>
 【插件必备组件】[SourceScramble](https://github.com/nosoop/SMExt-SourceScramble/releases/tag/0.7.1)(仓库版本自带，插件版HUD需要)<br>
 【多特本体模块】[NekoSpecials](https://himeneko.cn/nekospecials)<br>
 【击杀统计模块】NekoKillHud<br>

@@ -27,7 +27,7 @@ Win:<br>
 1.安装Sourcemod插件平台到1.11/1.12最新版本<br>
 2.安装[left4dhooks](https://forums.alliedmods.net/showthread.php?p=2684862)最新版本<br>
 3.需要投票的安装[nativevotes](https://github.com/sapphonie/sourcemod-nativevotes-updated)最新版本，不需要的可以忽略<br>
-4.将插件拖到服务器的left4dead2文件夹中覆盖addons<br>
+4.下载[插件](https://ghproxy.com/https://github.com/himenekocn/NekoSpecials-L4D2/archive/refs/heads/NSPRE-SM1.11+.zip)，将插件拖到服务器的left4dead2文件夹中覆盖addons<br>
 5.修改插件对应cfg
 
 # 注意：插件不生效请查看错误日志输入，日志在addons/sourcemod/logs里面，error开头就是

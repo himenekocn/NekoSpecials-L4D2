@@ -27,20 +27,12 @@ public Action UpdateHUDConfig(int client, int args)
 public Menu HudMenu(int client)
 {
 	N_MenuHudMenu[client] = new Menu(HudMenuHandler);
-	char line[1024], status[64];
+	char line[1024];
 
 	Format(line, sizeof(line), "+|NS|+  HUD菜单\n选择一项更改");
 	N_MenuHudMenu[client].SetTitle(line);
 
-	switch (NCvar[CKillHud_HudStyle].IntValue)
-	{
-		case 1: Format(status, sizeof(status), "样式1");
-		case 2: Format(status, sizeof(status), "样式2");
-		case 3: Format(status, sizeof(status), "自定义");
-		case 4: Format(status, sizeof(status), "聊天栏");
-		default: Format(status, sizeof(status), "关");
-	}
-	Format(line, sizeof(line), "插件状态 [%s]", status);
+	Format(line, sizeof(line), "插件状态 [%s]", HudStyleName[NCvar[CKillHud_HudStyle].IntValue]);
 	N_MenuHudMenu[client].AddItem("hudstyle", line);
 
 	if (NCvar[CKillHud_FriendlyFire].BoolValue)

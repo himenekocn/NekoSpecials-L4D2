@@ -69,9 +69,11 @@ enum struct GlobalState
 	}
 }
 
+GlobalState Neko_GlobalState;
+
 bool		TankAlive, HudRunning, IsMapTransition;
 
-GlobalState Neko_GlobalState;
+char   		HudStyleName[5][50] = { "关闭中", "样式1", "样式2", "自定义", "聊天栏" };
 
 int			StyleChatDelay;
 

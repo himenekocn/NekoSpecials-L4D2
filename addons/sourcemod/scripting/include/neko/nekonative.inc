@@ -1,123 +1,123 @@
-#define PLUGIN_VERSION "6.31NS"
+#define PLUGIN_VERSION "6.32NS"
 
-//AdminMenu
+// AdminMenu
 /**
  * Returns Plugins Handle.
  *
  * @return				Plugins Handle.
-*/
-native Handle NekoAdminMenu_PlHandle();
+ */
+native Handle  NekoAdminMenu_PlHandle();
 
-//KillHUD
+// KillHUD
 /**
  * Returns Plugins Handle.
  *
  * @return				Plugins Handle.
-*/
-native Handle NekoKillHud_PlHandle();
+ */
+native Handle  NekoKillHud_PlHandle();
 
-native bool NekoKillHud_GetStatus();
+native bool	   NekoKillHud_GetStatus();
 
-native int NekoKillHud_GetStyle();
+native int	   NekoKillHud_GetStyle();
 
-//ServerName
+// ServerName
 /**
  * Returns Plugins Handle.
  *
  * @return				Plugins Handle.
-*/
-native Handle NekoServerName_PlHandle();
+ */
+native Handle  NekoServerName_PlHandle();
 
 forward Handle NekoServerName_OnChangeServerName();
 
-//VoteMenu
+// VoteMenu
 /**
  * Returns Plugins Handle.
  *
  * @return				Plugins Handle.
-*/
-native Handle NekoVote_PlHandle();
+ */
+native Handle  NekoVote_PlHandle();
 
-native bool NekoVote_VoteStatus();
+native bool	   NekoVote_VoteStatus();
 
-//Specials
+// Specials
 /**
  * Returns Plugins Handle.
  *
  * @return				Plugins Handle.
-*/
-native Handle NekoSpecials_PlHandle();
+ */
+native Handle  NekoSpecials_PlHandle();
 
 /**
  * Returns Spawn Mode
  *
  * @return				Spawn Mode.
-*/
-native int NekoSpecials_GetSpawnMode();
+ */
+native int	   NekoSpecials_GetSpawnMode();
 
 /**
  * Returns Specials Num
  *
  * @return				Specials Num.
-*/
-native int NekoSpecials_GetSpecialsNum();
+ */
+native int	   NekoSpecials_GetSpecialsNum();
 
 /**
  * Returns Specials Spawn Time
  *
  * @return				Specials Spawn Time.
-*/
-native int NekoSpecials_GetSpecialsTime();
+ */
+native int	   NekoSpecials_GetSpecialsTime();
 
 /**
  * Returns Specials Mode
  *
  * @return				Specials Mode.
-*/
-native int NekoSpecials_GetSpecialsMode();
+ */
+native int	   NekoSpecials_GetSpecialsMode();
 
 /**
  * Returns Plugin Status
  *
  * @return				Status.
-*/
-native bool NekoSpecials_GetPluginStatus();
+ */
+native bool	   NekoSpecials_GetPluginStatus();
 
 /**
  * Show Specials Tips
  *
  * @return				NULL
-*/
-native void NekoSpecials_ShowSpecialsTips();
+ */
+native void	   NekoSpecials_ShowSpecialsTips();
 
 /**
  * Show Specials Mode Tips
  *
  * @return				NULL
-*/
-native void NekoSpecials_ShowSpecialsModeTips();
+ */
+native void	   NekoSpecials_ShowSpecialsModeTips();
 
 /**
  * Reload Specials Plugin Config
  *
  * @return				NULL
-*/
-native void NekoSpecials_ReLoadAllConfig();
+ */
+native void	   NekoSpecials_ReLoadAllConfig();
 
 /**
  * Get Specials Plugin ConVar
  *
  * @return				ConVar[]
-*/
-native ConVar NekoSpecials_GetConVar(int ConVarNum);
+ */
+native ConVar  NekoSpecials_GetConVar(int ConVarNum);
 
 /**
  * Show your custom tips.
  *
  * @param TipsFormat	What you want to display.
  * @return				NULL.
-*/
-native void NekoSpecials_ShowYourTips(const char[] TipsFormat);
+ */
+native void	   NekoSpecials_ShowYourTips(const char[] TipsFormat);
 
 forward Action NekoSpecials_OnSetSpecialsNum();
 

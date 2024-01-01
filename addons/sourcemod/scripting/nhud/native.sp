@@ -31,18 +31,9 @@ stock void Kill_Init()
 {
 	for (int i = 1; i <= MaxClients; i++)
 	{
-		Kill_Init_Client(i);
+		Neko_ClientInfo[i].Reset();
 	}
-	Kill_AllZombie = 0, Kill_AllInfected = 0;
-}
-
-stock void Kill_Init_Client(int client)
-{
-	Kill_Infected[client] = 0;
-	Kill_Zombie[client] = 0;
-	Friendly_Fire[client] = 0;
-	DmgToTank[client] = 0;
-	Friendly_Hurt[client] = 0;
+	Neko_GlobalState.Reset();
 }
 
 void UpdateConfigFile(bool NeedReset)

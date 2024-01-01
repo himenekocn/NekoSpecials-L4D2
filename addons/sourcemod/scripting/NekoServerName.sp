@@ -68,13 +68,38 @@ public void OnPluginStart()
 	
 	BuildPath(Path_SM, CorePath, sizeof(CorePath), "data/nekocustom.cfg");
 	if (!FileExists(CorePath))
-		SetFailState("[Neko] 自定义配置文件丢失: %s", CorePath);
+		CreateConfigFire();
 	
 	HookEvent("mission_lost", mission_lost, EventHookMode_Pre);
 	
 	RegAdminCmd("sm_updateservername", StartNekoUpdate, ADMFLAG_ROOT, "执行服务器名字更新");
 	RegAdminCmd("sm_host", StartNekoUpdate, ADMFLAG_ROOT, "执行服务器名字更新");
 	RegAdminCmd("sm_hosts", StartNekoUpdate, ADMFLAG_ROOT, "执行服务器名字更新");
+}
+
+void CreateConfigFire()
+{
+	Handle WriteConfig = OpenFile(CorePath, "w");
+	if(WriteConfig == INVALID_HANDLE)
+		SetFailState("[Neko] 自定义配置文件创建失败: %s", CorePath);
+
+	WriteFileLine(WriteConfig, "\"Settings\"");
+	WriteFileLine(WriteConfig, "{");
+	WriteFileLine(WriteConfig, "	\"KillHud_KillTankTitle\"			\"本次对Tank伤害\"");
+	WriteFileLine(WriteConfig, "	\"KillHud_KillSpecialsTitle\"		\"击杀排行\"");
+	WriteFileLine(WriteConfig, "	\"KillHud_FriendlyFireTitle\"		\"黑枪排行\"");
+	WriteFileLine(WriteConfig, "	\"ServerNameFormat\"			\"XX多特{servernum}服[{specials}特{times}秒][重启:{restartcount}|路程:{flow}]{maptime}\"");
+	WriteFileLine(WriteConfig, "}");
+
+	WriteFileLine(WriteConfig, "//以下为自定义服务器名字能加入的参数，根据个人选择加入");
+	WriteFileLine(WriteConfig, "//{servernum} 		服务器数字 服务器端口后缀 27015 的 5 就是你的服务器数字");
+	WriteFileLine(WriteConfig, "//{specials} 		目前多特数量，需要搭配Neko多特插件");
+	WriteFileLine(WriteConfig, "//{times} 			目前多特刷新时间，需要搭配Neko多特插件");
+	WriteFileLine(WriteConfig, "//{restartcount} 	失败重启次数");
+	WriteFileLine(WriteConfig, "//{flow} 			当前玩家的路程");
+	WriteFileLine(WriteConfig, "//{maptime}			目前地图时间，自带格式，例如[计时:2m:10s]");
+
+	delete WriteConfig;
 }
 
 public Action StartNekoUpdate(int client, int args)

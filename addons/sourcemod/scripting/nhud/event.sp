@@ -3,7 +3,7 @@ public void OnPlayerDisconnect(Event hEvent, const char[] sName, bool bDontBroad
 	int client = GetClientOfUserId(hEvent.GetInt( "userid" ));
 	if(!client || (IsClientConnected(client) && !IsClientInGame(client))) return; 
 	
-	Kill_Init_Client(client);
+	Neko_ClientInfo[client].Reset();
 	
 	if(IsPlayerTank(client))
 		CreateTimer(0.5, Timer_DelayDeath);
@@ -11,7 +11,7 @@ public void OnPlayerDisconnect(Event hEvent, const char[] sName, bool bDontBroad
 
 public void OnClientConnected(int client)
 {
-	Kill_Init_Client(client);
+	Neko_ClientInfo[client].Reset();
 }
 
 public void OnMapStart()
@@ -24,10 +24,7 @@ public void OnMapStart()
 public void OnConfigsExecuted()
 {
 	if(!IsMapTransition)
-	{
-		Kill_AllInfectedGO = 0;
-		Kill_AllZombieGO = 0;
-	}
+		Neko_GlobalState.ResetGO();
 	else
 		IsMapTransition = false;
 }
@@ -45,12 +42,12 @@ public Action Event_PlayerHurt(Event event, const char[] name, bool dontBroadcas
 		
 	if (IsValidClient(victim) && IsValidClient(attacker) && victim != attacker && GetClientTeam(victim) == 2 && !IsFakeClient(attacker))
 	{
-		Friendly_Hurt[victim] += damage;
-		Friendly_Fire[attacker] += damage;
+		Neko_ClientInfo[victim].Friendly_Hurt += damage;
+		Neko_ClientInfo[attacker].Friendly_Fire += damage;
 	}
 	
 	if (TankAlive && IsPlayerTank(victim) && IsValidClient(attacker) && GetClientTeam(attacker) == 2 && !IsTankIncapacitated(victim))
-		DmgToTank[attacker] += damage;
+		Neko_ClientInfo[attacker].DmgToTank += damage;
 	
 	return Plugin_Continue;
 }
@@ -112,9 +109,9 @@ public Action Event_PlayerDeath(Event event, const char[] name, bool dontBroadca
 	
 	if(IsValidClient(victim) && GetClientTeam(victim) == 3 && !IsPlayerTank(victim) && IsValidClient(attacker) && GetClientTeam(attacker) == 2)
 	{
-		Kill_Infected[attacker] ++;
-		Kill_AllInfected ++;
-		Kill_AllInfectedGO ++;
+		Neko_ClientInfo[attacker].Kill_Infected ++;
+		Neko_GlobalState.Kill_AllInfected ++;
+		Neko_GlobalState.Kill_AllInfectedGO ++;
 	}
 	
 	return Plugin_Continue;
@@ -126,9 +123,9 @@ public Action Event_infectedDeath(Event event, const char[] name, bool dontBroad
 	
 	if(IsValidClient(attacker) && GetClientTeam(attacker) == 2)
 	{
-		Kill_AllZombie ++;
-		Kill_AllZombieGO ++;
-		Kill_Zombie[attacker] ++;
+		Neko_GlobalState.Kill_AllZombie ++;
+		Neko_GlobalState.Kill_AllZombieGO ++;
+		Neko_ClientInfo[attacker].Kill_Zombie ++;
 	}
 	
 	return Plugin_Continue;

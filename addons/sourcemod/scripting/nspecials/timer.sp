@@ -1,7 +1,7 @@
 
 public Action Timer_SpawnFakeClient(Handle hTimer)
 {
-	int client = CreateFakeClient("NEKO");
+	int client = CreateFakeClient("NEKOBOT");
 	if(client > 0)
 	{
 		ChangeClientTeam(client, 3)
@@ -36,7 +36,10 @@ public Action Timer_ReloadMenu(Handle timer, any client)
 {
 	client = GetClientOfUserId(client);
 	if (IsValidClient(client))
-		SpecialMenu(client).DisplayAt(client, MenuPageItem[client], MENU_TIME);
+	{
+		N_ClientMenu[client].Reset();
+		SpecialMenu(client).DisplayAt(client, N_ClientMenu[client].MenuPageItem, MENU_TIME);
+	}
 	return Plugin_Continue;
 }
 

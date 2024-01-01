@@ -6,32 +6,32 @@
 #include <neko/nekotools>
 #include <neko/nekonative>
 
-#define PLUGIN_CONFIG "Neko_ServerName"
+#define PLUGIN_CONFIG		 "Neko_ServerName"
 
-#define SPECIALS_AVAILABLE()	(GetFeatureStatus(FeatureType_Native, "NekoSpecials_GetSpecialsNum") == FeatureStatus_Available)
+#define SPECIALS_AVAILABLE() (GetFeatureStatus(FeatureType_Native, "NekoSpecials_GetSpecialsNum") == FeatureStatus_Available)
 
-char CorePath[PLATFORM_MAX_PATH], ServerNameFormat[256];
+char		  CorePath[PLATFORM_MAX_PATH], ServerNameFormat[256];
 
-float GetMapMaxFlow;
+float		  GetMapMaxFlow;
 
-int RoundFailCounts;
+int			  RoundFailCounts;
 
 GlobalForward N_Forward_OnChangeServerName;
 
-#define ServerName_AutoUpdate 1
-#define ServerName_UpdateTime 2
+#define ServerName_AutoUpdate	   1
+#define ServerName_UpdateTime	   2
 #define ServerName_ShowTimeSeconds 3
-#define Cvar_Max 4
+#define Cvar_Max				   4
 
 ConVar NCvar[Cvar_Max];
 
 public Plugin myinfo =
 {
-	name = "Neko ServerName",
+	name		= "Neko ServerName",
 	description = "Neko ServerName",
-	author = "Neko Channel",
-	version = PLUGIN_VERSION,
-	url = "https://himeneko.cn/nekospecials"
+	author		= "Neko Channel",
+	version		= PLUGIN_VERSION,
+	url			= "https://himeneko.cn/nekospecials"
 	//请勿修改插件信息！
 };
 
@@ -39,15 +39,15 @@ public APLRes AskPluginLoad2(Handle myself, bool late, char[] error, int err_max
 {
 	RegPluginLibrary("nekoservername");
 
-	CreateNative("NekoServerName_PlHandle", 			NekoServerName_REPlHandle);
-	
+	CreateNative("NekoServerName_PlHandle", NekoServerName_REPlHandle);
+
 	N_Forward_OnChangeServerName = new GlobalForward("NekoServerName_OnChangeServerName", ET_Event);
 
 	MarkNativeAsOptional("NekoSpecials_GetSpecialsNum");
 	MarkNativeAsOptional("NekoSpecials_GetSpecialsTime");
 	MarkNativeAsOptional("NekoSpecials_OnSetSpecialsNum");
 	MarkNativeAsOptional("NekoSpecials_OnSetSpecialsTime");
-	
+
 	return APLRes_Success;
 }
 
@@ -59,19 +59,20 @@ public any NekoServerName_REPlHandle(Handle plugin, int numParams)
 public void OnPluginStart()
 {
 	AutoExecConfig_SetFile(PLUGIN_CONFIG);
+	AutoExecConfig_SetCreateFile(true);	   //不需要生成文件请改为false
 
-	NCvar[ServerName_AutoUpdate] = 		AutoExecConfig_CreateConVar("ServerName_AutoUpdate", "1", "[0=关|1=开]禁用/启用自动更新服务器名字功能[显示路程需要打开]", _, true, 0.0, true, 1.0);
-	NCvar[ServerName_UpdateTime] = 		AutoExecConfig_CreateConVar("ServerName_UpdateTime", "15", "服务器名字自动更新延迟", _, true, 1.0, true, 120.0);
+	NCvar[ServerName_AutoUpdate]	  = AutoExecConfig_CreateConVar("ServerName_AutoUpdate", "1", "[0=关|1=开]禁用/启用自动更新服务器名字功能[显示路程需要打开]", _, true, 0.0, true, 1.0);
+	NCvar[ServerName_UpdateTime]	  = AutoExecConfig_CreateConVar("ServerName_UpdateTime", "15", "服务器名字自动更新延迟", _, true, 1.0, true, 120.0);
 	NCvar[ServerName_ShowTimeSeconds] = AutoExecConfig_CreateConVar("ServerName_ShowTimeSeconds", "1", "[0=关|1=开]禁用/启用计时显秒", _, true, 0.0, true, 1.0);
-	
+
 	AutoExecConfig_OnceExec();
-	
+
 	BuildPath(Path_SM, CorePath, sizeof(CorePath), "data/nekocustom.cfg");
 	if (!FileExists(CorePath))
 		CreateConfigFire();
-	
+
 	HookEvent("mission_lost", mission_lost, EventHookMode_Pre);
-	
+
 	RegAdminCmd("sm_updateservername", StartNekoUpdate, ADMFLAG_ROOT, "执行服务器名字更新");
 	RegAdminCmd("sm_host", StartNekoUpdate, ADMFLAG_ROOT, "执行服务器名字更新");
 	RegAdminCmd("sm_hosts", StartNekoUpdate, ADMFLAG_ROOT, "执行服务器名字更新");
@@ -80,7 +81,7 @@ public void OnPluginStart()
 void CreateConfigFire()
 {
 	Handle WriteConfig = OpenFile(CorePath, "w");
-	if(WriteConfig == INVALID_HANDLE)
+	if (WriteConfig == INVALID_HANDLE)
 		SetFailState("[Neko] 自定义配置文件创建失败: %s", CorePath);
 
 	WriteFileLine(WriteConfig, "\"Settings\"");
@@ -117,14 +118,14 @@ public void OnMapStart()
 public void OnConfigsExecuted()
 {
 	GetServerName(ServerNameFormat, sizeof(ServerNameFormat));
-	
+
 	RoundFailCounts = 0;
-	GetMapMaxFlow = L4D2Direct_GetMapMaxFlowDistance();
-	
+	GetMapMaxFlow	= L4D2Direct_GetMapMaxFlowDistance();
+
 	SetServerName();
-	
-	if(NCvar[ServerName_AutoUpdate].BoolValue)
-		CreateTimer(NCvar[ServerName_UpdateTime].FloatValue, Update_HostName, _, TIMER_REPEAT|TIMER_FLAG_NO_MAPCHANGE);
+
+	if (NCvar[ServerName_AutoUpdate].BoolValue)
+		CreateTimer(NCvar[ServerName_UpdateTime].FloatValue, Update_HostName, _, TIMER_REPEAT | TIMER_FLAG_NO_MAPCHANGE);
 }
 
 public void mission_lost(Event event, const char[] name, bool dontBroadcast)
@@ -153,14 +154,14 @@ public Action Update_HostName(Handle timer)
 void SetServerName()
 {
 	char ServerPort[6], ServerName[256], snum[64], stime[64], restartcount[64], maptime[64];
-	
+
 	FindConVar("hostport").GetString(ServerPort, sizeof(ServerPort));
-	
+
 	Format(ServerName, sizeof(ServerName), ServerNameFormat);
-	
+
 	IntToString(RoundFailCounts, restartcount, sizeof(restartcount));
-	
-	if(SPECIALS_AVAILABLE())
+
+	if (SPECIALS_AVAILABLE())
 	{
 		IntToString(NekoSpecials_GetSpecialsNum(), snum, sizeof(snum));
 		IntToString(NekoSpecials_GetSpecialsTime(), stime, sizeof(stime));
@@ -168,38 +169,38 @@ void SetServerName()
 		ReplaceString(ServerName, sizeof(ServerName), "{times}", stime, false);
 	}
 
-	if(IsNullString(ServerPort[4]))
+	if (IsNullString(ServerPort[4]))
 		ReplaceString(ServerName, sizeof(ServerName), "{servernum}", ServerPort[3], false);
 	else
 		ReplaceString(ServerName, sizeof(ServerName), "{servernum}", ServerPort[4], false);
 
 	ReplaceString(ServerName, sizeof(ServerName), "{restartcount}", restartcount, false);
-	
-	if(L4D_HasAnySurvivorLeftSafeArea())
+
+	if (L4D_HasAnySurvivorLeftSafeArea())
 	{
-		int OneSurvivor;
-		
+		int	  OneSurvivor;
+
 		float fHighestFlow = IsValidSurvivor((OneSurvivor = L4D_GetHighestFlowSurvivor())) ? L4D2Direct_GetFlowDistance(OneSurvivor) : L4D2_GetFurthestSurvivorFlow();
-		
-		if(fHighestFlow)
+
+		if (fHighestFlow)
 			fHighestFlow = fHighestFlow / GetMapMaxFlow * 100;
-		
+
 		char playflow[64];
 		Format(playflow, sizeof(playflow), "%d%%", RoundToNearest(fHighestFlow));
-		
+
 		ReplaceString(ServerName, sizeof(ServerName), "{flow}", playflow);
 	}
 	else
 	{
 		ReplaceString(ServerName, sizeof(ServerName), "{flow}", "0%");
 	}
-	
+
 	GetRunMapTime(maptime, sizeof(maptime));
-	
+
 	ReplaceString(ServerName, sizeof(ServerName), "{maptime}", maptime, false);
-	
+
 	FindConVar("hostname").SetString(ServerName, true, false);
-	
+
 	FindConVar("sv_hibernate_when_empty").SetInt(0);
 
 	Call_StartForward(N_Forward_OnChangeServerName);
@@ -217,7 +218,7 @@ stock void GetServerName(char[] buffer, int maxlength)
 
 stock void GetRunMapTime(char[] sTime, int maxlength)
 {
-	if(NCvar[ServerName_ShowTimeSeconds].BoolValue)
+	if (NCvar[ServerName_ShowTimeSeconds].BoolValue)
 		FormatEx(sTime, maxlength, "[计时:%sm:%ss]", GetNowTime_Minutes(), GetNowTime_Seconds());
 	else
 		FormatEx(sTime, maxlength, "[计时:%sm]", GetNowTime_Minutes());

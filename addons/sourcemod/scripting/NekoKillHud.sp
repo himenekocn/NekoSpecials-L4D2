@@ -23,6 +23,7 @@ public Plugin myinfo =
 public void OnPluginStart()
 {
 	AutoExecConfig_SetFile(PLUGIN_CONFIG);
+	AutoExecConfig_SetCreateFile(true);	   //不需要生成文件请改为false
 
 	NCvar[CKillHud_FriendlyFire]	 = AutoExecConfig_CreateConVar("KillHud_FriendlyFire", "1", "[0=关|1=开]禁用/启用友伤统计显示", _, true, 0.0, true, 1.0);
 	NCvar[CKillHud_KillSpecials]	 = AutoExecConfig_CreateConVar("KillHud_KillSpecials", "1", "[0=关|1=开]禁用/启用击杀特感统计显示", _, true, 0.0, true, 1.0);
@@ -78,7 +79,7 @@ public void OnPluginStart()
 void CreateConfigFire()
 {
 	Handle WriteConfig = OpenFile(CorePath, "w");
-	if(WriteConfig == INVALID_HANDLE)
+	if (WriteConfig == INVALID_HANDLE)
 		SetFailState("[Neko] 自定义配置文件创建失败: %s", CorePath);
 
 	WriteFileLine(WriteConfig, "\"Settings\"");

@@ -22,6 +22,7 @@ public Plugin myinfo =
 public void OnPluginStart()
 {
 	AutoExecConfig_SetFile(PLUGIN_CONFIG);
+	AutoExecConfig_SetCreateFile(true);	   //不需要生成文件请改为false
 
 	NCvar[CSpecial_PluginStatus]				= AutoExecConfig_CreateConVar("Special_PluginStatus", "1", "[0=关|1=开]禁用/启用刷特[禁用后插件将不会刷出特感，若Special_CanCloseDirector为打开状态，将会一只特感都不会刷出]", _, true, 0.0, true, 1.0);
 	NCvar[CSpecial_Fast_Response]				= AutoExecConfig_CreateConVar("Special_Fast_Response", "1", "[0=关|1=开]禁用/启用更快的特殊感染反应[建议开着就好]", _, true, 0.0, true, 1.0);

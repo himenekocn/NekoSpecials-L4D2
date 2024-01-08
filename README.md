@@ -26,13 +26,13 @@ Specials plugin that can be customized in real time!<br>
 【插件必备组件】[dhooks](https://forums.alliedmods.net/showthread.php?p=2588686#post2588686) SM1.11-6854后自带，不需要安装<br>
 【插件必备组件】[left4dhooks](https://forums.alliedmods.net/showthread.php?p=2684862)(请手动安装最新版本)<br>
 【插件必备组件】[nativevotes](https://github.com/sapphonie/sourcemod-nativevotes-updated)(请手动安装最新版本，不需要的可以忽略这个)<br>
-【插件必备组件】[SourceScramble](https://github.com/nosoop/SMExt-SourceScramble/releases/tag/0.7.1)(仓库版本自带，插件版HUD需要)<br>
+【插件必备组件】[SourceScramble](https://github.com/nosoop/SMExt-SourceScramble/releases/tag/0.7.1)(插件版HUD需要)<br>
 【多特本体模块】[NekoSpecials](https://himeneko.cn/nekospecials) (可选安装，默认安装)<br>
 【击杀统计模块】[NekoKillHud](https://himeneko.cn/nekospecials) (可选安装，默认安装)<br>
 【管理员快捷功能模块】[NekoAdminMenu](https://himeneko.cn/nekospecials) (可选安装，默认安装)<br>
 【服务器名字功能模块】[NekoServerName](https://himeneko.cn/nekospecials) (可选安装，默认安装)<br>
 【玩家特感投票模块】[NekoVote](https://himeneko.cn/nekospecials) (可选安装，默认安装) 投票插件默认开关为关闭，需手动在cfg/或者管理员菜单开启<br>
-【击杀统计模块插件版】[NekoKillHud-Plu](https://himeneko.cn/nekospecials) (默认使用拓展版本，插件版在disabled文件夹中)<br>
+【击杀统计模块插件版】[NekoKillHud-Plu](https://himeneko.cn/nekospecials) (默认使用拓展版本，插件版在disabled文件夹中，建议使用拓展版本，插件版需要闪屏补丁，插件不自带)<br>
 【控制坦克女巫刷新】[l4d2_boss_spawn](https://forums.alliedmods.net/showthread.php?p=2694435)(推荐可选)(开启Special_CanCloseDirector后请配合使用)<br>
 
 # 玩家指令

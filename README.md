@@ -16,7 +16,7 @@ Specials plugin that can be customized in real time!<br>
 5.修改插件对应cfg
 
 # 插件推荐平台
-[Sourcemod-1.11-Dev6854](https://www.sourcemod.net/downloads.php?branch=dev)<br>
+[Sourcemod-1.11-Dev6854](https://www.sourcemod.net/downloads.php?branch=stable)<br>
 保持最新插件稳定平台就是啦！
 
 # 注意：插件不生效请查看错误日志输入，日志在addons/sourcemod/logs里面，error开头就是
@@ -26,7 +26,7 @@ Specials plugin that can be customized in real time!<br>
 【插件必备组件】[dhooks](https://forums.alliedmods.net/showthread.php?p=2588686#post2588686) SM1.11-6854后自带，不需要安装<br>
 【插件必备组件】[left4dhooks](https://forums.alliedmods.net/showthread.php?p=2684862)(请手动安装最新版本)<br>
 【插件必备组件】[nativevotes](https://github.com/sapphonie/sourcemod-nativevotes-updated)(请手动安装最新版本，不需要的可以忽略这个)<br>
-【插件必备组件】[SourceScramble](https://github.com/nosoop/SMExt-SourceScramble/releases/tag/0.7.1)(插件版HUD需要)<br>
+【插件可选组件】[SourceScramble](https://github.com/nosoop/SMExt-SourceScramble/releases/tag/0.7.1)(插件版HUD需要)<br>
 【多特本体模块】[NekoSpecials](https://himeneko.cn/nekospecials) (可选安装，默认安装)<br>
 【击杀统计模块】[NekoKillHud](https://himeneko.cn/nekospecials) (可选安装，默认安装)<br>
 【管理员快捷功能模块】[NekoAdminMenu](https://himeneko.cn/nekospecials) (可选安装，默认安装)<br>

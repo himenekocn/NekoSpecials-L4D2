@@ -16,7 +16,7 @@ Specials plugin that can be customized in real time!<br>
 5.修改插件对应cfg
 
 # 插件推荐平台
-[Sourcemod-1.11-Dev6854](https://www.sourcemod.net/downloads.php?branch=stable)<br>
+[Sourcemod-1.11+](https://www.sourcemod.net/downloads.php?branch=stable)<br>
 保持最新插件稳定平台就是啦！
 
 # 注意：插件不生效请查看错误日志输入，日志在addons/sourcemod/logs里面，error开头就是
